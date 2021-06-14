@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 // responsive
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -34,17 +36,28 @@ import LargeLayoutIcon from '../../assets/images/largeLayout';
 import SmallLayoutIcon from '../../assets/images/smallLayout';
 
 /* CONSTANTS */
-import { sortData } from '../../utils/constants';
+import SORT_PRODUCTS from './constants/sortProducts.constants';
+
+/* SERVICES */
+import ActionCreators from '../../actions';
 
 const Category = (props) => {
   const classes = useStyles();
 
-  const { name } = props;
+  const { name, products, fetching } = props;
 
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [isFiltersPanelVisible, setIsFiltersPanelVisible] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+  const [productParams, setProductParams] = useState({
+    page: 1,
+    limit: 25,
+    // select: 'title,description,price,countInStock,category,images',
+    // sort: '-price',
+    // 'price[gte]': 0,
+    // 'price[lte]': 8000,
+  });
   // eslint-disable-next-line no-unused-vars
   const [scrollTop, setScrollTop] = useState(0);
   const [sortPanelPosition, setSortPanelPosition] = React.useState(null);
@@ -57,6 +70,10 @@ const Category = (props) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const isXtraSmall = useMediaQuery(theme.breakpoints.only('xs'));
+
+  useEffect(() => {
+    props.getAllProducts(productParams);
+  }, [productParams]);
 
   // api call
   useEffect(() => {
@@ -155,7 +172,7 @@ const Category = (props) => {
           },
         }}
       >
-        {sortData.map((text) => (
+        {SORT_PRODUCTS.map((text) => (
           <MenuItem onClick={closeSort} className={classes.menuItem}>
             {text}
           </MenuItem>
@@ -202,4 +219,15 @@ const Category = (props) => {
   );
 };
 
-export default Category;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(ActionCreators, dispatch);
+}
+
+function mapStateToProps(state) {
+  return {
+    products: state.products.products,
+    fetching: state.products.fetching,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

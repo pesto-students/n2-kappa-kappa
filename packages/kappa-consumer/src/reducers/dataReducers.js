@@ -1,23 +1,19 @@
-const initialState = {
-  registrationData: [],
-  sourceTableData: [],
-  recordGroups: {},
-  destinationDetails: {},
-  schedules: [],
-  qcData: {},
-  productListData: [],
-};
-
-export function authReducer(state = {
-  authenticated: false,
+/* eslint-disable import/prefer-default-export */
+export function categoriesReducer(state = {
+  products: [],
+  fetching: true,
 }, action) {
   switch (action.type) {
-    case 'LOGGING_IN':
-      return { ...state };
-    case 'LOGGED_IN':
+    case 'FETCHING_PRODUCTS':
       return {
         ...state,
-        authenticated: true,
+        fetching: true,
+      };
+    case 'FETCHED_PRODUCTS':
+      return {
+        ...state,
+        products: action.payload.data,
+        fetching: false,
       };
     default:
       return state;

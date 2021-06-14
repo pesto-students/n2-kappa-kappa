@@ -1,7 +1,7 @@
 import React from 'react';
 
 // local api
-import { carouselData } from '../../utils/constants';
+import carouselData from './constants/carouselData.constants';
 
 // components
 import Carousel from './components/organisms/carousel';
