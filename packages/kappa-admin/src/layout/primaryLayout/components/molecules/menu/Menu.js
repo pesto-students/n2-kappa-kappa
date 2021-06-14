@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 /* COMPONENTS */
-import Drawer from 'kappaComponents/molecules/drawer';
-import List from 'kappaComponents/atoms/list';
-import Divider from 'kappaComponents/atoms/divider';
+import Drawer from '@kappa/components/src/molecules/drawer';
+import List from '@kappa/components/src/atoms/list';
+import Divider from '@kappa/components/src/atoms/divider';
 import ListItem from '../../../../../components/atoms/listItem';
 import ListItemIcon from '../../../../../components/atoms/listItemIcon';
 import ListItemText from '../../../../../components/atoms/listItemText';

@@ -2,8 +2,8 @@
 import React from 'react';
 
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import IconButton from 'kappaComponents/atoms/iconButton';
-import Paper from 'kappaComponents/atoms/paper';
+import IconButton from '@kappa/components/src/atoms/iconButton';
+import Paper from '@kappa/components/src/atoms/paper';
 
 // /* STYLES */
 import useStyles from './imageUpload.styles';

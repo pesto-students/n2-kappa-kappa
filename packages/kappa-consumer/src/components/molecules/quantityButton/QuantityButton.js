@@ -2,8 +2,8 @@ import React from 'react';
 
 /* COMPONENTS */
 // atoms
-import IconButton from 'kappaComponents/atoms/iconButton';
-import Typography from 'kappaComponents/atoms/typography';
+import IconButton from '@kappa/components/src/atoms/iconButton';
+import Typography from '@kappa/components/src/atoms/typography';
 
 /* ASSETS */
 // images

@@ -4,8 +4,8 @@ import React from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 
 /* COMPONENTS */
-import Paper from 'kappaComponents/atoms/paper';
-import Typography from 'kappaComponents/atoms/typography';
+import Paper from '@kappa/components/src/atoms/paper';
+import Typography from '@kappa/components/src/atoms/typography';
 
 /* STYLES */
 import useStyles from './card.styles';

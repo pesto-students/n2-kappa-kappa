@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 /* COMPONENTS */
-import Grid from 'kappaComponents/atoms/grid';
+import Grid from '@kappa/components/src/atoms/grid';
 // atoms
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -10,11 +10,11 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import List from 'kappaComponents/atoms/list';
-import Box from 'kappaComponents/atoms/box';
+import List from '@kappa/components/src/atoms/list';
+import Box from '@kappa/components/src/atoms/box';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import Typography from 'kappaComponents/atoms/typography';
+import Typography from '@kappa/components/src/atoms/typography';
 
 // molecules
 import QuantityButton from '../../../../../components/molecules/quantityButton';

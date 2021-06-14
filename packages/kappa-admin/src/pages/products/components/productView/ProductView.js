@@ -3,12 +3,12 @@ import React from 'react';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 /* COMPONENTS */
-import Typography from 'kappaComponents/atoms/typography';
-import TextField from 'kappaComponents/atoms/textField';
-import FormControl from 'kappaComponents/atoms/formControl';
-import InputLabel from 'kappaComponents/atoms/inputLabel';
-import Select from 'kappaComponents/atoms/select';
-import MenuItem from 'kappaComponents/atoms/menuItem';
+import Typography from '@kappa/components/src/atoms/typography';
+import TextField from '@kappa/components/src/atoms/textField';
+import FormControl from '@kappa/components/src/atoms/formControl';
+import InputLabel from '@kappa/components/src/atoms/inputLabel';
+import Select from '@kappa/components/src/atoms/select';
+import MenuItem from '@kappa/components/src/atoms/menuItem';
 import AdminPopup from '../../../../components/molecules/adminPopup';
 import ImageUpload from '../imageUpload';
 

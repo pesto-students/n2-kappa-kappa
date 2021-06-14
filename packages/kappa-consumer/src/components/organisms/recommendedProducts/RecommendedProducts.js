@@ -1,11 +1,11 @@
 import React from 'react';
 
 // Components
-import Typography from 'kappaComponents/atoms/typography';
-import ProductCard from 'kappaComponents/molecules/productCard';
-import Grid from 'kappaComponents/atoms/grid';
-import Divider from 'kappaComponents/atoms/divider';
-import ContentContainer from 'kappaComponents/atoms/contentContainer';
+import Typography from '@kappa/components/src/atoms/typography';
+import ProductCard from '@kappa/components/src/molecules/productCard';
+import Grid from '@kappa/components/src/atoms/grid';
+import Divider from '@kappa/components/src/atoms/divider';
+import ContentContainer from '@kappa/components/src/atoms/contentContainer';
 
 // Styles
 import useStyles from './recommendedProducts.styles';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /* COMPONENTS */
-import Drawer from 'kappaComponents/molecules/drawer';
+import Drawer from '@kappa/components/src/molecules/drawer';
 
 /* STYLES */
 import useStyles from './menu.styles';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /* COMPONENTS */
-import Typography from 'kappaComponents/atoms/typography';
+import Typography from '@kappa/components/src/atoms/typography';
 import Header from './components/molecules/header';
 import RightMenu from '../../components/organisms/menu';
 

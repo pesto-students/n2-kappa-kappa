@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Slide from '@material-ui/core/Slide';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Box from 'kappaComponents/atoms/box';
+import Box from '@kappa/components/src/atoms/box';
 import Checkbox from '../../atoms/checkbox';
 import useStyles from './editAddressModal.styles';
 

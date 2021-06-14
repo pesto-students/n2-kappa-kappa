@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import IconButton from 'kappaComponents/atoms/iconButton';
+import IconButton from '@kappa/components/src/atoms/iconButton';
 import PaginationTable from '../../../../components/molecules/paginationTable';
 import SettingsIcon from '../../../../assets/images/settings';
 

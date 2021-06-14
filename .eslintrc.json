@@ -39,5 +39,19 @@
     "no-multi-str": 0,
     "no-underscore-dangle": 0,
     "no-plusplus": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["babel-polyfill", "babel-polyfill/dist/polyfill.min.js"],
+          ["kappaComponents"],
+          ["helper", "./utils/helper"],
+          ["material-ui/DatePicker", "../custom/DatePicker"],
+          ["material-ui", "material-ui-ie10"]
+        ],
+        "extensions": [".ts", ".js", ".jsx", ".json"]
+      }
+    }
   }
 }

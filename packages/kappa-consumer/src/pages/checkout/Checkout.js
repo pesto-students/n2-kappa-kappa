@@ -3,11 +3,11 @@ import { PayPalButton } from 'react-paypal-button-v2';
 
 /* COMPONENTS */
 // atoms
-import ContentContainer from 'kappaComponents/atoms/contentContainer';
-import Button from 'kappaComponents/atoms/button';
-import Typography from 'kappaComponents/atoms/typography';
-import Grid from 'kappaComponents/atoms/grid';
-import Paper from 'kappaComponents/atoms/paper';
+import ContentContainer from '@kappa/components/src/atoms/contentContainer';
+import Button from '@kappa/components/src/atoms/button';
+import Typography from '@kappa/components/src/atoms/typography';
+import Grid from '@kappa/components/src/atoms/grid';
+import Paper from '@kappa/components/src/atoms/paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';

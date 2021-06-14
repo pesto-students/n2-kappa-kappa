@@ -63,7 +63,7 @@ import { useTheme } from '@material-ui/core/styles';
 
 /* COMPONENTS */
 // atoms
-import Dialog from 'kappaComponents/atoms/dialog';
+import Dialog from '@kappa/components/src/atoms/dialog';
 
 // Styles
 import useStyles from './popup.styles';

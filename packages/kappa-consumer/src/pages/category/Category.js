@@ -6,20 +6,20 @@ import { useTheme } from '@material-ui/core/styles';
 
 /* COMPONENTS */
 // atoms
-import Typography from 'kappaComponents/atoms/typography';
-import Grid from 'kappaComponents/atoms/grid';
-import Button from 'kappaComponents/atoms/button';
-import ContentContainer from 'kappaComponents/atoms/contentContainer';
-import Paper from 'kappaComponents/atoms/paper';
-import Menu from 'kappaComponents/atoms/menu';
-import MenuItem from 'kappaComponents/atoms/menuItem';
-import IconButton from 'kappaComponents/atoms/iconButton';
+import Typography from '@kappa/components/src/atoms/typography';
+import Grid from '@kappa/components/src/atoms/grid';
+import Button from '@kappa/components/src/atoms/button';
+import ContentContainer from '@kappa/components/src/atoms/contentContainer';
+import Paper from '@kappa/components/src/atoms/paper';
+import Menu from '@kappa/components/src/atoms/menu';
+
+import MenuItem from '@kappa/components/src/atoms/menuItem';
+import IconButton from '@kappa/components/src/atoms/iconButton';
 // import UserReader from '../../readers/User';
+import ProductCard from '@kappa/components/src/molecules/productCard';
 import Pagination from '../../components/atoms/pagination';
 
-
 // molecules
-import ProductCard from 'kappaComponents/molecules/productCard';
 import FiltersPanel from '../../components/molecules/filtersPanel';
 
 // organisms
@@ -77,8 +77,8 @@ const Category = (props) => {
 
   const toggleFiltersPanel = (open) => (event) => {
     if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
+      event.type === 'keydown'
+      && (event.key === 'Tab' || event.key === 'Shift')
     ) {
       return;
     }
@@ -109,11 +109,11 @@ const Category = (props) => {
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <Typography color='textPrimary' variant='h4' className={classes.label}>
+        <Typography color="textPrimary" variant="h4" className={classes.label}>
           {name}
           Category Name
           {/* {UserReader.userName({
-            
+
           })} */}
         </Typography>
       </div>
@@ -133,10 +133,10 @@ const Category = (props) => {
         </div>
 
         <div className={classes.filtersButtonContainer}>
-          <Button onClick={openSort} label='Sort' className={classes.button} />
+          <Button onClick={openSort} label="Sort" className={classes.button} />
           <Button
             onClick={toggleFiltersPanel(true)}
-            label='Filter'
+            label="Filter"
             className={classes.button}
           />
         </div>
@@ -177,7 +177,7 @@ const Category = (props) => {
                 image={character.img_url}
                 name={character.name}
                 height={layout.height}
-                price='27$'
+                price="27$"
                 matches={matches}
               />
             </Grid>
@@ -188,7 +188,7 @@ const Category = (props) => {
           count={10}
           page={page}
           onChange={handlePagination}
-          color='primary'
+          color="primary"
         />
       </ContentContainer>
 
@@ -197,7 +197,7 @@ const Category = (props) => {
         toggleFiltersPanel={toggleFiltersPanel}
       />
 
-      <RecommendedProducts title='You May Also Like' data={data} />
+      <RecommendedProducts title="You May Also Like" data={data} />
     </div>
   );
 };

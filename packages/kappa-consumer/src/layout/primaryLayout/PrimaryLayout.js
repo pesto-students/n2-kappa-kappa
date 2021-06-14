@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Navbar from 'kappaComponents/organisms/navbar';
+import Navbar from '@kappa/components/src/organisms/navbar';
 import Footer from '../../components/organisms/footer';
 
 // styles

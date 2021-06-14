@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import Typography from 'kappaComponents/atoms/typography';
-import Paper from 'kappaComponents/atoms/paper';
-import List from 'kappaComponents/atoms/list';
+import Typography from '@kappa/components/src/atoms/typography';
+import Paper from '@kappa/components/src/atoms/paper';
+import List from '@kappa/components/src/atoms/list';
 import Radio from '../../atoms/radio';
 
 /* STYLES */

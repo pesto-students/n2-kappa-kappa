@@ -5,8 +5,8 @@ import axios from 'axios';
 
 // atoms
 
-import Button from 'kappaComponents/atoms/button';
-import Typography from 'kappaComponents/atoms/typography';
+import Button from '@kappa/components/src/atoms/button';
+import Typography from '@kappa/components/src/atoms/typography';
 import EditAddressModal from '../../../../../components/organisms/editAddressModal';
 import AddressCard from '../../../../../components/organisms/addressCard';
 

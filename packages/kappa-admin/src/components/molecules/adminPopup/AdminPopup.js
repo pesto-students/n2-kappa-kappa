@@ -2,9 +2,9 @@ import React from 'react';
 
 /* COMPONENTS */
 // atoms
-import DialogTitle from 'kappaComponents/atoms/dialogTitle';
-import DialogActions from 'kappaComponents/atoms/dialogActions';
-import Button from 'kappaComponents/atoms/button';
+import DialogTitle from '@kappa/components/src/atoms/dialogTitle';
+import DialogActions from '@kappa/components/src/atoms/dialogActions';
+import Button from '@kappa/components/src/atoms/button';
 import Popup from '../popup';
 
 // Styles

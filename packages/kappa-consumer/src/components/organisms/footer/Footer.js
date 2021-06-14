@@ -15,14 +15,14 @@ import {
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-import Button from 'kappaComponents/atoms/button';
+import Button from '@kappa/components/src/atoms/button';
 
 // Components
-import Typography from 'kappaComponents/atoms/typography';
-import Divider from 'kappaComponents/atoms/divider';
-import Container from 'kappaComponents/atoms/container';
-import Box from 'kappaComponents/atoms/box';
-import Grid from 'kappaComponents/atoms/grid';
+import Typography from '@kappa/components/src/atoms/typography';
+import Divider from '@kappa/components/src/atoms/divider';
+import Container from '@kappa/components/src/atoms/container';
+import Box from '@kappa/components/src/atoms/box';
+import Grid from '@kappa/components/src/atoms/grid';
 
 // Styles
 import useStyles from './footer.styles';

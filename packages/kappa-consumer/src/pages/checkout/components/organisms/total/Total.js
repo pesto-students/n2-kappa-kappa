@@ -1,10 +1,10 @@
 import React from 'react';
 
 /* COMPONENTS */
-import Grid from 'kappaComponents/atoms/grid';
+import Grid from '@kappa/components/src/atoms/grid';
 // atoms
 
-import Typography from 'kappaComponents/atoms/typography';
+import Typography from '@kappa/components/src/atoms/typography';
 
 /* STYLES */
 

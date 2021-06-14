@@ -5,11 +5,11 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 
 /* COMPONENTS */
 // atoms
-import ContentContainer from 'kappaComponents/atoms/contentContainer';
-import Button from 'kappaComponents/atoms/button';
-import IconButton from 'kappaComponents/atoms/iconButton';
-import Typography from 'kappaComponents/atoms/typography';
-import Grid from 'kappaComponents/atoms/grid';
+import ContentContainer from '@kappa/components/src/atoms/contentContainer';
+import Button from '@kappa/components/src/atoms/button';
+import IconButton from '@kappa/components/src/atoms/iconButton';
+import Typography from '@kappa/components/src/atoms/typography';
+import Grid from '@kappa/components/src/atoms/grid';
 
 // molecules
 import QuantityButton from '../../components/molecules/quantityButton';

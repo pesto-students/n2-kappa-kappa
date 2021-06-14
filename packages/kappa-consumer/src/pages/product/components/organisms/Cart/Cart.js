@@ -6,12 +6,12 @@ import { useTheme } from '@material-ui/core/styles';
 
 /* COMPONENTS */
 // atoms
-import Button from 'kappaComponents/atoms/button';
-import Typography from 'kappaComponents/atoms/typography';
-import Paper from 'kappaComponents/atoms/paper';
+import Button from '@kappa/components/src/atoms/button';
+import Typography from '@kappa/components/src/atoms/typography';
+import Paper from '@kappa/components/src/atoms/paper';
 
 // molecules
-import Drawer from 'kappaComponents/molecules/drawer';
+import Drawer from '@kappa/components/src/molecules/drawer';
 import QuantityButton from '../../../../../components/molecules/quantityButton';
 
 /* STYLES */
