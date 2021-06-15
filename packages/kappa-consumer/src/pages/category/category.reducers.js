@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export function categoriesReducer(state = {
+export function categoryReducer(state = {
   products: [],
   fetching: true,
 }, action) {

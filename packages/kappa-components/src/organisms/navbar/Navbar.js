@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { AppBar, IconButton, Tabs, Tab } from '@material-ui/core';
+import {
+  AppBar, IconButton, Tabs, Tab,
+} from '@material-ui/core';
 import clsx from 'clsx';
 
 // Icons
@@ -50,39 +52,37 @@ export default function Navbar(props) {
             <div className={classes.sectionLeftDesktop}>
               <Tabs
                 value={value}
-                indicatorColor='primary'
+                indicatorColor="primary"
                 onChange={handleChange}
                 className={classes.tabs}
               >
                 <Tab
                   component={Link}
-                  to='/category'
-                  label='SHOP'
+                  to="/category"
+                  label="SHOP"
                   className={classes.tab}
                 />
-                <Tab label='BLOG' className={classes.tab} />
-                <Tab label='ABOUT' className={classes.tab} />
-                <Tab label='FAQ' className={classes.tab} />
+                <Tab label="BLOG" className={classes.tab} />
+                <Tab label="ABOUT" className={classes.tab} />
+                <Tab label="FAQ" className={classes.tab} />
               </Tabs>
             </div>
           )}
-         {isAdmin && (<div className={classes.adminDivider} />)} 
+          {isAdmin && (<div className={classes.adminDivider} />)}
           <div className={classes.sectionRightDesktop}>
-            {isAdmin && (
-              <Button
-                color='primary'
-                className={classes.button}
-                label='Account'
-                onClick={() => setIsSignInOpen(true)}
-              />
-            )}
+            <Button
+              color="primary"
+              className={classes.button}
+              label="Account"
+              onClick={() => setIsSignInOpen(true)}
+            />
             {!isAdmin && (
               <>
-                <Button color='primary' className={classes.button} label='Search' />
+                <Button color="primary" className={classes.button} label="Search" />
                 <Button
-                  color='primary'
+                  color="primary"
                   className={clsx(classes.button, classes.cart)}
-                  label='Cart (0)'
+                  label="Cart (0)"
                 />
               </>
             )}

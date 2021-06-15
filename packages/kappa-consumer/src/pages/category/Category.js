@@ -36,7 +36,7 @@ import LargeLayoutIcon from '../../assets/images/largeLayout';
 import SmallLayoutIcon from '../../assets/images/smallLayout';
 
 /* CONSTANTS */
-import SORT_PRODUCTS from './constants/sortProducts.constants';
+import SORT_PRODUCTS from './sortProducts.constants';
 
 /* SERVICES */
 import ActionCreators from '../../actions';
