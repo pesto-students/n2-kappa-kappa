@@ -9,17 +9,23 @@ import Card from '../../atoms/card';
 import CardMedia from '../../atoms/cardMedia';
 import CardContent from '../../atoms/cardContent';
 
+/* STYLES */
+import useStyles from './productCard.styles';
+
 const ProductCard = (props) => {
   const {
     image,
     name,
     price,
     height,
+    id,
   } = props;
 
+  const classes = useStyles();
+
   return (
-    <Link underline="none" component={RouterLink} to="/product">
-      <Card>
+    <Link underline="none" component={RouterLink} to={`/product/${id}`}>
+      <Card elevation={false} className={classes.card}>
         <CardMedia
           style={{
             height,

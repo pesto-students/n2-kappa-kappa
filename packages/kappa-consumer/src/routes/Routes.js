@@ -9,7 +9,7 @@ import MyThemeProvider from './routes.styles';
 // Components
 import PrimaryLayout from '../layout/primaryLayout';
 import Homepage from '../pages/homepage';
-import Category from '../pages/category';
+import ProductsList from '../pages/productsList';
 import Product from '../pages/product';
 import Checkout from '../pages/checkout';
 
@@ -20,10 +20,10 @@ function Routes() {
         <MyThemeProvider>
           <Switch>
             <PrimaryLayout>
-              <Route path='/' exact component={Homepage} />
-              <Route path='/category' component={Category} />
-              <Route path='/product' component={Product} />
-              <Route path='/checkout' component={Checkout} />
+              <Route path="/" exact component={Homepage} />
+              <Route path="/products/:id/:name" component={ProductsList} />
+              <Route path="/product/:id/" component={Product} />
+              <Route path="/checkout" component={Checkout} />
             </PrimaryLayout>
           </Switch>
         </MyThemeProvider>

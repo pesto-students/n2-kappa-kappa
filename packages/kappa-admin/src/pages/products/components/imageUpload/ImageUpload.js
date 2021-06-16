@@ -8,24 +8,23 @@ import Paper from '@kappa/components/src/atoms/paper';
 // /* STYLES */
 import useStyles from './imageUpload.styles';
 
-export default function BasicTable() {
-  const [file, setFile] = React.useState(null);
-
+export default function ImageUpload({ setFileObj1 }) {
   const fileObj = [];
   const fileArray = [];
 
-  function uploadMultipleFiles(e) {
+  const [fileArray1, setFileArray1] = React.useState(null);
+
+  const uploadMultipleFiles = (e) => {
     fileObj.push(e.target.files);
     for (let i = 0; i < fileObj[0].length; i++) {
       fileArray.push(URL.createObjectURL(fileObj[0][i]));
     }
-    setFile(fileArray);
-    console.log('wdokdowk', fileObj);
-  }
+    setFileObj1(fileObj);
+    setFileArray1(fileArray);
+  };
 
   const classes = useStyles();
 
-  // console.log('wdokdowk', file);
   return (
     <form>
       <input
@@ -33,7 +32,7 @@ export default function BasicTable() {
         id="icon-button-file"
         type="file"
         style={{ display: 'none' }}
-        onChange={uploadMultipleFiles}
+        onChange={(e) => uploadMultipleFiles(e)}
         multiple
       />
       <label htmlFor="icon-button-file">
@@ -42,7 +41,7 @@ export default function BasicTable() {
         </IconButton>
       </label>
       <div className={classes.content}>
-        {(file || []).map((url) => (
+        {(fileArray1 || []).map((url) => (
           <Paper className={classes.imageContainer}>
             <img
               src={url}

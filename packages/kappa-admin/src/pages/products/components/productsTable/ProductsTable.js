@@ -52,28 +52,28 @@ const ProductsTable = (props) => {
       limit={limit}
     >
       {bodyData
-      && (
-        bodyData
-          .data
-          .slice(0, limit)
-          .map((row) => (
-            <CustomTableRow key={row._id}>
-              <TableCell>{row._id.slice(0, 5)}</TableCell>
-              <TableCell>{row.title}</TableCell>
-              <TableCell>{row.description}</TableCell>
-              <TableCell>{row.price}</TableCell>
-              <TableCell>{row.countInStock}</TableCell>
-              <TableCell>{row.category}</TableCell>
-              <TableCell>images</TableCell>
-              <TableCell>{row.discount}</TableCell>
-              <TableCell>{row.priority}</TableCell>
-              <TableCell>
-                <IconButton onClick={() => handleAction(row)} className={classes.actionButton}>
-                  <SettingsIcon />
-                </IconButton>
-              </TableCell>
-            </CustomTableRow>
-          )))}
+        && (
+          bodyData
+            .data
+            .slice(0, limit)
+            .map((row) => (
+              <CustomTableRow key={row.id}>
+                <TableCell>{row.id.slice(0, 5)}</TableCell>
+                <TableCell>{row.title}</TableCell>
+                <TableCell>{row.description}</TableCell>
+                <TableCell>{row.price}</TableCell>
+                <TableCell>{row.countInStock}</TableCell>
+                <TableCell>{row.category.categoryName}</TableCell>
+                <TableCell>images</TableCell>
+                <TableCell>{row.discount}</TableCell>
+                <TableCell>{row.priority}</TableCell>
+                <TableCell>
+                  <IconButton onClick={() => handleAction(row)} className={classes.actionButton}>
+                    <SettingsIcon />
+                  </IconButton>
+                </TableCell>
+              </CustomTableRow>
+            )))}
     </PaginationTable>
   );
 };

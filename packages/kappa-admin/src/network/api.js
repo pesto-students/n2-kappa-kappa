@@ -18,14 +18,24 @@ export const httpConfig = {
   },
 };
 
-function getPostFormConfig(data) {
+function getPostFormConfig(data, files) {
   const formData = new FormData();
   // const fileField = document.querySelector('input[type="file"]');
+  // formData.append('data', JSON.stringify(data));
+  // for (let i = 0; i < file.length; i++) {
   formData.append('data', JSON.stringify(data));
+  if (files) {
+    Array.from(files).forEach((file) => formData.append('image', file));
+  }
 
-  //   for (var value of formData.values()) {
-  //     console.log('wdok', value);
-  //  }
+  // }
+
+  for (const value of formData.values()) {
+    console.log('wdok', value);
+  }
+
+  console.log('wodkw', data, files, formData);
+
   return {
     method: 'POST',
     body: formData,
@@ -78,9 +88,9 @@ export function getAllProducts(data) {
   return callApi(url);
 }
 
-export function addProduct(data) {
+export function addProduct(data, file) {
   const url = `${BASE_URL}/api/v1/products`;
-  const config = getPostFormConfig(data);
+  const config = getPostFormConfig(data, file);
   return callApi(url, config);
 }
 

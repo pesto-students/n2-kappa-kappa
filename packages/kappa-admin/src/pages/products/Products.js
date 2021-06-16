@@ -15,6 +15,18 @@ import { productsTableHeader } from '../../utils/constants';
 
 /* ICONS */
 
+const initialProductFields = {
+  category: '',
+  countInStock: null,
+  description: '',
+  discount: 2,
+  price: null,
+  title: '',
+  // images: [],
+  priority: true,
+  user: '60b91c696807c4197c691214',
+};
+
 export default function Products() {
   const classes = useStyles();
 
@@ -28,17 +40,10 @@ export default function Products() {
     'price[gte]': 0,
     'price[lte]': 8000,
   });
-  const [productFields, setProductFields] = useState({
-    category: '60c38785ccff5770684b8b43',
-    countInStock: null,
-    description: '',
-    discount: 12,
-    price: null,
-    title: '',
-    user: '60b91c696807c4197c691214',
-  });
+  const [productFields, setProductFields] = useState(initialProductFields);
+  const [fileObj1, setFileObj1] = React.useState(null);
 
-  const handleProductFields = (name) => (event) => {
+  const handleProductFields = (name, value) => (event) => {
     if (name === 'countInStock' || name === 'price') {
       setProductFields({ ...productFields, [name]: parseInt(event.target.value, 10) });
     } else {
@@ -54,18 +59,29 @@ export default function Products() {
       });
   }, [productParams]);
 
+  // useEffect(() => {
+  //   if (fileObj1) {
+  //     setProductFields({ ...productFields, images: fileObj1 });
+  //   }
+  // }, [fileObj1]);
+
   const openProductView = () => {
     setIsProductViewOpen(true);
   };
 
+  const handleAddNewProduct = () => {
+    setProductFields(initialProductFields);
+    setIsProductViewOpen(true);
+  };
+
   const handleSubmit = () => {
-    addProduct(productFields);
+    addProduct(productFields, fileObj1);
     // .then((res) => {
     //   console.log('wdjo', res);
     // });
   };
 
-  console.log('wdok', products);
+  console.log('productFields', productFields);
 
   return (
     <div className={classes.root}>
@@ -80,7 +96,7 @@ export default function Products() {
       <Fab
         color="primary"
         className={classes.icon}
-        onClick={openProductView}
+        onClick={handleAddNewProduct}
       >
         <AddIcon />
       </Fab>
@@ -90,6 +106,7 @@ export default function Products() {
         productFields={productFields}
         handleProductFields={handleProductFields}
         handleSubmit={handleSubmit}
+        setFileObj1={setFileObj1}
       />
     </div>
   );

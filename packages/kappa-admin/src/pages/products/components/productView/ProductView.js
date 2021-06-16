@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 
@@ -15,6 +15,8 @@ import ImageUpload from '../imageUpload';
 /* STYLES */
 import useStyles from './productView.styles';
 
+import { getAllCategories } from '../../../../network/api';
+
 export default function Products(props) {
   const {
     isOpen,
@@ -22,8 +24,22 @@ export default function Products(props) {
     productFields,
     handleProductFields,
     handleSubmit,
+    fileObj1,
+    setFileObj1,
   } = props;
   const classes = useStyles();
+
+  const [categories, setCategories] = useState(null);
+
+  useEffect(() => {
+    getAllCategories({
+      page: 1,
+      limit: 25,
+    })
+      .then((res) => {
+        setCategories(res);
+      });
+  }, []);
 
   return (
     <AdminPopup
@@ -94,13 +110,16 @@ export default function Products(props) {
           <InputLabel>Category</InputLabel>
           <Select
             label="Category"
-            value={productFields.category}
+            value={productFields.category._id}
             onChange={handleProductFields('category')}
           >
-            <MenuItem value="Skincare">Skincare</MenuItem>
-            <MenuItem value="Body">Body</MenuItem>
-            <MenuItem value="Hair">Hair</MenuItem>
-            <MenuItem value="Kits">Kits</MenuItem>
+            {categories
+              && (
+                categories
+                  .data.data
+                  .map((category) => (
+                    <MenuItem value={category._id}>{category.categoryName}</MenuItem>
+                  )))}
           </Select>
         </FormControl>
       </div>
@@ -108,7 +127,7 @@ export default function Products(props) {
         <Typography>
           Upload Images
         </Typography>
-        <ImageUpload />
+        <ImageUpload setFileObj1={setFileObj1} />
       </div>
     </AdminPopup>
   );
