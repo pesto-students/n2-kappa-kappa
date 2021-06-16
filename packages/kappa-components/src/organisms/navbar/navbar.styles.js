@@ -17,9 +17,6 @@ export default makeStyles((theme) => ({
   adminAppBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
-  adminDivider: {
-    flexGrow: 1,
-  },
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {

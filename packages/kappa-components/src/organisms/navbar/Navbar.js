@@ -16,7 +16,6 @@ const Navbar = ({
     <div className={classes.root}>
       <AppBar className={clsx(classes.appBar, isAdmin && classes.adminAppBar)}>
         {children}
-        {/* {isAdmin && (<div className={classes.adminDivider} />)} */}
       </AppBar>
     </div>
   );
