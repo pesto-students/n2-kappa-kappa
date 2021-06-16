@@ -43,7 +43,8 @@ const Cart = ({
   fetching,
   isCartVisible,
   setIsCartVisible,
-  setCartQuantity,
+  deleteProductFromCart,
+  updateCart,
 }) => {
   const classes = useStyles();
   // responsive
@@ -54,7 +55,25 @@ const Cart = ({
     getCart('60b91c696807c4197c691214');
   }, []);
 
-  console.log('wdokodk', cart);
+  const incrementProduct = (id) => {
+    updateCart({
+      user: '60b91c696807c4197c691214',
+      itemId: id,
+      type: 'inc',
+    });
+  };
+
+  const decrementProduct = (id) => {
+    updateCart({
+      user: '60b91c696807c4197c691214',
+      itemId: id,
+      type: 'dec',
+    });
+  };
+
+  const deleteProduct = (id) => {
+    deleteProductFromCart(id);
+  };
 
   return (
     <Drawer
@@ -106,7 +125,8 @@ const Cart = ({
                     <div className={classes.productActions}>
                       <QuantityButton
                         quantity={cartData.quantity}
-                        setQuantity={setCartQuantity}
+                        incrementProduct={() => incrementProduct(cartData._id)}
+                        decrementProduct={() => decrementProduct(cartData._id)}
                       />
                       <Button label="REMOVE" className={classes.removeButton} />
                     </div>
@@ -127,6 +147,7 @@ const Cart = ({
             label="Checkout"
             className={classes.checkoutButton}
             component={Link}
+            onClick={() => setIsCartVisible(false)}
             to="/checkout"
           />
         </Paper>

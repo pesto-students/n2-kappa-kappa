@@ -85,11 +85,10 @@ const Product = ({
     addToCart({
       user: '60b91c696807c4197c691214',
       item: {
-        product: product[0]._id,
+        product: product._id,
         quantity,
       },
     });
-    getCart('60b91c696807c4197c691214');
   };
 
   const localIncrementProduct = () => {
@@ -119,14 +118,14 @@ const Product = ({
                       onChangeIndex={handleChangeIndex}
                       enableMouseEvents
                     >
-                      {product[0].images.length !== 0
-              && product[0].images.map((image) => (
+                      {product.images.length !== 0
+              && product.images.map((image) => (
                 <div
                   key={image}
                 >
                   <img
                     className={classes.image}
-                    src={`${BASE_URL}/api/v1/files/${product[0].images.length !== 0 && product[0].images[0]}`}
+                    src={`${BASE_URL}/api/v1/files/${product.images.length !== 0 && product.images[0]}`}
                     alt={image}
                   />
                 </div>
@@ -134,16 +133,16 @@ const Product = ({
                     </SwipeableViews>
                     <MobileStepper
                       variant="dots"
-                      steps={product[0].images.length !== 0
-              && product[0].images.length}
+                      steps={product.images.length !== 0
+              && product.images.length}
                       position="static"
                       activeStep={activeStep}
                       className={classes.slideImageContainer}
                       nextButton={(
                         <IconButton
                           onClick={handleNext}
-                          disabled={activeStep === (product[0].images.length !== 0
-                  && product[0].images.length) - 1}
+                          disabled={activeStep === (product.images.length !== 0
+                  && product.images.length) - 1}
                         >
                           <ArrowRightIcon fontSize="large" />
                         </IconButton>
@@ -166,17 +165,17 @@ const Product = ({
                   >
                     <Grid item>
                       <Typography variant="h4" gutterBottom>
-                        {product[0].title}
+                        {product.title}
                       </Typography>
                     </Grid>
                     <Grid item>
                       <Typography variant="h6" color="textSecondary" gutterBottom>
-                        {product[0].price}
+                        {product.price}
                       </Typography>
                     </Grid>
                     <Grid item className={classes.productDescriptionContainer}>
                       <Typography variant="caption">
-                        {product[0].description}
+                        {product.description}
                       </Typography>
                     </Grid>
 

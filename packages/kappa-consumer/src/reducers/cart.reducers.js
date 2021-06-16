@@ -4,7 +4,7 @@ export default function cartReducer(
     fetching: false,
     updatedCart: [],
   },
-  action
+  action,
 ) {
   switch (action.type) {
     case 'ADD_PRODUCT_TO_CART':
@@ -29,7 +29,6 @@ export default function cartReducer(
         cart: action.payload.data,
         fetching: false,
       };
-
     case 'UPDATE_PRODUCT_IN_CART':
       return {
         ...state,
@@ -41,7 +40,6 @@ export default function cartReducer(
         fetching: false,
         cart: action.payload.data.items,
       };
-
     case 'DELETE_PRODUCT_FROM_CART':
       return {
         ...state,
