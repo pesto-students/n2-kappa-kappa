@@ -20,7 +20,7 @@ function Routes() {
       <MyThemeProvider>
         <Switch>
           <PrimaryLayout>
-            <Route path="/dashboard" component={Dashboard} />
+            <Route exact path="/" component={Dashboard} />
             <Route path="/products" component={Products} />
             <Route path="/categories" component={Categories} />
           </PrimaryLayout>
