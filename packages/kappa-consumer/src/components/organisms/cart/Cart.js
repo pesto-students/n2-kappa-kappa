@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -119,7 +121,14 @@ const Cart = ({
           <Typography variant="caption" gutterBottom>
             Shipping & taxes calculated at checkout
           </Typography>
-          <Button variant="contained" color="primary" label="Checkout" className={classes.checkoutButton} />
+          <Button
+            variant="contained"
+            color="primary"
+            label="Checkout"
+            className={classes.checkoutButton}
+            component={Link}
+            to="/checkout"
+          />
         </Paper>
       </div>
     </Drawer>

@@ -51,7 +51,6 @@ const Product = ({
 
   const [quantity, setQuantity] = React.useState(1);
   const [productParams, setProductParams] = useState(null);
-  // eslint-disable-next-line no-unused-vars
   const [index, setIndex] = React.useState(0);
   const [isCartVisible, setIsCartVisible] = React.useState(false);
 
@@ -91,6 +90,18 @@ const Product = ({
       },
     });
     getCart('60b91c696807c4197c691214');
+  };
+
+  const localIncrementProduct = () => {
+    if (quantity < 10) {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
+  };
+
+  const localDecrementProduct = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
   };
 
   return (
@@ -173,6 +184,8 @@ const Product = ({
                       <QuantityButton
                         quantity={quantity}
                         setQuantity={setQuantity}
+                        localIncrementProduct={localIncrementProduct}
+                        localDecrementProduct={localDecrementProduct}
                       />
                     </Grid>
 
