@@ -38,7 +38,7 @@ function getPostFormConfig(data, files) {
 
   return {
     method: 'POST',
-    // body: formData,
+    body: formData,
     // headers: {
     //   'Content-Type': 'application/json',
     //   // Authorization: basicAuth,
