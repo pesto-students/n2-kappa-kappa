@@ -1,18 +1,17 @@
 import React from 'react';
 
 import { AppBar } from '@material-ui/core';
-import clsx from 'clsx';
 
 // Styles
 import useStyles from './navbar.styles';
 
-const Navbar = ({ isAdmin, children }) => {
+const Navbar = ({ isAdmin, children, isHidden }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <AppBar className={clsx(classes.appBar, isAdmin && classes.adminAppBar)}>
-        {children}
+      <AppBar position="static" className={classes.appBar}>
+          {children}
       </AppBar>
     </div>
   );

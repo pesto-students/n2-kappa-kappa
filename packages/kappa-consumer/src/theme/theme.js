@@ -10,13 +10,16 @@ const theme = createMuiTheme({
   //     xl: 1920,
   //   },
   // },
+  shape: {
+    borderRadiusSecondary: 20,
+  },
   typography: {
     fontFamily: ['"Poppins"', 'sans-serif'].join(','),
     // h4: {
     //   textTransform: 'uppercase',
     // },
     h4: {
-      fontWeight: 700,
+      // fontWeight: 700,
     },
     // body1: {
     //   textTransform: 'uppercase',
@@ -35,7 +38,7 @@ const theme = createMuiTheme({
       // textTransform: 'uppercase',
       // letterSpacing: '0.2em',
       // color: '#1c1b1b',
-      fontWeight: 600,
+      // fontWeight: 600,
     },
     button: {
       textTransform: 'unset',
@@ -59,11 +62,12 @@ const theme = createMuiTheme({
     text: {
       primary: '#212529',
       secondary: '#444',
+      white: '#fff',
     },
-    // secondary: {
-    //   main: '#BBE1FF',
-    //   dark: '#BBE1FF',
-    // },
+    secondary: {
+      main: '#5BB02D',
+      dark: '#BBE1FF',
+    },
     // background: {
     //   default: '#ECECEC',
     //   product: '#63ceb2',

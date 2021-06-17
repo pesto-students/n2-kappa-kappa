@@ -8,8 +8,8 @@ const CustomGrid = (props) => {
   return (
     <Grid
       style={{
-        margin: container && 0,
-        width: container && '100%',
+        // margin: container && 0,
+        // width: container && '100%',
       }}
       {...props}
     />

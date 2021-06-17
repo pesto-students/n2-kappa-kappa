@@ -9,6 +9,7 @@ import Paper from '@kappa/components/src/atoms/paper';
 import MenuList from '@kappa/components/src/atoms/menuList';
 import MenuItem from '@kappa/components/src/atoms/menuItem';
 import ClickAwayListener from '@kappa/components/src/atoms/clickAwayListener';
+import Loader from '@kappa/components/src/atoms/loader';
 
 import useStyles from './categoriesList.styles';
 
@@ -16,6 +17,7 @@ const CategoriesListMenu = (props) => {
   const classes = useStyles();
   const {
     setOpen, open, anchorRef, categories,
+    fetching,
   } = props;
 
   const handleClose = (event) => {
@@ -44,16 +46,16 @@ const CategoriesListMenu = (props) => {
   }, [open]);
 
   return (
-    <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+    <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal style={{ zIndex: 10, width: '99.5%'}}>
       {({ TransitionProps, placement }) => (
         <Grow
           {...TransitionProps}
-          style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
         >
           <Paper>
             <ClickAwayListener onClickAway={handleClose}>
-              <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                {categories.data.map((category) => (
+              <MenuList autoFocusItem={false} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+              {!fetching && categories ? (
+                categories.data.map((category) => (
                   <MenuItem
                     component={Link}
                     to={`/products/${category._id}/${category.categoryName}`}
@@ -63,7 +65,9 @@ const CategoriesListMenu = (props) => {
                   >
                     {category.categoryName}
                   </MenuItem>
-                ))}
+                  ))) : (
+                <Loader />
+                )}
               </MenuList>
             </ClickAwayListener>
           </Paper>

@@ -1,6 +1,6 @@
 export default {
   base: {
-    development: 'http://165.232.183.98',
+    development: 'https://codersadhu.tech',
     // username: '',
     // password: '',
   },

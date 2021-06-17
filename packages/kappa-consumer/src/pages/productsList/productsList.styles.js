@@ -10,23 +10,36 @@ export default makeStyles((theme) => ({
   },
   title: {
     textTransform: 'capitalize',
+    transition: 'font 0.3s ease',
+    transform: 'translate(1px, 1px)'
   },
   headerMenu: {
-    position: 'fixed',
+    position: 'sticky',
     width: '100%',
-    borderTop: `1px solid ${theme.palette.grey[500]}`,
-    borderBottom: `1px solid ${theme.palette.grey[500]}`,
-    background: '#FAF8FF',
     display: 'flex',
     justifyContent: 'space-between',
-    zIndex: 1100,
+    zIndex: 1,
+    top: 0,
+    paddingBottom: theme.spacing(1),
   },
-  layoutIconsContainer: {
+  fontShrink: {
+    animation: 'fontShrink .2s forwards',
+    transition: 'all ease-in',
+  },
+  '@global': {
+    '@keyframes fontShrink': {
+        '100%': {
+        transform: 'scale(0.6)',
+        marginLeft: -50,
+      },
+    },
+  },
+  headerTitleContainer: {
     display: 'flex',
     alignItems: 'center',
-    [theme.breakpoints.only('xs')]: {
-      display: 'none',
-    },
+    // [theme.breakpoints.only('xs')]: {
+    //   display: 'none',
+    // },
   },
   filtersButtonContainer: {
     display: 'flex',
@@ -35,9 +48,8 @@ export default makeStyles((theme) => ({
     },
   },
   button: {
-    padding: theme.spacing(2, 10),
+    // padding: theme.spacing(2, 10),
     borderRadius: 'unset',
-    borderLeft: `1px solid ${theme.palette.grey[500]}`,
     fontWeight: 'bold',
     [theme.breakpoints.only('xs')]: {
       flex: 1,
@@ -52,8 +64,7 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
   content: {
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(12),
+    paddingTop: theme.spacing(6),
   },
   pagination: {
     display: 'flex',

@@ -32,12 +32,12 @@ const ProductCard = (props) => {
           }}
           image={image}
         />
-        <CardContent>
+        <CardContent className={classes.content}>
           <Typography color="textPrimary" variant="body1">
             {name}
           </Typography>
           <Typography color="textPrimary" variant="h4">
-            {price}
+            ${price}
           </Typography>
         </CardContent>
       </Card>

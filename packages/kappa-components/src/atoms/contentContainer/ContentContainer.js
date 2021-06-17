@@ -1,14 +1,14 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import { Container } from '@material-ui/core';
 
 // Styles
 import useStyles from './contentContainer.styles';
 
-const ContentContainer = (props) => {
+export default function ContentContainer(props) {
+  const { className } = props;
   const classes = useStyles();
 
-  return <Container className={classes.root} {...props} />;
+  return <Container {...props} maxWidth="xl" className={clsx(classes.root, className)}  />;
 };
-
-export default ContentContainer;

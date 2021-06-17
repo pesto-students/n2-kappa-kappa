@@ -2,7 +2,6 @@ export default function cartReducer(
   state = {
     cart: [],
     fetching: false,
-    updatedCart: [],
   },
   action,
 ) {

@@ -1,57 +1,48 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, fade } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  root: {
-    '& .MuiTab-root': {
-      minWidth: 'unset',
-      marginRight: 20,
-    },
-    marginBottom: 50,
-  },
-  appBar: {
-    background: '#281659',
-    paddingLeft: 30,
-    paddingRight: 30,
-    borderBottom: '2px solid #fff',
-  },
-  adminAppBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  adminDivider: {
-    flexGrow: 1,
-  },
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
+      justifyContent: 'space-between',
     },
   },
   sectionLeftDesktop: {
-    flexGrow: 1,
+    flex: 1,
   },
   tabs: {
-    '& .MuiTab-wrapper': {
-      color: '#fff',
+    '& .MuiTab-root': {
+      minWidth: 100, // a number of your choice
+      width: 100,
     },
     '& .Mui-selected > .MuiTab-wrapper': {
-      color: theme.palette.primary.main,
+      fontWeight: 'bold',
     },
   },
+  logoContainer: {
+    display: 'flex',
+  },
+  logo: {
+    maxWidth: 200,
+    // height: '100%',
+    alignSelf: 'center',
+  },
   tab: {
-    color: theme.palette.common.white,
+    padding: theme.spacing(3, 0),
+    textAlign: 'start',
+    // color: theme.palette.common.white,
   },
   sectionRightDesktop: {
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    flex: 1,
   },
   button: {
-    color: theme.palette.common.white,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  cart: {
-    marginRight: 20,
-    marginLeft: 20,
-    fontSize: 14,
+    fontSize: 16,
+    // fontWeight: 'bold',
+    color: theme.palette.text.white,
   },
   sectionMobile: {
     display: 'flex',
@@ -63,6 +54,46 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
   },
   iconButton: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.white,
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadiusSecondary,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    fontSize: 18,
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '22ch',
+      '&:focus': {
+        width: '40ch',
+      },
+    },
   },
 }));

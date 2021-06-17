@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import clsx from 'clsx';
 
 // responsive
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -35,6 +36,8 @@ import useStyles from './productsList.styles';
 // images
 import LargeLayoutIcon from '../../assets/images/largeLayout';
 import SmallLayoutIcon from '../../assets/images/smallLayout';
+import FilterListIcon from '../../assets/images/filterList';
+import ExpandMoreIcon from '../../assets/images/expandMore';
 
 /* CONSTANTS */
 import SORT_PRODUCTS from './sortProducts.constants';
@@ -56,13 +59,12 @@ const ProductsList = (props) => {
 
   const [page, setPage] = useState(1);
   const [isFiltersPanelVisible, setIsFiltersPanelVisible] = useState(false);
-  const [scrolling, setScrolling] = useState(false);
   const [productsListParams, setProductsListParams] = useState(null);
-  // eslint-disable-next-line no-unused-vars
+  const [scrolling, setScrolling] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
   const [sortPanelPosition, setSortPanelPosition] = React.useState(null);
   const [layout, setLayout] = React.useState({
-    height: 300,
+    height: 350,
     numberOfProducts: 3,
   });
   const [categoryInfo, setCategoryInfo] = useState(null);
@@ -87,12 +89,6 @@ const ProductsList = (props) => {
   }, [match]);
 
   useEffect(() => {
-    if (productsListParams) {
-      getProductsList(productsListParams);
-    }
-  }, [productsListParams]);
-
-  useEffect(() => {
     const onScroll = (e) => {
       // setScrollTop(e.target.documentElement.scrollTop);
       setScrolling(e.target.documentElement.scrollTop);
@@ -101,6 +97,12 @@ const ProductsList = (props) => {
 
     return () => window.removeEventListener('scroll', onScroll);
   }, [scrollTop]);
+
+  useEffect(() => {
+    if (productsListParams) {
+      getProductsList(productsListParams);
+    }
+  }, [productsListParams]);
 
   const toggleFiltersPanel = (open) => (event) => {
     if (
@@ -141,87 +143,96 @@ const ProductsList = (props) => {
 
       {fetched && products.length === 0
         ? (
-          <Typography style={{margin: 50, textAlign: 'center'}}>No Products Yet</Typography>
+          <Typography style={{ margin: 50, textAlign: 'center' }}>No Products Yet</Typography>
         ) : (
           <>
-            <div className={classes.header}>
-              <Typography color="textPrimary" variant="h4" className={classes.title}>
-                {categoryInfo && categoryInfo.name}
-              </Typography>
-            </div>
+            <ContentContainer>
+              <Paper
+                className={classes.headerMenu}
+                elevation={false}
+              >
+                <div className={classes.headerTitleContainer}>
+                  <Typography color="textPrimary"
+                  variant="h4"
+                  className={clsx(classes.title, scrolling > 20 && classes.fontShrink )}>
+                    {categoryInfo && categoryInfo.name} Products ({products.length})
+                  </Typography>
+                </div>
+                <div className={classes.filtersButtonContainer}>
+                  <Button
+                    onClick={toggleFiltersPanel(true)}
+                    label="Show FIlters"
+                    size="large"
+                    className={classes.button}
+                    endIcon={<FilterListIcon />}
+                  />
+                  <Button
+                    onClick={openSort}
+                    label="Sort By"
+                    size="large"
+                    className={classes.button}
+                    endIcon={<ExpandMoreIcon />}
+                  />
+                  <IconButton onClick={() => handleLayout(400, 4)}>
+                    <LargeLayoutIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleLayout(300, 3)}>
+                    <SmallLayoutIcon />
+                  </IconButton>
+                </div>
+              </Paper>
 
-            <Paper
-              className={classes.headerMenu}
-              elevation={scrolling > 20 ? 20 : false}
-              style={{ top: scrolling > 20 && 50 }}
-            >
-              <div className={classes.layoutIconsContainer}>
-                <IconButton onClick={() => handleLayout(400, 4)}>
-                  <LargeLayoutIcon />
-                </IconButton>
-                <IconButton onClick={() => handleLayout(300, 3)}>
-                  <SmallLayoutIcon />
-                </IconButton>
-              </div>
-              <div className={classes.filtersButtonContainer}>
-                <Button onClick={openSort} label="Sort" className={classes.button} />
-                <Button
-                  onClick={toggleFiltersPanel(true)}
-                  label="Filter"
-                  className={classes.button}
+              <Menu
+                anchorEl={sortPanelPosition}
+                keepMounted
+                open={Boolean(sortPanelPosition)}
+                onClose={closeSort}
+                className={classes.menu}
+                PaperProps={{
+                  style: {
+                    width: isXtraSmall ? '100%' : 192,
+                    borderRadius: '0 0 27px 27px',
+                  },
+                }}
+              >
+                {SORT_PRODUCTS.map((text) => (
+                  <MenuItem onClick={closeSort} className={classes.menuItem}>
+                    {text}
+                  </MenuItem>
+                ))}
+              </Menu>
+
+              <div className={classes.content}>
+                <Grid container spacing={3}>
+                  {products.map((product) => (
+                    <Grid
+                      item
+                      // lg={layout.numberOfProducts}
+                      // md={4}
+                      // sm={6}
+                      lg={3}
+                      // xs={12}
+                      key={product._id}
+                    >
+                      <ProductCard
+                        image={(product.images.length !== 0)
+                          && `${BASE_URL}/api/v1/files/${product.images.length !== 0 && product.images[0]}`}
+                        name={product.title}
+                        height={layout.height}
+                        price={product.price}
+                        id={product._id}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+                <Pagination
+                  className={classes.pagination}
+                  count={10}
+                  page={page}
+                  onChange={handlePagination}
+                  color="primary"
                 />
               </div>
-            </Paper>
-
-            <Menu
-              anchorEl={sortPanelPosition}
-              keepMounted
-              open={Boolean(sortPanelPosition)}
-              onClose={closeSort}
-              className={classes.menu}
-              PaperProps={{
-                style: {
-                  width: isXtraSmall ? '100%' : 192,
-                  borderRadius: '0 0 27px 27px',
-                },
-              }}
-            >
-              {SORT_PRODUCTS.map((text) => (
-                <MenuItem onClick={closeSort} className={classes.menuItem}>
-                  {text}
-                </MenuItem>
-              ))}
-            </Menu>
-
-            <ContentContainer className={classes.content}>
-              <Grid container spacing={3}>
-                {products.map((product) => (
-                  <Grid
-                    item
-                    lg={layout.numberOfProducts}
-                    md={4}
-                    sm={6}
-                    xs={12}
-                    key={product._id}
-                  >
-                    <ProductCard
-                      image={(product.images.length !== 0)
-                        && `${BASE_URL}/api/v1/files/${product.images.length !== 0 && product.images[0]}`}
-                      name={product.title}
-                      height={layout.height}
-                      price={product.price}
-                      id={product._id}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-              <Pagination
-                className={classes.pagination}
-                count={10}
-                page={page}
-                onChange={handlePagination}
-                color="primary"
-              />
             </ContentContainer>
 
             <FiltersPanel
