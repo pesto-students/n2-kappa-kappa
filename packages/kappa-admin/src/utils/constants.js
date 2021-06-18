@@ -12,7 +12,7 @@ export const menu = [
 ];
 
 export const productsTableHeader = ['Id', 'Name', 'Description',
-  'Price', 'Quantity', 'Category', 'Images', 'Discount',
+  'Price', 'Quantity', 'Category', '# Images', 'Discount',
   'Priority', 'Action',
 ];
 

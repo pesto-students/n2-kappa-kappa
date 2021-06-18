@@ -1,11 +1,5 @@
-import endpoint from './config';
-
-const BASE_URL = endpoint.base.development;
-// const { username, password } = endpoint.base;
-// const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
-
-// const STATUS_OK = 200;
-// const NOT_FOUND = 406;
+/* CONSTANTS */
+import BASE_URL from '../constants/baseURL';
 
 function handleError(error) {
   return Promise.reject(error);
@@ -20,29 +14,27 @@ export const httpConfig = {
 
 function getPostFormConfig(data, files) {
   const formData = new FormData();
-  // const fileField = document.querySelector('input[type="file"]');
-  // formData.append('data', JSON.stringify(data));
-  // for (let i = 0; i < file.length; i++) {
   formData.append('data', JSON.stringify(data));
   if (files) {
-    Array.from(files).forEach((file) => formData.append('image', file));
+    Object.values(files[0]).map((file) => formData.append('image', file))
   }
-
-  // }
-
-  for (const value of formData.values()) {
-    console.log('wdok', value);
-  }
-
-  console.log('wodkw', data, files, formData);
 
   return {
     method: 'POST',
     body: formData,
-    // headers: {
-    //   'Content-Type': 'application/json',
-    //   // Authorization: basicAuth,
-    // },
+  };
+}
+
+function getPutFormConfig(data, files) {
+  const formData = new FormData();
+  formData.append('data', JSON.stringify(data));
+  if (files) {
+    Object.values(files[0]).map((file) => formData.append('image', file))
+  }
+
+  return {
+    method: 'PUT',
+    body: formData,
   };
 }
 
@@ -61,7 +53,6 @@ function getPostConfig(data) {
 export async function callApi(url, config) {
   try {
     const res = await fetch(url, config);
-    console.log('wodkwodkw', url, config, res);
     const data = await res.json();
     // if (resJSON.statusCode === STATUS_OK || resJSON.status === STATUS_OK) {
     return data;
@@ -105,8 +96,8 @@ export function addCategory(data) {
   return callApi(url, config);
 }
 
-// export function getAllProducts(data) {
-//   const url = `${BASE_URL}/api/v1/products?${objToQueryString(object)}`;
-//   const config = getPostConfig(data);
-//   return callApi(url, config);
-// }
+export function updateProduct(data, file) {
+  const url = `${BASE_URL}/api/v1/products/${data._id}`;
+  const config = getPutFormConfig(data, file);
+  return callApi(url, config);
+}

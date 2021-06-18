@@ -21,6 +21,7 @@ const ProductsTable = (props) => {
   const classes = useStyles();
 
   const {
+    fetching,
     productParams,
     openProductView,
     setProductFields,
@@ -30,13 +31,22 @@ const ProductsTable = (props) => {
   const { page, limit } = productParams;
 
   const handleAction = (row) => {
-    setProductFields(row);
+    setProductFields({
+      category: row.category._id,
+      countInStock: row.countInStock,
+      discount: row.discount,
+      priority: row.priority,
+      description: row.description,
+      price: row.price,
+      title: row.title,
+      _id: row._id,
+      images: row.images
+    });
     openProductView();
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setProductParams((prev) => ({ ...prev, limit: parseInt(event.target.value, 10) }));
-    setProductParams((prev) => ({ ...prev, page: 1 }));
+    setProductParams((prev) => ({ ...prev, limit: parseInt(event.target.value, 10), page: 1 }));
   };
 
   const handleChangePage = (event, newPage) => {
@@ -50,30 +60,28 @@ const ProductsTable = (props) => {
       handleChangePage={handleChangePage}
       page={page}
       limit={limit}
+      fetching={fetching}
     >
-      {bodyData
-        && (
-          bodyData
-            .data
-            .slice(0, limit)
-            .map((row) => (
-              <CustomTableRow key={row.id}>
-                <TableCell>{row.id.slice(0, 5)}</TableCell>
-                <TableCell>{row.title}</TableCell>
-                <TableCell>{row.description}</TableCell>
-                <TableCell>{row.price}</TableCell>
-                <TableCell>{row.countInStock}</TableCell>
-                <TableCell>{row.category.categoryName}</TableCell>
-                <TableCell>images</TableCell>
-                <TableCell>{row.discount}</TableCell>
-                <TableCell>{row.priority}</TableCell>
-                <TableCell>
-                  <IconButton onClick={() => handleAction(row)} className={classes.actionButton}>
-                    <SettingsIcon />
-                  </IconButton>
-                </TableCell>
-              </CustomTableRow>
-            )))}
+      {!fetching && bodyData.data
+        .slice(0, limit)
+        .map((row) => (
+          <CustomTableRow key={row.id}>
+            <TableCell>{row.id.slice(0, 5)}</TableCell>
+            <TableCell>{row.title}</TableCell>
+            <TableCell>{row.description}</TableCell>
+            <TableCell>{row.price}</TableCell>
+            <TableCell>{row.countInStock}</TableCell>
+            <TableCell>{row.category && row.category.categoryName}</TableCell>
+            <TableCell>{row.images && row.images.length}</TableCell>
+            <TableCell>{row.discount}</TableCell>
+            <TableCell>{row.priority}</TableCell>
+            <TableCell>
+              <IconButton onClick={() => handleAction(row)} className={classes.actionButton}>
+                <SettingsIcon />
+              </IconButton>
+            </TableCell>
+          </CustomTableRow>
+        ))}
     </PaginationTable>
   );
 };

@@ -10,7 +10,7 @@ import ProductView from './components/productView';
 import useStyles from './products.styles';
 
 /* UTILS */
-import { getAllProducts, addProduct } from '../../network/api';
+import { getAllProducts, addProduct, updateProduct } from '../../network/api';
 import { productsTableHeader } from '../../utils/constants';
 
 /* ICONS */
@@ -18,32 +18,28 @@ import { productsTableHeader } from '../../utils/constants';
 const initialProductFields = {
   category: '',
   countInStock: null,
+  discount: null,
+  priority: '',
   description: '',
-  discount: 2,
   price: null,
   title: '',
-  // images: [],
-  priority: true,
   user: '60b91c696807c4197c691214',
 };
 
 export default function Products() {
   const classes = useStyles();
 
+  const [fetching, setFetching] = useState(true);
   const [isProductViewOpen, setIsProductViewOpen] = useState(false);
   const [products, setProducts] = useState(null);
   const [productParams, setProductParams] = useState({
     page: 1,
-    limit: 25,
-    select: 'title,description,price,countInStock,category,images',
-    sort: '-price',
-    'price[gte]': 0,
-    'price[lte]': 8000,
+    limit: 10,
   });
   const [productFields, setProductFields] = useState(initialProductFields);
-  const [fileObj1, setFileObj1] = React.useState(null);
+  const [imageFiles, setImageFiles] = React.useState(null);
 
-  const handleProductFields = (name, value) => (event) => {
+  const handleProductFields = (name) => (event) => {
     if (name === 'countInStock' || name === 'price') {
       setProductFields({ ...productFields, [name]: parseInt(event.target.value, 10) });
     } else {
@@ -52,18 +48,14 @@ export default function Products() {
   };
 
   useEffect(() => {
+    setFetching(true);
     setProducts(null);
     getAllProducts(productParams)
       .then((res) => {
         setProducts(res);
+        setFetching(false);
       });
   }, [productParams]);
-
-  // useEffect(() => {
-  //   if (fileObj1) {
-  //     setProductFields({ ...productFields, images: fileObj1 });
-  //   }
-  // }, [fileObj1]);
 
   const openProductView = () => {
     setIsProductViewOpen(true);
@@ -71,17 +63,38 @@ export default function Products() {
 
   const handleAddNewProduct = () => {
     setProductFields(initialProductFields);
+    setImageFiles(null);
     setIsProductViewOpen(true);
   };
 
   const handleSubmit = () => {
-    addProduct(productFields, fileObj1);
-    // .then((res) => {
-    //   console.log('wdjo', res);
-    // });
+    setIsProductViewOpen(false);
+    setFetching(true);
+    if (productFields.hasOwnProperty('images')) {
+      delete productFields.images;
+      updateProduct(productFields, imageFiles)
+        .then(() => {
+          getAllProducts(productParams)
+            .then((res) => {
+              setProducts(res);
+              setProductFields(initialProductFields);
+              setImageFiles(null);
+              setFetching(false);
+            });
+        });
+    } else {
+      addProduct(productFields, imageFiles)
+      .then(() => {
+        getAllProducts(productParams)
+          .then((res) => {
+            setProducts(res);
+            setProductFields(initialProductFields);
+            setImageFiles(null);
+            setFetching(false);
+          });
+      });
+    }
   };
-
-  console.log('productFields', productFields);
 
   return (
     <div className={classes.root}>
@@ -92,6 +105,7 @@ export default function Products() {
         setProductParams={setProductParams}
         openProductView={openProductView}
         setProductFields={setProductFields}
+        fetching={fetching}
       />
       <Fab
         color="primary"
@@ -106,7 +120,8 @@ export default function Products() {
         productFields={productFields}
         handleProductFields={handleProductFields}
         handleSubmit={handleSubmit}
-        setFileObj1={setFileObj1}
+        setImageFiles={setImageFiles}
+        fetching={fetching}
       />
     </div>
   );

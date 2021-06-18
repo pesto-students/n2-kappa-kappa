@@ -24,8 +24,7 @@ export default function Products(props) {
     productFields,
     handleProductFields,
     handleSubmit,
-    fileObj1,
-    setFileObj1,
+    setImageFiles,
   } = props;
   const classes = useStyles();
 
@@ -106,29 +105,52 @@ export default function Products(props) {
           className={classes.textField}
         />
 
+        <TextField
+          required
+          margin="dense"
+          id="discount"
+          label="Discount"
+          type="number"
+          fullWidth
+          variant="outlined"
+          value={productFields.discount}
+          onChange={handleProductFields('discount')}
+          className={classes.textField}
+        />
+
         <FormControl margin="dense" variant="outlined" className={classes.textField}>
           <InputLabel>Category</InputLabel>
           <Select
             label="Category"
-            value={productFields.category._id}
+            value={productFields.category}
             onChange={handleProductFields('category')}
           >
             {categories
               && (
-                categories
-                  .data.data
-                  .map((category) => (
-                    <MenuItem value={category._id}>{category.categoryName}</MenuItem>
-                  )))}
+              categories
+              .data.data
+              .map((category) => (
+                <MenuItem value={category._id} label={category.categoryName}>{category.categoryName}</MenuItem>
+              )))}
+          </Select>
+        </FormControl>
+
+        <FormControl margin="dense" variant="outlined" className={classes.textField}>
+          <InputLabel>Priority</InputLabel>
+          <Select
+            label="Priority"
+            value={productFields.priority}
+            onChange={handleProductFields('priority')}
+          >
+            {[{label: 'Yes', value: true}, {label: 'No', value: false}]
+              .map((priority) => (
+                <MenuItem value={priority.value}>{priority.label}</MenuItem>
+              ))}
           </Select>
         </FormControl>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', marginTop: 10 }}>
-        <Typography>
-          Upload Images
-        </Typography>
-        <ImageUpload setFileObj1={setFileObj1} />
-      </div>
+      <Typography gutterBottom> Upload Images </Typography>
+      <ImageUpload setImageFiles={setImageFiles} productFields={productFields} />
     </AdminPopup>
   );
 }

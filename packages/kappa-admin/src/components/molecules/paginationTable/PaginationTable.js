@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import Loader from '../loader';
+import Loader from '@kappa/components/src/atoms/loader';
 
 /* STYLES */
 import useStyles from './paginationTable.styles';
@@ -16,6 +16,7 @@ const PaginationTable = (props) => {
   const classes = useStyles();
 
   const {
+    fetching,
     headerData,
     bodyData,
     page,
@@ -42,21 +43,20 @@ const PaginationTable = (props) => {
         </Table>
       </TableContainer>
 
-      {!bodyData
-        ? (
-          <Loader padding />
-        )
-        : (
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={bodyData.total}
-            rowsPerPage={limit}
-            page={page - 1}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        )}
+      {fetching
+      ? (<Loader padding />)
+      : (bodyData && 
+        (
+        <TablePagination
+          rowsPerPageOptions={[5, 10]}
+          component="div"
+          count={bodyData.total}
+          rowsPerPage={limit}
+          page={page - 1}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      ))}
     </>
   );
 };
