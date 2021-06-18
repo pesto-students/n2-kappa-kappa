@@ -16,7 +16,6 @@ export function getCart(userId) {
 
 export function addToCart(cartParams) {
   const url = `${BASE_URL}/api/v1/cart`;
-  console.log('dwowkd', cartParams);
   const config = getPostConfig(cartParams);
   return callApi(url, config);
 }

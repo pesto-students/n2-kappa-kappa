@@ -17,7 +17,6 @@ export function loginUser(body) {
 }
 
 export function fetchUser() {
-  console.log('fetch user called');
   const url = `${BASE_URL}/api/v1/auth/authenticate`;
   const config = getConfig();
   return callApi(url, config);

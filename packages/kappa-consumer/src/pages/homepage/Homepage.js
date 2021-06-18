@@ -13,7 +13,6 @@ import Carousel from './components/organisms/carousel';
 import ActionCreators from '../../actions';
 
 const App = ({ match, verifyUser, message }) => {
-  console.log(match, 'match in home');
 
   useEffect(() => {
     const {
@@ -22,7 +21,6 @@ const App = ({ match, verifyUser, message }) => {
 
     if (verificationCode) {
       verifyUser(verificationCode);
-      console.log(verificationCode, 'run verifyUser');
     }
   }, []);
 

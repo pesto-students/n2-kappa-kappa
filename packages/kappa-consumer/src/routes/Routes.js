@@ -21,7 +21,7 @@ function Routes() {
           <Switch>
             <PrimaryLayout>
               <Route path='/' exact component={Homepage} />
-              <Route path='/products/:id/:name' component={ProductsList} />
+              <Route path='/products/:id' component={ProductsList} />
               <Route path='/product/:id/' component={Product} />
               <Route path='/checkout' component={Checkout} />
               <Route path='/verify/:verificationCode' component={Homepage} />

@@ -34,8 +34,6 @@ import PersonIcon from '../../../assets/images/person';
 import ActionCreators from '../../../actions';
 
 const ConsumerNavbar = ({ categories, fetchingAuth, fetchingCategories, user, fetchUser }) => {
-  console.log(user, 'user fetchUser');
-
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [isSignInOpen, setIsSignInOpen] = React.useState(false);
@@ -79,8 +77,6 @@ const ConsumerNavbar = ({ categories, fetchingAuth, fetchingCategories, user, fe
       fetchUser();
     }
   }, []);
-
-  console.log('dqoj',fetchingCategories);
 
   return (
     <>

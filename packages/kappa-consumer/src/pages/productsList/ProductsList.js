@@ -46,13 +46,15 @@ import BASE_URL from '../../constants/baseURL';
 /* SERVICES */
 import ActionCreators from '../../actions';
 
+/* UTILS */
+import isEmpty from '../../utils/isEmpty.utils';
+
 const ProductsList = (props) => {
   const classes = useStyles();
 
   const {
     products,
     fetching,
-    fetched,
     match,
     getProductsList,
   } = props;
@@ -67,30 +69,45 @@ const ProductsList = (props) => {
     height: 350,
     numberOfProducts: 3,
   });
-  const [categoryInfo, setCategoryInfo] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
 
   // responsive
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const isXtraSmall = useMediaQuery(theme.breakpoints.only('xs'));
 
   useEffect(() => {
-    if (match && match.params && match.params.id) {
-      setCategoryInfo({
-        id: match.params.id,
-        name: match.params.name,
-      });
-      setProductsListParams({
-        category: match.params.id,
-        page: 1,
-        limit: 25,
-      });
+    setProductsListParams({
+      category: match.params.id,
+      page,
+      limit: 5,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]); 
+
+  useEffect(() => {
+    setPage(1);
+    setProductsListParams({
+      category: match.params.id,
+      page: 1,
+      limit: 5,
+    });
+  }, [match.params.id]); 
+
+  useEffect(() => {
+    const limit = 5;
+    if(!isEmpty(products)) {
+      const productsMod = products.total % limit;
+      if(productsMod !== 0) {
+        const productsRes = products.total - productsMod;
+        setTotalPages(productsRes / limit + 1);
+      } else {
+        setTotalPages(products.total / limit);
+      }
     }
-  }, [match]);
+  }, [products]);
 
   useEffect(() => {
     const onScroll = (e) => {
-      // setScrollTop(e.target.documentElement.scrollTop);
       setScrolling(e.target.documentElement.scrollTop);
     };
     window.addEventListener('scroll', onScroll);
@@ -102,7 +119,7 @@ const ProductsList = (props) => {
     if (productsListParams) {
       getProductsList(productsListParams);
     }
-  }, [productsListParams]);
+  }, [productsListParams, getProductsList]);
 
   const toggleFiltersPanel = (open) => (event) => {
     if (
@@ -135,16 +152,13 @@ const ProductsList = (props) => {
     }));
   };
 
-  console.log('okwd', products);
-
   return (
     <div className={classes.root}>
-      {!fetched && <Loader padding />}
-
-      {fetched && products.length === 0
-        ? (
+      {isEmpty(products)
+      ? (fetching ? <Loader padding />
+      : (
           <Typography style={{ margin: 50, textAlign: 'center' }}>No Products Yet</Typography>
-        ) : (
+        )) : (
           <>
             <ContentContainer>
               <Paper
@@ -155,7 +169,7 @@ const ProductsList = (props) => {
                   <Typography color="textPrimary"
                   variant="h4"
                   className={clsx(classes.title, scrolling > 20 && classes.fontShrink )}>
-                    {categoryInfo && categoryInfo.name} Products ({products.length})
+                    {products.data[0].category.categoryName} Products ({products.total})
                   </Typography>
                 </div>
                 <div className={classes.filtersButtonContainer}>
@@ -204,14 +218,13 @@ const ProductsList = (props) => {
 
               <div className={classes.content}>
                 <Grid container spacing={3}>
-                  {products.map((product) => (
+                  {products.data.map((product) => (
                     <Grid
                       item
-                      // lg={layout.numberOfProducts}
-                      // md={4}
-                      // sm={6}
-                      lg={3}
-                      // xs={12}
+                      lg={layout.numberOfProducts}
+                      md={4}
+                      sm={6}
+                      xs={12}
                       key={product._id}
                     >
                       <ProductCard
@@ -227,7 +240,7 @@ const ProductsList = (props) => {
                 </Grid>
                 <Pagination
                   className={classes.pagination}
-                  count={10}
+                  count={totalPages}
                   page={page}
                   onChange={handlePagination}
                   color="primary"
@@ -255,7 +268,6 @@ function mapStateToProps(state) {
   return {
     products: state.productsList.productsList,
     fetching: state.productsList.fetching,
-    fetched: state.productsList.fetched,
   };
 }
 

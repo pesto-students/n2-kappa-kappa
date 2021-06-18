@@ -58,7 +58,7 @@ const CategoriesListMenu = (props) => {
                 categories.data.map((category) => (
                   <MenuItem
                     component={Link}
-                    to={`/products/${category._id}/${category.categoryName}`}
+                    to={`/products/${category._id}`}
                     onClick={handleClose}
                     key={category._id}
                     className={classes.list}

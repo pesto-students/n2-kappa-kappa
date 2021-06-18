@@ -50,9 +50,7 @@ const Checkout = () => {
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
-    console.log(activeStep, 'activeStep first');
     if (activeStep === 1) {
-      console.log(activeStep, 'activeStep');
       axios
         .post(`${URL}/api/v1/order`, {
           user: '60b91c696807c4197c691214',
@@ -87,7 +85,6 @@ const Checkout = () => {
 
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(`${URL}/api/v1/config/paypal`);
-      console.log(clientId, 'clientId');
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
@@ -111,12 +108,9 @@ const Checkout = () => {
     // }
 
     if (true) {
-      console.log('in true');
       if (!window.paypal) {
-        console.log('in true paypal');
         addPayPalScript();
       } else {
-        console.log('in true sdk readt');
         setSdkReady(true);
       }
     }

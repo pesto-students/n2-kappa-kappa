@@ -66,7 +66,6 @@ const Product = ({
     }
   }, [productParams]);
 
-  console.log('dwok', product && product._id);
 
   const handleChangeIndex = (i) => {
     setIndex(i);
@@ -84,7 +83,6 @@ const Product = ({
 
   const handleCart = () => {
     setIsCartVisible(true);
-    console.log('wdokdkwok', product._id);
     addToCart({
       user: '60b91c696807c4197c691214',
       item: {

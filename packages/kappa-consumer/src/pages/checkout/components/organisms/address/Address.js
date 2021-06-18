@@ -29,7 +29,6 @@ const Address = ({ getAddresses, addAddress, address, message }) => {
   };
 
   const handleClose = () => {
-    console.log('handleClose kiya gya hai');
     setOpen(false);
   };
 

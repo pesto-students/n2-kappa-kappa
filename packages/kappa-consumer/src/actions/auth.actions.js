@@ -19,7 +19,6 @@ export function loginUser(body) {
           payload: data,
         });
       } else {
-        console.log(data, 'in else condition');
         dispatch({
           type: 'LOG_IN_FAILED',
           payload: data,
@@ -36,8 +35,6 @@ export function fetchUser(body) {
     });
 
     return authServices.fetchUser(body).then((data) => {
-      console.log(data, ' dta in auth service fetch user');
-
       if (data.success) {
         dispatch({
           type: 'LOG_IN_SUCCESS',
@@ -66,7 +63,6 @@ export function registerUser(body) {
           payload: data,
         });
       } else {
-        console.log(data, 'in else condition');
         dispatch({
           type: 'REGISTER_USER_FAILED',
           payload: data,
