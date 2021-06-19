@@ -18,15 +18,15 @@ function Routes() {
     <Router>
       <Provider store={store}>
         <MyThemeProvider>
-          <Switch>
             <PrimaryLayout>
-              <Route path='/' exact component={Homepage} />
-              <Route path='/products/:id' component={ProductsList} />
-              <Route path='/product/:id/' component={Product} />
-              <Route path='/checkout' component={Checkout} />
-              <Route path='/verify/:verificationCode' component={Homepage} />
+            <Switch>
+                <Route path='/' exact component={Homepage} />
+                <Route path='/checkout' component={Checkout} />
+                <Route path='/product/:id/' component={Product} />
+                <Route path='/verify/:verificationCode' component={Homepage} />
+                <Route path='/:id' component={ProductsList} />
+              </Switch>
             </PrimaryLayout>
-          </Switch>
         </MyThemeProvider>
       </Provider>
     </Router>

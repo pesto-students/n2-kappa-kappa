@@ -54,20 +54,17 @@ const CategoriesListMenu = (props) => {
           <Paper>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList autoFocusItem={false} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-              {!fetching && categories ? (
-                categories.data.map((category) => (
+                {categories.data.map((category) => (
                   <MenuItem
                     component={Link}
-                    to={`/products/${category._id}`}
+                    to={`/${category._id}`}
                     onClick={handleClose}
                     key={category._id}
                     className={classes.list}
                   >
                     {category.categoryName}
                   </MenuItem>
-                  ))) : (
-                <Loader />
-                )}
+                ))}
               </MenuList>
             </ClickAwayListener>
           </Paper>

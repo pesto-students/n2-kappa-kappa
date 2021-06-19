@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 import { IconButton, Tabs, Tab } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-
-import clsx from 'clsx';
 
 // Icons
 import {
@@ -24,7 +23,6 @@ import ForgetPass from './components/forgetPass';
 
 import CategoriesListMenu from './components/categoriesListMenu';
 import Cart from '../cart';
-import Typography from '@kappa/components/src/atoms/typography';
 
 /* STYLES */
 import useStyles from './consumerNavbar.styles';
@@ -33,7 +31,9 @@ import PersonIcon from '../../../assets/images/person';
 
 import ActionCreators from '../../../actions';
 
-const ConsumerNavbar = ({ categories, fetchingAuth, fetchingCategories, user, fetchUser }) => {
+const ConsumerNavbar = ({ 
+  categories, fetchingAuth, user, fetchUser,
+}) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [isSignInOpen, setIsSignInOpen] = React.useState(false);
@@ -42,10 +42,13 @@ const ConsumerNavbar = ({ categories, fetchingAuth, fetchingCategories, user, fe
   const [isForgetPassOpen, setIsForgetPassOpen] = React.useState(false);
 
   const [open, setOpen] = React.useState(false);
+  const [searchText, setSearchText] = React.useState('');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const history = useHistory();
 
   const anchorRef = React.useRef(null);
 
@@ -78,6 +81,21 @@ const ConsumerNavbar = ({ categories, fetchingAuth, fetchingCategories, user, fe
     }
   }, []);
 
+  const handleSearch = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  const routeChange = () =>{ 
+    let path = `/${searchText}`; 
+    history.push(path);
+  }
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      routeChange();
+    }
+  }
+
   return (
     <>
       <div className={classes.sectionDesktop}>
@@ -101,7 +119,6 @@ const ConsumerNavbar = ({ categories, fetchingAuth, fetchingCategories, user, fe
             open={open}
             anchorRef={anchorRef}
             categories={categories}
-            fetching={fetchingCategories}
           />
 
         <Link className={classes.logoContainer} to="/">
@@ -134,7 +151,10 @@ const ConsumerNavbar = ({ categories, fetchingAuth, fetchingCategories, user, fe
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              inputProps={{ 'aria-label': 'search' }}
+              type="text" 
+              onKeyDown={handleKeyDown}
+              value={searchText}
+              onChange={handleSearch}
             />
           </div>
         </div>
@@ -188,7 +208,6 @@ function mapStateToProps(state) {
   return {
     user: state.auth.user,
     fetchingAuth: state.auth.fetching,
-    fetchingCategories: state.categories.fetching,
     message: state.auth.message,
   };
 }

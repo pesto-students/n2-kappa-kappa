@@ -57,6 +57,7 @@ const ProductsList = (props) => {
     fetching,
     match,
     getProductsList,
+    categories,
   } = props;
 
   const [page, setPage] = useState(1);
@@ -75,23 +76,44 @@ const ProductsList = (props) => {
   const theme = useTheme();
   const isXtraSmall = useMediaQuery(theme.breakpoints.only('xs'));
 
+
+  const validateId = (id) => {
+    if(!isEmpty(categories)) {
+      return categories.data.some((category) => category._id === id);
+    }
+  }
+
+  const setParams = () => {
+    if (validateId(match.params.id)) {
+      setProductsListParams({
+        category: match.params.id,
+        page,
+        limit: 5,
+      });
+    } else {
+      setProductsListParams({
+        search: match.params.id,
+        page,
+        limit: 5,
+      });
+    }
+  }
+
   useEffect(() => {
-    setProductsListParams({
-      category: match.params.id,
-      page,
-      limit: 5,
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setParams();
   }, [page]); 
 
   useEffect(() => {
     setPage(1);
-    setProductsListParams({
-      category: match.params.id,
-      page: 1,
-      limit: 5,
-    });
+    setParams();
   }, [match.params.id]); 
+
+  // Products API Call
+  useEffect(() => {
+    if (productsListParams) {
+      getProductsList(productsListParams);
+    }
+  }, [productsListParams, getProductsList]);
 
   useEffect(() => {
     const limit = 5;
@@ -114,12 +136,6 @@ const ProductsList = (props) => {
 
     return () => window.removeEventListener('scroll', onScroll);
   }, [scrollTop]);
-
-  useEffect(() => {
-    if (productsListParams) {
-      getProductsList(productsListParams);
-    }
-  }, [productsListParams, getProductsList]);
 
   const toggleFiltersPanel = (open) => (event) => {
     if (
@@ -152,6 +168,8 @@ const ProductsList = (props) => {
     }));
   };
 
+  console.log('oqkwokd', products);
+
   return (
     <div className={classes.root}>
       {isEmpty(products)
@@ -169,7 +187,9 @@ const ProductsList = (props) => {
                   <Typography color="textPrimary"
                   variant="h4"
                   className={clsx(classes.title, scrolling > 20 && classes.fontShrink )}>
-                    {products.data[0].category.categoryName} Products ({products.total})
+                    {products.category 
+                    ? (`${products.category.categoryName} Products (${products.total})`)
+                    : (`Your Searched Products (${products.total})`)}
                   </Typography>
                 </div>
                 <div className={classes.filtersButtonContainer}>
@@ -268,6 +288,7 @@ function mapStateToProps(state) {
   return {
     products: state.productsList.productsList,
     fetching: state.productsList.fetching,
+    categories: state.categories.categories,
   };
 }
 

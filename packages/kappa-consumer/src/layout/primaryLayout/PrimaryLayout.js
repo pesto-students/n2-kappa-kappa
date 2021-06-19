@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
 
 /* COMPONENTS */
 import Navbar from '@kappa/components/src/organisms/navbar';
+import Loader from '@kappa/components/src/atoms/loader';
 import ConsumerNavbar from '../../components/organisms/consumerNavbar';
 
 /* SERVICES */
@@ -29,20 +29,23 @@ const PrimaryLayout = ({
 
   useEffect(() => {
     getAllCategories(categoriesQuery);
-  }, [categoriesQuery]);
+  }, [categoriesQuery, getAllCategories]);
 
   return (
     <div className={classes.root}>
-      <Navbar>
-        <ConsumerNavbar
-          categories={categories}
-          fetching={fetching}
-        />
-      </Navbar>
-      <div className={classes.content}>
-        <main>{children}</main>
-      </div>
-      <Footer />
+        {!fetching && categories 
+          ? (<>
+              <Navbar>
+                <ConsumerNavbar categories={categories} />
+              </Navbar>
+              <div className={classes.content}>
+                <main>{children}</main>
+              </div>
+              <Footer />
+              </>
+          ) : (
+          <Loader />
+        )}
     </div>
   );
 };
