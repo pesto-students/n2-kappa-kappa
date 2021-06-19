@@ -26,6 +26,7 @@ const CategoriesTable = (props) => {
     setCategoryFields,
     bodyData,
     setCategoryParams,
+    fetching,
   } = props;
   const { page, limit } = categoryParams;
 
@@ -50,6 +51,7 @@ const CategoriesTable = (props) => {
       handleChangePage={handleChangePage}
       page={page}
       limit={limit}
+      fetching={fetching}
     >
       {bodyData
       && (

@@ -80,7 +80,7 @@ export default function Products() {
               setProductFields(initialProductFields);
               setImageFiles(null);
               setFetching(false);
-            });
+          });
         });
     } else {
       addProduct(productFields, imageFiles)

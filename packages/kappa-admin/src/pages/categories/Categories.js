@@ -15,18 +15,21 @@ import { categoriesTableHeader } from '../../utils/constants';
 
 /* ICONS */
 
+const initialCategoryFields = {
+  category: '',
+};
+
 export default function Categories() {
   const classes = useStyles();
 
+  const [fetching, setFetching] = useState(true);
   const [isCategoryViewOpen, setIsCategoryViewOpen] = useState(false);
   const [categories, setCategories] = useState(null);
   const [categoryParams, setCategoryParams] = useState({
     page: 1,
     limit: 25,
   });
-  const [categoryFields, setCategoryFields] = useState({
-    categoryName: '',
-  });
+  const [categoryFields, setCategoryFields] = useState(initialCategoryFields);
 
   const handleCategoryFields = (name) => (event) => {
     if (name === 'countInStock' || name === 'price') {
@@ -37,10 +40,12 @@ export default function Categories() {
   };
 
   useEffect(() => {
+    setFetching(true);
     setCategories(null);
     getAllCategories(categoryParams)
       .then((res) => {
         setCategories(res);
+        setFetching(false);
       });
   }, [categoryParams]);
 
@@ -49,10 +54,17 @@ export default function Categories() {
   };
 
   const handleSubmit = () => {
-    addCategory(categoryFields);
-    // .then((res) => {
-    //   console.log('wdjo', res);
-    // });
+    setIsCategoryViewOpen(false);
+    setFetching(true);
+    addCategory(categoryFields)
+    .then(() => {
+      getAllCategories(categoryParams)
+        .then((res) => {
+          setCategories(res);
+          setCategoryFields(initialCategoryFields);
+          setFetching(false);
+        });
+    });
   };
 
   return (
@@ -64,6 +76,7 @@ export default function Categories() {
         setCategoryParams={setCategoryParams}
         openCategoryView={openCategoryView}
         setCategoryFields={setCategoryFields}
+        fetching={fetching}
       />
       <Fab
         color="primary"
