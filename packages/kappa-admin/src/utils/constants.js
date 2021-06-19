@@ -5,7 +5,7 @@ import shoppingCartIcon from '../assets/images/shoppingCart';
 import categoryIcon from '../assets/images/category';
 
 export const menu = [
-  { name: 'Dashboard', route: 'dashboard', icon: dashboardIcon },
+  { name: 'Dashboard', route: '', icon: dashboardIcon },
   { name: 'Products', route: 'products', icon: productsIcon },
   { name: 'Categories', route: 'categories', icon: categoryIcon },
   { name: 'Orders', route: 'orders', icon: shoppingCartIcon },
