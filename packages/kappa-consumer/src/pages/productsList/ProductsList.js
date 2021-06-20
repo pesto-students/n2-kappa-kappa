@@ -183,7 +183,7 @@ const ProductsList = (props) => {
               <div className={classes.headerTitleContainer}>
                 <Typography
                   color='textPrimary'
-                  variant='h4'
+                  variant='h5'
                   className={clsx(
                     classes.title,
                     scrolling > 20 && classes.fontShrink
