@@ -10,6 +10,7 @@ export default makeStyles((theme) => ({
   },
   sectionLeftDesktop: {
     flex: 1,
+    display: 'flex',
   },
   tabs: {
     '& .MuiTab-root': {
@@ -22,16 +23,17 @@ export default makeStyles((theme) => ({
   },
   logoContainer: {
     display: 'flex',
+    marginLeft: theme.spacing(1),
   },
   logo: {
-    maxWidth: 200,
+    maxWidth: 180,
     // height: '100%',
     alignSelf: 'center',
   },
   tab: {
     padding: theme.spacing(3, 0),
     textAlign: 'start',
-    // color: theme.palette.common.white,
+    color: theme.palette.common.white,
   },
   sectionRightDesktop: {
     display: 'flex',
@@ -69,6 +71,7 @@ export default makeStyles((theme) => ({
       marginLeft: theme.spacing(1),
       width: 'auto',
     },
+    marginRight: theme.spacing(4),
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -90,9 +93,9 @@ export default makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '22ch',
+      width: '32ch',
       '&:focus': {
-        width: '40ch',
+        width: '42ch',
       },
     },
   },

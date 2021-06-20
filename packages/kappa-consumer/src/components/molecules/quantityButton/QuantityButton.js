@@ -16,6 +16,7 @@ import useStyles from './quantityButton.styles';
 const QuantityButton = (props) => {
   const {
     quantity,
+    fetching,
     incrementProduct,
     decrementProduct,
     localIncrementProduct,
@@ -25,12 +26,12 @@ const QuantityButton = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <IconButton onClick={localDecrementProduct || decrementProduct} className={classes.button}>
+      <IconButton disabled={fetching} onClick={localDecrementProduct || decrementProduct} className={classes.button}>
         <RemoveIcon color="primary" fontSize="small" />
       </IconButton>
       <Typography color="primary">{quantity}</Typography>
 
-      <IconButton onClick={localIncrementProduct || incrementProduct} className={classes.button}>
+      <IconButton disabled={fetching} onClick={localIncrementProduct || incrementProduct} className={classes.button}>
         <AddIcon color="primary" fontSize="small" />
       </IconButton>
     </div>

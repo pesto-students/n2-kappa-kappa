@@ -55,20 +55,28 @@ const Cart = ({
     getCart('60b91c696807c4197c691214');
   }, []);
 
-  const incrementProduct = (id) => {
-    updateCart({
-      user: '60b91c696807c4197c691214',
-      itemId: id,
-      type: 'inc',
-    });
+  const incrementProduct = (data) => {
+    const { _id, quantity } = data;
+
+    if (quantity < 10) {
+      updateCart({
+        user: '60b91c696807c4197c691214',
+        itemId: _id,
+        type: 'inc',
+      });
+    }
   };
 
-  const decrementProduct = (id) => {
-    updateCart({
-      user: '60b91c696807c4197c691214',
-      itemId: id,
-      type: 'dec',
-    });
+  const decrementProduct = (data) => {
+    const { _id, quantity } = data;
+
+    if (quantity > 1) {
+      updateCart({
+        user: '60b91c696807c4197c691214',
+        itemId: _id,
+        type: 'dec',
+      });
+    }
   };
 
   const deleteProduct = (id) => {
@@ -140,10 +148,15 @@ const Cart = ({
                   <div className={classes.productActions}>
                     <QuantityButton
                       quantity={cartData.quantity}
-                      incrementProduct={() => incrementProduct(cartData._id)}
-                      decrementProduct={() => decrementProduct(cartData._id)}
+                      incrementProduct={() => incrementProduct(cartData)}
+                      decrementProduct={() => decrementProduct(cartData)}
+                      fetching={fetching}
                     />
-                    <Button label='REMOVE' className={classes.removeButton} />
+                    <Button 
+                      label='REMOVE' 
+                      className={classes.removeButton}
+                      onClick={() => deleteProduct(cartData._id)}
+                    />
                   </div>
                 </div>
               </div>

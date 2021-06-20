@@ -109,27 +109,64 @@ const ConsumerNavbar = ({
     <>
       <div className={classes.sectionDesktop}>
         <div className={classes.sectionLeftDesktop}>
-          <Tabs value={value} onChange={handleChange} className={classes.tabs}>
-            <Tab
-              label='SHOP'
-              className={classes.tab}
-              ref={anchorRef}
-              onClick={handleToggle}
-            />
-          </Tabs>
-        </div>
-    
-          <CategoriesListMenu
-            setOpen={setOpen}
-            open={open}
-            anchorRef={anchorRef}
-            categories={categories}
-          />
 
         <Link className={classes.logoContainer} to="/">
           <img src={logo} className={classes.logo} alt="Mr-Nomad-Logo" />
         </Link>
+        <Tabs value={value} onChange={handleChange} className={classes.tabs}>
+          <Tab
+            label='SHOP'
+            className={classes.tab}
+            ref={anchorRef}
+            onClick={handleToggle}
+          />
+        </Tabs>
+        </div>
+
+    
+        <CategoriesListMenu
+          setOpen={setOpen}
+          open={open}
+          anchorRef={anchorRef}
+          categories={categories}
+        />
+{/* <div className={classes.searchContainer}>
+        <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder='Search…'
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              type="text" 
+              onKeyDown={handleKeyDown}
+              value={searchText}
+              onChange={handleSearch}
+            />
+          </div>
+      </div> */}
         <div className={classes.sectionRightDesktop}>
+        <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder='Search…'
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              type="text" 
+              onKeyDown={handleKeyDown}
+              value={searchText}
+              onChange={handleSearch}
+            />
+          </div>
+        
+
           {user.name ? (
             <Button className={classes.button} label={user.name} />
           ) : (
@@ -157,22 +194,6 @@ const ConsumerNavbar = ({
             </IconButton>
           )}
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              type="text" 
-              onKeyDown={handleKeyDown}
-              value={searchText}
-              onChange={handleSearch}
-            />
-          </div>
         </div>
       </div>
 
