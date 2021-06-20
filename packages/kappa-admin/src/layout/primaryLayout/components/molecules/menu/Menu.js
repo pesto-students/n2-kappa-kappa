@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 /* COMPONENTS */
 import Drawer from '@kappa/components/src/molecules/drawer';
@@ -13,22 +13,32 @@ import ListItemText from '../../../../../components/atoms/listItemText';
 import useStyles from './menu.styles';
 
 /* UTILS */
-import { menu } from '../../../../../utils/constants';
-
-/* ICONS */
-import SettingsIcon from '../../../../../assets/images/settings';
+import { MENU } from '../../../../../utils/constants';
 
 export default function Menu({ children }) {
   const classes = useStyles();
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedItem, setSelectedItem] = useState('Orders');
 
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
+  const handleListItemClick = (label) => {
+    console.log('wdokwodk', )
+    setSelectedItem(label);
   };
+
+  const history = useHistory();
+
+  React.useEffect(() => {
+    const route = history.location.pathname.substring(1);
+    if(route.length !== 0) {
+      setSelectedItem(history.location.pathname.substring(1));
+    } else {
+      setSelectedItem('orders');
+    }
+  }, [history])
 
   return (
     <div className={classes.root}>
+      {selectedItem && (
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -38,22 +48,22 @@ export default function Menu({ children }) {
       >
         <div className={classes.drawerContainer}>
           <List>
-            {menu.map((list, index) => (
+            {MENU.map((list, index) => (
               <ListItem
                 button
                 key={list.name}
-                selected={selectedIndex === index}
-                onClick={(event) => handleListItemClick(event, index)}
+                selected={selectedItem === list.name}
+                onClick={() => handleListItemClick(list.name)}
                 component={Link}
                 to={`/${list.route}`}
               >
                 <ListItemIcon><list.icon /></ListItemIcon>
-                <ListItemText primary={list.name} />
+                <ListItemText className={classes.listLabel} primary={list.name} />
               </ListItem>
             ))}
           </List>
           <Divider />
-          <List>
+          {/* <List>
             <ListItem
               button
               selected={selectedIndex === 4}
@@ -62,9 +72,10 @@ export default function Menu({ children }) {
               <ListItemIcon><SettingsIcon /></ListItemIcon>
               <ListItemText primary="Settings" />
             </ListItem>
-          </List>
+          </List> */}
         </div>
       </Drawer>
+      )}
       <main className={classes.content}>
         {children}
       </main>

@@ -10,7 +10,7 @@ import ProductView from './components/productView';
 import useStyles from './products.styles';
 
 /* UTILS */
-import { getAllProducts, addProduct, updateProduct } from '../../network/api';
+import { getAllProducts, addProduct, updateProduct, deleteProduct } from '../../network/api';
 import { productsTableHeader } from '../../utils/constants';
 
 /* ICONS */
@@ -31,6 +31,7 @@ export default function Products() {
 
   const [fetching, setFetching] = useState(true);
   const [isProductViewOpen, setIsProductViewOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [products, setProducts] = useState(null);
   const [productParams, setProductParams] = useState({
     page: 1,
@@ -62,39 +63,46 @@ export default function Products() {
   };
 
   const handleAddNewProduct = () => {
+    setIsEditMode(false);
     setProductFields(initialProductFields);
     setImageFiles(null);
     setIsProductViewOpen(true);
   };
 
+  const fetchAllProducts = () => {
+    return getAllProducts(productParams)
+      .then((res) => {
+        setProducts(res);
+        setProductFields(initialProductFields);
+        setImageFiles(null);
+        setFetching(false);
+    });
+  }
+
   const handleSubmit = () => {
+    setIsEditMode(false);
     setIsProductViewOpen(false);
     setFetching(true);
     if (productFields.hasOwnProperty('images')) {
       delete productFields.images;
       updateProduct(productFields, imageFiles)
         .then(() => {
-          getAllProducts(productParams)
-            .then((res) => {
-              setProducts(res);
-              setProductFields(initialProductFields);
-              setImageFiles(null);
-              setFetching(false);
-          });
+          fetchAllProducts();
         });
     } else {
       addProduct(productFields, imageFiles)
       .then(() => {
-        getAllProducts(productParams)
-          .then((res) => {
-            setProducts(res);
-            setProductFields(initialProductFields);
-            setImageFiles(null);
-            setFetching(false);
-          });
+        fetchAllProducts();
       });
     }
   };
+
+  const handleDelete = (productId) => {
+    deleteProduct(productId)
+        .then(() => {
+          fetchAllProducts();
+      });
+    }
 
   return (
     <div className={classes.root}>
@@ -106,6 +114,8 @@ export default function Products() {
         openProductView={openProductView}
         setProductFields={setProductFields}
         fetching={fetching}
+        setIsEditMode={setIsEditMode}
+        handleDelete={handleDelete}
       />
       <Fab
         color="primary"
@@ -122,6 +132,7 @@ export default function Products() {
         handleSubmit={handleSubmit}
         setImageFiles={setImageFiles}
         fetching={fetching}
+        isEditMode={isEditMode}
       />
     </div>
   );

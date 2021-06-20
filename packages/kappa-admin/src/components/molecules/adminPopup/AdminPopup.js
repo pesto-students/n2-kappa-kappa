@@ -16,6 +16,7 @@ const AdminPopup = (props) => {
     children,
     handleSubmit,
     title,
+    label,
   } = props;
 
   return (
@@ -28,7 +29,7 @@ const AdminPopup = (props) => {
       </div>
       <DialogActions>
         <Button
-          label="Save Changes"
+          label={label}
           color="primary"
           size="large"
           onClick={() => handleSubmit()}

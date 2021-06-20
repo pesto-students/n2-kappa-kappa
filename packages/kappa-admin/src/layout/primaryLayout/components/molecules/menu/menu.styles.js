@@ -6,9 +6,6 @@ export default makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -17,11 +14,14 @@ export default makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    paddingTop: theme.spacing(7),
+    paddingTop: theme.spacing(9),
     overflow: 'auto',
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(3, 6),
+  },
+  listLabel: {
+    textTransform: 'capitalize',
   },
 }));

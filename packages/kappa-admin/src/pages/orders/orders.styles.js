@@ -1,7 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
-  textField: {
-    width: '100%',
+  icon: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
   },
 }));

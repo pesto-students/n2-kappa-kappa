@@ -4,7 +4,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@kappa/components/src/atoms/iconButton';
 import PaginationTable from '../../../../components/molecules/paginationTable';
-import SettingsIcon from '../../../../assets/images/settings';
+import EditIcon from '../../../../assets/images/edit';
+import CheckIcon from '../../../../assets/images/check';
+import ClearIcon from '../../../../assets/images/clear';
 
 /* STYLES */
 import useStyles from './categoriesTable.styles';
@@ -27,12 +29,18 @@ const CategoriesTable = (props) => {
     bodyData,
     setCategoryParams,
     fetching,
+    setIsEditMode,
   } = props;
   const { page, limit } = categoryParams;
 
   const handleAction = (row) => {
-    setCategoryFields(row);
+    setCategoryFields({
+      id: row._id,
+      categoryName: row.categoryName,
+      active: row.active,
+    });
     openCategoryView();
+    setIsEditMode(true);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -53,23 +61,24 @@ const CategoriesTable = (props) => {
       limit={limit}
       fetching={fetching}
     >
-      {bodyData
-      && (
-        bodyData
-          .data.data
-          .slice(0, limit)
-          .map((row) => (
+      {!fetching && bodyData
+        .data.data
+        .slice(0, limit)
+        .map((row) => (
             <CustomTableRow key={row._id}>
               <TableCell>{row._id.slice(0, 5)}</TableCell>
-              <TableCell>{row.categoryName}</TableCell>
-              <TableCell>{row.createdAt}</TableCell>
+              <TableCell className={classes.categoryName}>{row.categoryName}</TableCell>
+              <TableCell>{row.active
+              ? <CheckIcon className={classes.positiveIcon} /> 
+              : <ClearIcon className={classes.negativeIcon} />}
+              </TableCell>
               <TableCell>
                 <IconButton onClick={() => handleAction(row)} className={classes.actionButton}>
-                  <SettingsIcon />
+                  <EditIcon />
                 </IconButton>
               </TableCell>
             </CustomTableRow>
-          )))}
+          ))}
     </PaginationTable>
   );
 };

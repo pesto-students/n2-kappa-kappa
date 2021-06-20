@@ -13,4 +13,10 @@ export default makeStyles((theme) => ({
   textField: {
     width: '49%',
   },
+  category: {
+    textTransform: 'capitalize',
+    // '& .MuiFormControl-root': {
+    //   textTransform: 'capitalize',
+    // }
+  }
 }));

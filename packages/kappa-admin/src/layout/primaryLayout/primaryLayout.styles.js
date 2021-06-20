@@ -5,7 +5,6 @@ export default makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-    // background: 'red',
   },
   content: {
     flex: 1,

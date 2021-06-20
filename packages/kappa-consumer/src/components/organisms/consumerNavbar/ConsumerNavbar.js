@@ -127,7 +127,6 @@ const ConsumerNavbar = ({
           />
 
         <Link className={classes.logoContainer} to="/">
-
           <img src={logo} className={classes.logo} alt="Mr-Nomad-Logo" />
         </Link>
         <div className={classes.sectionRightDesktop}>

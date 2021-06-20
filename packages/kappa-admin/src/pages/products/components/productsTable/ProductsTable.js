@@ -4,7 +4,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@kappa/components/src/atoms/iconButton';
 import PaginationTable from '../../../../components/molecules/paginationTable';
-import SettingsIcon from '../../../../assets/images/settings';
+import EditIcon from '../../../../assets/images/edit';
+import CheckIcon from '../../../../assets/images/check';
+import ClearIcon from '../../../../assets/images/clear';
+import DeleteIcon from '../../../../assets/images/delete';
 
 /* STYLES */
 import useStyles from './productsTable.styles';
@@ -27,10 +30,13 @@ const ProductsTable = (props) => {
     setProductFields,
     bodyData,
     setProductParams,
+    setIsEditMode,
+    handleDelete,
   } = props;
   const { page, limit } = productParams;
 
-  const handleAction = (row) => {
+  const handleEdit = (row) => {
+    setIsEditMode(true);
     setProductFields({
       category: row.category._id,
       countInStock: row.countInStock,
@@ -69,16 +75,24 @@ const ProductsTable = (props) => {
             <TableCell>{row.id.slice(0, 5)}</TableCell>
             <TableCell>{row.title}</TableCell>
             <TableCell>{row.description}</TableCell>
-            <TableCell>{row.price}</TableCell>
+            <TableCell>${row.price}</TableCell>
+            <TableCell>{row.priority 
+                ? <CheckIcon className={classes.positiveIcon} /> 
+                : <ClearIcon className={classes.negativeIcon} />}
+            </TableCell>
             <TableCell>{row.countInStock}</TableCell>
-            <TableCell>{row.category && row.category.categoryName}</TableCell>
+            <TableCell className={classes.category}>{row.category && row.category.categoryName}</TableCell>
             <TableCell>{row.images && row.images.length}</TableCell>
-            <TableCell>{row.discount}</TableCell>
-            <TableCell>{row.priority}</TableCell>
+            <TableCell>{row.discount}%</TableCell>
             <TableCell>
-              <IconButton onClick={() => handleAction(row)} className={classes.actionButton}>
-                <SettingsIcon />
-              </IconButton>
+              <div className={classes.actions}>
+                <IconButton onClick={() => handleEdit(row)} className={classes.editIcon}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={() => handleDelete(row._id)} className={classes.deleteIcon}>
+                  <DeleteIcon />
+                </IconButton>
+              </div>
             </TableCell>
           </CustomTableRow>
         ))}

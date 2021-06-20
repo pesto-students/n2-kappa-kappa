@@ -38,6 +38,27 @@ function getPutFormConfig(data, files) {
   };
 }
 
+function getPutConfig(data) {
+  return {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+      // Authorization: basicAuth,
+    },
+  };
+}
+
+function getDeleteConfig() {
+  return {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      // Authorization: basicAuth,
+    },
+  };
+}
+
 function getPostConfig(data) {
   return {
     method: 'POST',
@@ -74,6 +95,7 @@ function objToQueryString(obj) {
   return keyValuePairs.join('&');
 }
 
+// Products
 export function getAllProducts(data) {
   const url = `${BASE_URL}/api/v1/products?${objToQueryString(data)}`;
   return callApi(url);
@@ -85,6 +107,19 @@ export function addProduct(data, file) {
   return callApi(url, config);
 }
 
+export function updateProduct(data, file) {
+  const url = `${BASE_URL}/api/v1/products/${data._id}`;
+  const config = getPutFormConfig(data, file);
+  return callApi(url, config);
+}
+
+export function deleteProduct(id) {
+  const url = `${BASE_URL}/api/v1/products/${id}`;
+  const config = getDeleteConfig();
+  return callApi(url, config);
+}
+
+// Categories
 export function getAllCategories(data) {
   const url = `${BASE_URL}/api/v1/categories?${objToQueryString(data)}`;
   return callApi(url);
@@ -96,8 +131,21 @@ export function addCategory(data) {
   return callApi(url, config);
 }
 
-export function updateProduct(data, file) {
-  const url = `${BASE_URL}/api/v1/products/${data._id}`;
-  const config = getPutFormConfig(data, file);
+export function updateCategory(data, categoryId) {
+  const url = `${BASE_URL}/api/v1/categories/${categoryId}`;
+  const config = getPutConfig(data);
+  return callApi(url, config);
+}
+
+
+// Orders
+export function getAllOrders(data) {
+  const url = `${BASE_URL}/api/v1/order?${objToQueryString(data)}`;
+  return callApi(url);
+}
+
+export function updateOrder(orderId) {
+  const url = `${BASE_URL}/api/v1/order/${orderId}/deliver`;
+  const config = getPutConfig(orderId);
   return callApi(url, config);
 }

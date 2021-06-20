@@ -6,8 +6,20 @@ export default makeStyles(() => ({
   },
   actionButton: {
     padding: 'unset',
+    color: '#6587EE',
   },
   root: {
     maxHeight: 480,
+  },
+  categoryName:{
+    textTransform: 'capitalize',
+  },
+  positiveIcon: {
+    color: '#46925A',
+    fontSize: 18,
+  },
+  negativeIcon: {
+    color: '#BE4545',
+    fontSize: 18,
   },
 }));

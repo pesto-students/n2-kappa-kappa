@@ -19,7 +19,7 @@ const PrimaryLayout = ({ children }) => {
       </Navbar>
       <div className={classes.content}>
         <Menu>
-          <main>{children}</main>
+          {children}
         </Menu>
       </div>
     </div>

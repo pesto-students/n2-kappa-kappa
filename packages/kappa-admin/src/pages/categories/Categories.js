@@ -10,13 +10,14 @@ import CategoriesView from './components/categoriesView';
 import useStyles from './categories.styles';
 
 /* UTILS */
-import { getAllCategories, addCategory } from '../../network/api';
+import { getAllCategories, addCategory, updateCategory } from '../../network/api';
 import { categoriesTableHeader } from '../../utils/constants';
 
 /* ICONS */
 
 const initialCategoryFields = {
-  category: '',
+  categoryName: '',
+  active: false,
 };
 
 export default function Categories() {
@@ -25,19 +26,18 @@ export default function Categories() {
   const [fetching, setFetching] = useState(true);
   const [isCategoryViewOpen, setIsCategoryViewOpen] = useState(false);
   const [categories, setCategories] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [categoryParams, setCategoryParams] = useState({
     page: 1,
-    limit: 25,
+    limit: 10,
   });
   const [categoryFields, setCategoryFields] = useState(initialCategoryFields);
 
   const handleCategoryFields = (name) => (event) => {
-    if (name === 'countInStock' || name === 'price') {
-      setCategoryFields({ ...categoryFields, [name]: parseInt(event.target.value, 10) });
-    } else {
-      setCategoryFields({ ...categoryFields, [name]: event.target.value });
-    }
+     return setCategoryFields({ ...categoryFields, [name]: event.target.value });
   };
+
+  console.log('asokoks', categoryFields);
 
   useEffect(() => {
     setFetching(true);
@@ -53,18 +53,38 @@ export default function Categories() {
     setIsCategoryViewOpen(true);
   };
 
+  const handleAddNewCategory = () => {
+    setCategoryFields(initialCategoryFields)
+    setIsEditMode(false);
+    openCategoryView();
+  };
+  
+  const fetchAllCategories = () => {
+    getAllCategories(categoryParams)
+    .then((res) => {
+      setCategories(res);
+      setCategoryFields(initialCategoryFields);
+      setFetching(false);
+    });
+  }
+
   const handleSubmit = () => {
     setIsCategoryViewOpen(false);
     setFetching(true);
-    addCategory(categoryFields)
-    .then(() => {
-      getAllCategories(categoryParams)
-        .then((res) => {
-          setCategories(res);
-          setCategoryFields(initialCategoryFields);
-          setFetching(false);
-        });
-    });
+    if(isEditMode) {
+      const categoryId = categoryFields.id;
+      delete categoryFields.id;
+      setIsEditMode(false);
+      updateCategory(categoryFields, categoryId)
+      .then(() => {
+        fetchAllCategories();
+      });
+    } else {
+      addCategory(categoryFields)
+      .then(() => {
+        fetchAllCategories();
+      });
+    }
   };
 
   return (
@@ -76,12 +96,13 @@ export default function Categories() {
         setCategoryParams={setCategoryParams}
         openCategoryView={openCategoryView}
         setCategoryFields={setCategoryFields}
+        setIsEditMode={setIsEditMode}
         fetching={fetching}
       />
       <Fab
         color="primary"
         className={classes.icon}
-        onClick={openCategoryView}
+        onClick={handleAddNewCategory}
       >
         <AddIcon />
       </Fab>
@@ -91,6 +112,8 @@ export default function Categories() {
         categoryFields={categoryFields}
         handleCategoryFields={handleCategoryFields}
         handleSubmit={handleSubmit}
+        isEditMode={isEditMode}
+        fetching={fetching}
       />
     </div>
   );

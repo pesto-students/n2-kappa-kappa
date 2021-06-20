@@ -24,6 +24,7 @@ export default function Products(props) {
     productFields,
     handleProductFields,
     handleSubmit,
+    isEditMode,
     setImageFiles,
   } = props;
   const classes = useStyles();
@@ -42,7 +43,8 @@ export default function Products(props) {
 
   return (
     <AdminPopup
-      title="Add a product"
+      title={isEditMode ? "Update Product Details" : "Add A New Product"}
+      label={isEditMode ? "Save" : "Add"}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       handleSubmit={handleSubmit}
@@ -116,6 +118,9 @@ export default function Products(props) {
           value={productFields.discount}
           onChange={handleProductFields('discount')}
           className={classes.textField}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">%</InputAdornment>,
+          }}
         />
 
         <FormControl margin="dense" variant="outlined" className={classes.textField}>
@@ -124,13 +129,20 @@ export default function Products(props) {
             label="Category"
             value={productFields.category}
             onChange={handleProductFields('category')}
+            className={classes.category}
           >
             {categories
               && (
               categories
               .data.data
               .map((category) => (
-                <MenuItem value={category._id} label={category.categoryName}>{category.categoryName}</MenuItem>
+                <MenuItem 
+                  value={category._id} 
+                  label={category.categoryName}
+                  className={classes.category}
+                >
+                  {category.categoryName}
+                </MenuItem>
               )))}
           </Select>
         </FormControl>
