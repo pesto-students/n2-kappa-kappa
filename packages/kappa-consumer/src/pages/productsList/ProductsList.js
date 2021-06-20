@@ -22,6 +22,7 @@ import IconButton from '@kappa/components/src/atoms/iconButton';
 import ProductCard from '@kappa/components/src/molecules/productCard';
 import Loader from '@kappa/components/src/atoms/loader';
 import Pagination from '../../components/atoms/pagination';
+import NoProducts from './components/NoProducts';
 
 // molecules
 import FiltersPanel from '../../components/molecules/filtersPanel';
@@ -174,9 +175,7 @@ const ProductsList = (props) => {
         fetching ? (
           <Loader padding />
         ) : (
-          <Typography style={{ margin: 50, textAlign: 'center' }}>
-            No Products Yet
-          </Typography>
+          <NoProducts />
         )
       ) : (
         <>
