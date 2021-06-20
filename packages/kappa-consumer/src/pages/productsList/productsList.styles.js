@@ -57,7 +57,7 @@ export default makeStyles((theme) => ({
   },
   menu: {
     '& div': {
-      marginTop: theme.spacing(7.8),
+      marginTop: theme.spacing(6.8),
     },
   },
   menuItem: {

@@ -161,6 +161,11 @@ const ProductsList = (props) => {
     }));
   };
 
+  const handleSort = (id) => {
+    setProductsListParams((prev) => ({ ...prev, sort: id }))
+    closeSort();
+  }
+
   return (
     <div className={classes.root}>
       {isEmpty(products) ? (
@@ -221,14 +226,14 @@ const ProductsList = (props) => {
               className={classes.menu}
               PaperProps={{
                 style: {
-                  width: isXtraSmall ? '100%' : 192,
+                  width: isXtraSmall && '100%',
                   borderRadius: '0 0 27px 27px',
                 },
               }}
             >
-              {SORT_PRODUCTS.map((text) => (
-                <MenuItem onClick={closeSort} className={classes.menuItem}>
-                  {text}
+              {SORT_PRODUCTS.map((sort) => (
+                <MenuItem onClick={() => handleSort(sort.id)} className={classes.menuItem}>
+                  {sort.label}
                 </MenuItem>
               ))}
             </Menu>
