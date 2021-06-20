@@ -41,7 +41,7 @@ function getPutFormConfig(data, files) {
 function getPutConfig(data) {
   return {
     method: 'PUT',
-    body: JSON.stringify(data),
+    body: data && JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
       // Authorization: basicAuth,
@@ -146,6 +146,6 @@ export function getAllOrders(data) {
 
 export function updateOrder(orderId) {
   const url = `${BASE_URL}/api/v1/order/${orderId}/deliver`;
-  const config = getPutConfig(orderId);
+  const config = getPutConfig();
   return callApi(url, config);
 }
