@@ -166,9 +166,11 @@ const ProductsList = (props) => {
     closeSort();
   }
 
+  console.log('odwkokd', products);
+
   return (
     <div className={classes.root}>
-      {isEmpty(products) ? (
+      {isEmpty(products) || isEmpty(products && products.data) ? (
         fetching ? (
           <Loader padding />
         ) : (
