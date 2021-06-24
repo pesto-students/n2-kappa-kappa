@@ -5,12 +5,12 @@ import { bindActionCreators } from 'redux';
 /* COMPONENTS */
 import Navbar from '@kappa/components/src/organisms/navbar';
 import Loader from '@kappa/components/src/atoms/loader';
-import ConsumerNavbar from '../../components/organisms/consumerNavbar';
+import ConsumerNavbar from '../../../components/organisms/consumerNavbar';
 
 /* SERVICES */
-import ActionCreators from '../../actions';
+import ActionCreators from '../../../actions';
 
-import Footer from '../../components/organisms/footer';
+import Footer from '../../../components/organisms/footer';
 
 // styles
 import useStyles from './primaryLayout.styles';

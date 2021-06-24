@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 
-import theme from '../theme/theme';
+import theme from './theme/theme';
 
 const useGlobalStyles = makeStyles({
   '@global': {
