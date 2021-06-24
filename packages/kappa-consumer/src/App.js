@@ -1,9 +1,8 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 /* REDUX */
-import store from './config/store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 /* STYLES */
 import MyThemeProvider from './app.styles';
@@ -12,21 +11,48 @@ import MyThemeProvider from './app.styles';
 import Routes from './routes';
 
 /* COMPONENTS */
+import NavbarLoader from './components/molecules/navbarLoader';
 import PrimaryLayout from './components/organisms/primaryLayout';
 
-function App() {
+/* SERVICES */
+import ActionCreators from './actions';
+
+/* CONSTANTS */
+import CATEGORIES_QUERY from './constants/categoriesQuery.constants'
+
+const App = ({
+  getAllCategories,
+  fetching,
+  categories,
+}) => {
+
+  useEffect(() => {
+    getAllCategories(CATEGORIES_QUERY);
+  }, []);
+
+  if(fetching) {
+    return <NavbarLoader />
+  }
+
   return (
-    <Router>
-      <Provider store={store}>
-        <MyThemeProvider>
-          <PrimaryLayout>
-            <Routes />
-          </PrimaryLayout>
-        </MyThemeProvider>
-      </Provider>
-    </Router>
+    <MyThemeProvider>
+      <PrimaryLayout categories={categories}>
+        <Routes />
+      </PrimaryLayout>
+    </MyThemeProvider>
   );
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(ActionCreators, dispatch);
+}
+
+function mapStateToProps(state) {
+  return {
+    categories: state.categories.categories,
+    fetching: state.categories.fetching,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
