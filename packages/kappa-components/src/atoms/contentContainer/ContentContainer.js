@@ -7,8 +7,8 @@ import { Container } from '@material-ui/core';
 import useStyles from './contentContainer.styles';
 
 export default function ContentContainer(props) {
-  const { className } = props;
+  const { className, maxWidth } = props;
   const classes = useStyles();
 
-  return <Container {...props} maxWidth="xl" className={clsx(classes.root, className)}  />;
+  return <Container {...props} maxWidth={maxWidth || "xl"} className={clsx(classes.root, className)}  />;
 };

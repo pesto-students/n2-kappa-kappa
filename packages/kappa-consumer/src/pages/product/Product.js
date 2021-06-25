@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+
+/* REDUX */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+/* ROUTER */
+import { useParams } from 'react-router-dom';
+
+/* PROP TYPES */
 import PropTypes from 'prop-types';
 
+/* COMPONENTS */
 import SwipeableViews from 'react-swipeable-views';
 import MobileStepper from '@material-ui/core/MobileStepper';
-
-/* COMPONENTS */
-// atoms
 import ContentContainer from '@kappa/components/src/atoms/contentContainer';
 import Button from '@kappa/components/src/atoms/button';
 import IconButton from '@kappa/components/src/atoms/iconButton';
 import Typography from '@kappa/components/src/atoms/typography';
 import Grid from '@kappa/components/src/atoms/grid';
 import Loader from '@kappa/components/src/atoms/loader';
-
-// molecules
 import QuantityButton from '../../components/molecules/quantityButton';
+import NoProduct from './components/NoProduct';
 
-// organisms
 import RecommendedProducts from '../../components/organisms/recommendedProducts';
 import Cart from '../../components/organisms/cart';
 
@@ -36,37 +39,40 @@ import ActionCreators from '../../actions';
 
 /* CONSTANTS */
 import BASE_URL from '../../constants/baseURL';
+import RECOMMENDED_PRODUCTS_QUERY from './recommendedProductsQuery.constants';
 
-/* UTILS */
-import isEmpty from '../../utils/isEmpty.utils';
+/* READERS */
+import productReader from '../../readers/productReader.readers';
 
 const Product = ({
   getAProduct,
   addToCart,
-  match,
   product,
   fetching,
   setIsSignInOpen,
   user,
+  isValid,
+  recommendedProductsInfo,
+  getRecommendedProductsInfo,
+  recommendedProductsFetching,
 }) => {
   const classes = useStyles();
 
   const [quantity, setQuantity] = React.useState(1);
-  const [productParams, setProductParams] = useState(null);
   const [index, setIndex] = React.useState(0);
   const [isCartVisible, setIsCartVisible] = React.useState(false);
 
-  useEffect(() => {
-    if (match && match.params && match.params.id) {
-      setProductParams(match.params.id);
-    }
-  }, [match]);
+  const { id } = useParams();
 
   useEffect(() => {
-    if (productParams) {
-      getAProduct(productParams);
+    if (id) {
+      getAProduct(id);
     }
-  }, [productParams]);
+  }, [id]);
+
+  useEffect(() => {
+    getRecommendedProductsInfo(RECOMMENDED_PRODUCTS_QUERY);
+  }, []);
 
   const handleChangeIndex = (i) => {
     setIndex(i);
@@ -86,7 +92,7 @@ const Product = ({
     setIsCartVisible(true);
     addToCart({
       item: {
-        product: product._id,
+        product: productReader.id(product),
         quantity,
       },
     });
@@ -104,124 +110,124 @@ const Product = ({
     }
   };
 
+  const renderProduct = (image) => (
+    <div key={image}>
+      <img
+        className={classes.image}
+        src={`${BASE_URL}/api/v1/files/${image}`}
+        alt={image}
+      />
+    </div>
+  )
+
+  if (fetching || recommendedProductsFetching) {
+    return <Loader padding />
+  }
+
   return (
     <>
-      {isEmpty(product) ? (
-        fetching ? (
-          <Loader padding />
-        ) : (
-          <Typography> No Product Found </Typography>
-        )
-      ) : (
-        <>
-          <ContentContainer className={classes.container}>
-            <Grid container spacing={2}>
-              <Grid item sm={6} xs={12} className={classes.leftSection}>
-                <div className={classes.slideImageContainer}>
-                  <SwipeableViews
-                    index={activeStep}
-                    onChangeIndex={handleChangeIndex}
-                    enableMouseEvents
+     {!isValid 
+     ? (<NoProduct />)
+     : (
+        <ContentContainer maxWidth="lg" className={classes.container}>
+        <Grid container spacing={3}>
+          <Grid item sm={6} xs={12} className={classes.leftSection}>
+            <div className={classes.slideImageContainer}>
+              <SwipeableViews
+                index={activeStep}
+                onChangeIndex={handleChangeIndex}
+                enableMouseEvents
+              >
+                {(productReader.images(product) || []).map(renderProduct)}
+              </SwipeableViews>
+
+              <MobileStepper
+                variant='dots'
+                steps={(productReader.images(product) || []).length}
+                position='static'
+                activeStep={activeStep}
+                className={classes.slideImageContainer}
+                nextButton={
+                  <IconButton
+                    onClick={handleNext}
+                    disabled={
+                      activeStep ===
+                      ((productReader.images(product) || []).length - 1)}
                   >
-                    {product.images.length !== 0 &&
-                      product.images.map((image) => (
-                        <div key={image}>
-                          <img
-                            className={classes.image}
-                            src={`${BASE_URL}/api/v1/files/${
-                              product.images.length !== 0 && product.images[0]
-                            }`}
-                            alt={image}
-                          />
-                        </div>
-                      ))}
-                  </SwipeableViews>
-                  <MobileStepper
-                    variant='dots'
-                    steps={product.images.length !== 0 && product.images.length}
-                    position='static'
-                    activeStep={activeStep}
-                    className={classes.slideImageContainer}
-                    nextButton={
-                      <IconButton
-                        onClick={handleNext}
-                        disabled={
-                          activeStep ===
-                          (product.images.length !== 0 &&
-                            product.images.length) -
-                            1
-                        }
-                      >
-                        <ArrowRightIcon fontSize='large' />
-                      </IconButton>
-                    }
-                    backButton={
-                      <IconButton
-                        onClick={handleBack}
-                        disabled={activeStep === 0}
-                      >
-                        <ArrowLeftIcon fontSize='large' />
-                      </IconButton>
-                    }
-                  />
-                </div>
+                    <ArrowRightIcon fontSize='large' />
+                  </IconButton>
+                }
+                backButton={
+                  <IconButton
+                    onClick={handleBack}
+                    disabled={activeStep === 0}
+                  >
+                    <ArrowLeftIcon fontSize='large' />
+                  </IconButton>
+                }
+              />
+            </div>
+          </Grid>
+
+          <Grid item sm={6} xs={12} className={classes.rightSection}>
+            <Grid
+              container
+              direction='column'
+              justify='space-between'
+              alignItems='flex-start'
+              className={classes.productDetailsContainer}
+            >
+              <Grid item>
+                <Typography variant='h4' color='textPrimary' gutterBottom>
+                  {product.title}
+                </Typography>
+                <Typography variant="caption">Free Shipping*</Typography>
+                <Typography variant='h5' color='textPrimary' gutterBottom>
+                  ${product.price}
+                </Typography>
+                <Typography variant="body2" gutterBottom className={classes.description}>
+                  {product.description}
+                </Typography>
               </Grid>
-              <Grid item sm={6} xs={12} className={classes.rightSection}>
-                <Grid
-                  container
-                  direction='column'
-                  justify='space-between'
-                  alignItems='flex-start'
-                  className={classes.productDetailsContainer}
-                >
-                  <Grid item>
-                    <Typography variant='h4' gutterBottom>
-                      {product.title}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant='h6' color='textSecondary' gutterBottom>
-                      {product.price}
-                    </Typography>
-                  </Grid>
-                  <Grid item className={classes.productDescriptionContainer}>
-                    <Typography variant='caption'>
-                      {product.description}
-                    </Typography>
-                  </Grid>
 
-                  <Grid item className={classes.quantityGridContainer}>
-                    <QuantityButton
-                      quantity={quantity}
-                      setQuantity={setQuantity}
-                      localIncrementProduct={localIncrementProduct}
-                      localDecrementProduct={localDecrementProduct}
-                    />
-                  </Grid>
+              <Grid item className={classes.quantityGridContainer}>
+                <QuantityButton
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  localIncrementProduct={localIncrementProduct}
+                  localDecrementProduct={localDecrementProduct}
+                />
+              </Grid>
 
-                  <Grid item className={classes.cartButtonContainer}>
-                    <Button
-                      startIcon={<ShoppingCartIcon />}
-                      label='Add To Cart'
-                      variant='contained'
-                      color='primary'
-                      onClick={() =>
-                        user.name ? handleCart() : setIsSignInOpen(true)
-                      }
-                      className={classes.cartButton}
-                    />
-                  </Grid>
-                </Grid>
+              <Grid item className={classes.cartButtonContainer}>
+                <Button
+                  startIcon={<ShoppingCartIcon />}
+                  label='Add To Cart'
+                  variant='contained'
+                  color='primary'
+                  onClick={() =>
+                    user.name ? handleCart() : setIsSignInOpen(true)
+                  }
+                  className={classes.cartButton}
+                />
               </Grid>
             </Grid>
-          </ContentContainer>
-
-          <Cart
-            isCartVisible={isCartVisible}
-            setIsCartVisible={setIsCartVisible}
-          />
-        </>
+          </Grid>
+        </Grid>
+      </ContentContainer>
       )}
+      
+
+      <RecommendedProducts 
+        title="You might also like"
+        data={recommendedProductsInfo}
+        recommendedProductsFetching={recommendedProductsFetching}
+      />
+
+      <Cart
+        isCartVisible={isCartVisible}
+        setIsCartVisible={setIsCartVisible}
+      />
     </>
   );
 };
@@ -238,7 +244,7 @@ Product.propTypes = {
 Product.defaultProps = {
   user: {},
   page: 0,
-  fetching: false,
+  fetching: true,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -249,8 +255,11 @@ function mapStateToProps(state) {
   return {
     user: state.auth.user,
     product: state.product.product,
+    isValid: state.product.isValid,
     cart: state.cart.cart,
     fetching: state.product.fetching,
+    recommendedProductsInfo: state.productsInfo.productsInfo,
+    recommendedProductsFetching: state.productsInfo.fetching,
   };
 }
 

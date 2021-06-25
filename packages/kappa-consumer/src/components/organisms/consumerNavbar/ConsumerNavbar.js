@@ -222,7 +222,7 @@ const ConsumerNavbar = ({
           </IconButton>
         </div>
       </div>
-      <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />
+      {/* <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} /> */}
       <SignIn
         isOpen={isSignInOpen}
         setIsOpen={() => {

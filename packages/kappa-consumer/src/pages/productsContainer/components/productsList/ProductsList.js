@@ -16,7 +16,7 @@ import Pagination from '../../../../components/atoms/pagination';
 import FiltersPanel from '../../../../components/molecules/filtersPanel';
 
 /* READERS */
-import productsReader from '../../../../readers/productsContainer.readers';
+import productsReader from '../../../../readers/productsList.readers';
 
 /* STYLES */
 import useStyles from './productsList.styles';
@@ -29,7 +29,7 @@ import FilterListIcon from '../../../../assets/images/filterList';
 import isEmpty from '../../../../utils/isEmpty.utils';
 
 /* HELPERS */
-import getCategoryName from '../../helpers/getCategoryName.helpers'
+import getCategoryName from '../../../../helpers/getCategoryName.helpers'
 
 /* CONSTANTS */
 import FILTER_PRODUCTS from '../../constants/filterProducts.constants';
@@ -48,7 +48,6 @@ const renderProduct = (layout, categoryName) => (product) => (
   <Grid 
     key={productsReader.id(product)}
     item 
-    // lg={layout.numberOfProducts} 
     md={4} 
     sm={6} 
     xs={6}
@@ -58,7 +57,6 @@ const renderProduct = (layout, categoryName) => (product) => (
         && productsReader.images(product))}
       categoryName={categoryName}
       name={productsReader.name(product)}
-      height={layout.height}
       price={productsReader.price(product)}
       id={productsReader.id(product)}
     />

@@ -7,18 +7,15 @@ import { bindActionCreators } from 'redux';
 
 import clsx from 'clsx';
 
-// responsive
+/* RESPONSIVE */
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
 /* COMPONENTS */
-// atoms
 import Button from '@kappa/components/src/atoms/button';
 import Typography from '@kappa/components/src/atoms/typography';
 import Paper from '@kappa/components/src/atoms/paper';
 import Loader from '@kappa/components/src/atoms/loader';
-
-// molecules
 import Drawer from '@kappa/components/src/molecules/drawer';
 import QuantityButton from '../../molecules/quantityButton';
 
@@ -33,10 +30,73 @@ import ActionCreators from '../../../actions';
 import CloseIcon from '../../../assets/images/close';
 import SadIcon from '../../../assets/images/sad';
 
+/* CONSTANTS */
 import BASE_URL from '../../../constants/baseURL';
 
 /* UTILS */
 import isEmpty from '../../../utils/isEmpty.utils';
+import get from '../../../utils/get.utils';
+
+/* READERS */
+import cartReaders from '../../../readers/cart.readers';
+
+/* HELPERS */
+import incrementProduct from './helpers/incrementProduct.helpers';
+import deleteProduct from './helpers/deleteProduct.helpers';
+import decrementProduct from './helpers/decrementProduct.helpers';
+
+const renderEmptyProduct = () => (
+  <>
+    <Typography gutterBottom>
+      You haven&apos;t added anything yet
+    </Typography>
+    <SadIcon fontSize='large' />
+  </>
+)
+
+const renderProduct = (
+  fetching, 
+  updateCart,
+  incrementProduct, 
+  decrementProduct, 
+  deleteProduct,
+  deleteProductFromCart,
+  classes
+  ) => 
+  (cartData) => (
+    <div key={cartReaders.id(cartData)} className={classes.product}>
+    <img
+      className={classes.image}
+      src={`${BASE_URL}/api/v1/files/${(!isEmpty(get(cartData, 'product.images')))
+        && cartData.product.images[0]
+      }`}
+      alt={cartReaders.name(cartData.product)}
+    />
+    <div className={classes.productDescription}>
+      <div>
+        <Typography variant='h6'>
+          {cartReaders.name(cartData.product)}
+        </Typography>
+        <Typography variant='body1'>
+          ${cartReaders.price(cartData.product)}
+        </Typography>
+      </div>
+      <div className={classes.productActions}>
+        <QuantityButton
+          quantity={cartReaders.quantity(cartData)}
+          incrementProduct={incrementProduct(cartData, updateCart)}
+          decrementProduct={decrementProduct(cartData, updateCart, deleteProductFromCart)}
+          fetching={fetching}
+        />
+        <Button
+          label='REMOVE'
+          className={classes.removeButton}
+          onClick={deleteProduct(cartReaders.id(cartData), deleteProductFromCart)}
+        />
+      </div>
+      </div>
+    </div>
+  )
 
 const Cart = ({
   getCart,
@@ -57,31 +117,24 @@ const Cart = ({
     if (user && user.name) getCart();
   }, [user, getCart]);
 
-  const incrementProduct = (data) => {
-    const { _id, quantity } = data;
-
-    if (quantity < 10) {
-      updateCart({
-        itemId: _id,
-        type: 'inc',
-      });
+  const renderCart = () => {
+    if (fetching) {
+      return <Loader padding />
     }
-  };
 
-  const decrementProduct = (data) => {
-    const { _id, quantity } = data;
-
-    if (quantity > 1) {
-      updateCart({
-        itemId: _id,
-        type: 'dec',
-      });
+    if(isEmpty(cart)) {
+      return renderEmptyProduct();
     }
-  };
 
-  const deleteProduct = (id) => {
-    deleteProductFromCart(id);
-  };
+    return cart.map(renderProduct(
+      fetching, 
+      updateCart,
+      incrementProduct, 
+      decrementProduct, 
+      deleteProduct, 
+      deleteProductFromCart,
+      classes))
+  }
 
   return (
     <Drawer
@@ -97,6 +150,7 @@ const Cart = ({
           onClick={() => setIsCartVisible(false)}
         />
       )}
+
       <div className={classes.root}>
         <div className={classes.header}>
           <Typography variant='h5' gutterBottom>
@@ -106,63 +160,16 @@ const Cart = ({
             You are eligible for free shipping
           </Typography>
         </div>
+
         <div
           className={clsx(
             classes.productsList,
             isEmpty(cart) && classes.emptyCart
           )}
         >
-          {isEmpty(cart) ? (
-            fetching ? (
-              <Loader padding />
-            ) : (
-              <>
-                <Typography gutterBottom>
-                  You haven&apos;t added anything yet
-                </Typography>
-                <SadIcon fontSize='large' />
-              </>
-            )
-          ) : (
-            cart &&
-            cart.map((cartData) => (
-              <div key={cartData.product.id} className={classes.product}>
-                <img
-                  className={classes.image}
-                  src={`${BASE_URL}/api/v1/files/${
-                    cartData.product &&
-                    cartData.product.images.length &&
-                    cartData.product.images[0]
-                  }`}
-                  alt={cartData.product.title}
-                />
-                <div className={classes.productDescription}>
-                  <div>
-                    <Typography variant='h6'>
-                      {cartData.product.title}
-                    </Typography>
-                    <Typography variant='body1'>
-                      {cartData.product.price}
-                    </Typography>
-                  </div>
-                  <div className={classes.productActions}>
-                    <QuantityButton
-                      quantity={cartData.quantity}
-                      incrementProduct={() => incrementProduct(cartData)}
-                      decrementProduct={() => decrementProduct(cartData)}
-                      fetching={fetching}
-                    />
-                    <Button
-                      label='REMOVE'
-                      className={classes.removeButton}
-                      onClick={() => deleteProduct(cartData._id)}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
+          {renderCart()}
         </div>
+        
         <Paper className={classes.footer} elevation={10}>
           <Typography variant='caption' gutterBottom>
             Shipping & taxes calculated at checkout

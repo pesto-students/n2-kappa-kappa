@@ -1,9 +1,6 @@
 /* CONSTANTS */
 import BASE_URL from '../../constants/baseURL';
 
-/* UTILS */
-import objToQueryString from '../../utils/objToQueryStrings';
-
 /* HELPERS */
 import callApi from '../../helpers/callApi';
 
@@ -33,5 +30,10 @@ export function filterByDiscount(type, query, limit, page, minDiscount) {
 export function sortProducts(type, query, limit, page, sortBy) {
   const baseProductsURL = getProductsURL(type, query, limit, page);
   const url = `${baseProductsURL}&sort=${sortBy}`;
+  return callApi(url);
+}
+
+export function getRecommendedProductsInfo(limit) {
+  const url = `${BASE_URL}/${PRODUCTS_BASE_URL}?limit=${limit}&priority=true`;
   return callApi(url);
 }

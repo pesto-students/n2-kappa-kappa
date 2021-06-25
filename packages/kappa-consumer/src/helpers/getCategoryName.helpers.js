@@ -1,4 +1,4 @@
-import get from '../../../utils/get.utils';
+import get from '../utils/get.utils';
 
 const getCategoryName = (productsInfo) => {
   return get(productsInfo, 'category.categoryName', '')

@@ -62,3 +62,18 @@ export function sortProducts(...params) {
     }, handleError);
   };
 }
+
+export function getRecommendedProductsInfo(...params) {
+  return (dispatch) => {
+    dispatch({
+      type: 'FETCHING_PRODUCTS_INFO',
+    });
+
+    return productsServices.getRecommendedProductsInfo(...params).then((res) => {
+      dispatch({
+        type: 'FETCHED_PRODUCTS_INFO',
+        payload: res,
+      });
+    }, handleError);
+  };
+}

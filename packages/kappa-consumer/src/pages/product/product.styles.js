@@ -1,26 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const borderRadius = 27;
-
 export default makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
+    margin: theme.spacing(8, 'auto'),
   },
   slideImageContainer: {
-    maxWidth: 350,
+    maxWidth: 450,
     flexGrow: 1,
     '& .MuiMobileStepper-root': {
       background: 'unset',
     },
   },
   image: {
-    height: 355,
+    height: 480,
     display: 'block',
-    maxWidth: 350,
+    maxWidth: 450,
     overflow: 'hidden',
     width: '100%',
-    borderRadius,
   },
   leftSection: {
     display: 'flex',
@@ -28,12 +24,12 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     alignContent: 'center',
   },
-  rightSection: { },
   productDetailsContainer: {
-    height: '100%',
+    height: '90%',
     [theme.breakpoints.only('xs')]: {
-      height: 410,
+      height: 380,
       alignItems: 'center',
+      textAlign: 'center'
     },
   },
   quantityGridContainer: {
@@ -58,9 +54,8 @@ export default makeStyles((theme) => ({
       width: '100%',
     },
   },
-  productDescriptionContainer: {
-    [theme.breakpoints.only('xs')]: {
-      textAlign: 'center',
-    },
+  description: {
+    marginTop: theme.spacing(4),
+    maxWidth: 500,
   },
 }));

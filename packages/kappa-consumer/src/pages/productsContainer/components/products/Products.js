@@ -13,10 +13,10 @@ import ProductsList from '../productsList';
 import isEmpty from '../../../../utils/isEmpty.utils';
 
 /* HELPERS */
-import getCategoryName from '../../helpers/getCategoryName.helpers';
+import getCategoryName from '../../../../helpers/getCategoryName.helpers';
 
 /* READERS */
-import productsReader from '../../../../readers/productsContainer.readers';
+import productsReader from '../../../../readers/productsList.readers';
 
 /* CONSTANTS */
 import LIMIT from '../../constants/limit.constants';

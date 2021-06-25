@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
     marginLeft: 0,
     maxWidth: 200,
     width: '100%',
-    maxHeight: 514,
+    maxHeight: 700,
     position: 'sticky',
     overflow: 'hidden scroll',
   },
