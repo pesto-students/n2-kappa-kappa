@@ -12,7 +12,7 @@ import Checkbox from '../../atoms/checkbox';
 import useStyles from './editAddressModal.styles';
 
 const Transition = React.forwardRef((props, ref) => (
-  <Slide direction='up' ref={ref} {...props} />
+  <Slide direction="up" ref={ref} {...props} />
 ));
 
 const EditAddressModal = ({
@@ -24,7 +24,6 @@ const EditAddressModal = ({
   data,
   handleUpdateAddress,
   deleteAddress,
-  type,
 }) => {
   const [address, setAddress] = useState({
     address: '',
@@ -36,7 +35,6 @@ const EditAddressModal = ({
   });
 
   useEffect(() => {
-    console.log(data, 'data in edit mode');
     if (data) {
       setAddress(data);
     }
@@ -53,9 +51,9 @@ const EditAddressModal = ({
     }));
   };
 
-  const submitAddress = (address) => {
+  const submitAddress = (addressInfo) => {
     if (cancelTitle === 'Cancel') {
-      handleSubmitAddress(address);
+      handleSubmitAddress(addressInfo);
       setAddress({
         address: '',
         city: '',
@@ -65,7 +63,7 @@ const EditAddressModal = ({
         default: false,
       });
     } else {
-      handleUpdateAddress(address);
+      handleUpdateAddress(addressInfo);
       setAddress({
         address: '',
         city: '',
@@ -102,75 +100,75 @@ const EditAddressModal = ({
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-labelledby='alert-dialog-slide-title'
-        aria-describedby='alert-dialog-slide-description'
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id='alert-dialog-slide-title'>{dialogTitle}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{dialogTitle}</DialogTitle>
         <DialogContent>
-          <form noValidate autoComplete='off' className={classes.root}>
-            <Box width='100%'>
+          <form noValidate autoComplete="off" className={classes.root}>
+            <Box width="100%">
               <TextField
-                id='standard-basic'
+                id="standard-basic"
                 fullWidth
                 className={classes.verticalSpacing}
                 value={address.address}
                 onChange={handleChange}
-                name='address'
-                label='Address Line'
-                variant='outlined'
+                name="address"
+                label="Address Line"
+                variant="outlined"
               />
               <Box
-                width='100%'
+                width="100%"
                 className={`${classes.flex} ${classes.verticalSpacing}`}
               >
                 <TextField
-                  id='standard-basic'
+                  id="standard-basic"
                   value={address.city}
                   onChange={handleChange}
-                  name='city'
-                  label='City'
-                  variant='outlined'
+                  name="city"
+                  label="City"
+                  variant="outlined"
                 />
                 <TextField
-                  id='standard-basic'
+                  id="standard-basic"
                   value={address.state}
                   onChange={handleChange}
-                  name='state'
-                  label='State'
-                  variant='outlined'
+                  name="state"
+                  label="State"
+                  variant="outlined"
                 />
               </Box>
               <Box
-                width='100%'
+                width="100%"
                 className={`${classes.flex} ${classes.verticalSpacing}`}
               >
                 <TextField
-                  id='standard-basic'
+                  id="standard-basic"
                   value={address.country}
                   onChange={handleChange}
-                  name='country'
-                  label='Country'
-                  variant='outlined'
+                  name="country"
+                  label="Country"
+                  variant="outlined"
                 />
                 <TextField
-                  id='standard-basic'
+                  id="standard-basic"
                   value={address.postalCode}
                   onChange={handleChange}
-                  name='postalCode'
-                  label='Postal Code'
-                  variant='outlined'
+                  name="postalCode"
+                  label="Postal Code"
+                  variant="outlined"
                 />
               </Box>
               <Box className={classes.verticalSpacing}>
                 <FormControlLabel
-                  control={
+                  control={(
                     <Checkbox
-                      name='default'
+                      name="default"
                       checked={!!address.default}
                       onChange={handleChange}
                     />
-                  }
-                  label='Make this my default address'
+                  )}
+                  label="Make this my default address"
                 />
                 {/* onChange=
                 {(e) => {
@@ -182,11 +180,11 @@ const EditAddressModal = ({
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => closeButton(address._id)} color='primary'>
+          <Button onClick={() => closeButton(address._id)} color="primary">
             {cancelTitle}
           </Button>
           {}
-          <Button onClick={() => submitAddress(address)} color='primary'>
+          <Button onClick={() => submitAddress(address)} color="primary">
             Save
           </Button>
         </DialogActions>

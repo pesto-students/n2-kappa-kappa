@@ -8,7 +8,7 @@ import Radio from '../../atoms/radio';
 /* STYLES */
 
 import useStyles from './addressCard.styles';
-import EditIcon from '../../../../src/assets/images/edit';
+import EditIcon from '../../../assets/images/edit';
 
 import EditAddressModal from '../editAddressModal';
 
@@ -47,36 +47,37 @@ const AddressCard = ({
           <Paper className={classes.addressPaper}>
             <Radio
               checked={address.default === true}
-              onChange={() =>
-                handleUpdateAddress({ ...address, default: true })
-              }
+              onChange={() => handleUpdateAddress({ ...address, default: true })}
               value={i}
-              name='radio-button-demo'
+              name="radio-button-demo"
             />
             <div>
               <Typography
-                color='textPrimary'
+                color="textPrimary"
                 className={`${classes.flexStart} ${classes.addressFont}`}
-                variant='body2'
+                variant="body2"
               >
                 {address.address}
               </Typography>
 
               <div>
                 <Typography
-                  color='textPrimary'
+                  color="textPrimary"
                   className={classes.flexStart}
-                  variant='body2'
+                  variant="body2"
                 >
-                  {address.city} - {address.postalCode}
+                  {address.city}
+                  {' '}
+                  -
+                  {address.postalCode}
                 </Typography>
               </div>
 
               <div>
                 <Typography
-                  color='textPrimary'
+                  color="textPrimary"
                   className={classes.flexStart}
-                  variant='body2'
+                  variant="body2"
                 >
                   {address.state}
                 </Typography>
@@ -87,9 +88,9 @@ const AddressCard = ({
               onClick={() => handleClickOpen(address)}
             />
             <Typography
-              color='textPrimary'
+              color="textPrimary"
               className={classes.countryName}
-              variant='body2'
+              variant="body2"
             >
               {address.country}
             </Typography>
@@ -100,8 +101,8 @@ const AddressCard = ({
         handleClickOpen={handleClickOpen}
         handleClose={clearAddress}
         open={open}
-        dialogTitle={'Edit Address'}
-        cancelTitle={'Delete'}
+        dialogTitle="Edit Address"
+        cancelTitle="Delete"
         data={updateAddress}
         handleSubmitAddress={(address) => {
           handleSubmitAddress(address);

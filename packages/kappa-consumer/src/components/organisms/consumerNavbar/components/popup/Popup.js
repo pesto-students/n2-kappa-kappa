@@ -13,9 +13,7 @@ import Dialog from '@kappa/components/src/atoms/dialog';
 // Styles
 import useStyles from './popup.styles';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});  
+const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
 const Popup = (props) => {
   const {

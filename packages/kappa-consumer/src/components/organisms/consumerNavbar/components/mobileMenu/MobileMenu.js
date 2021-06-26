@@ -8,36 +8,26 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 /* COMPONENTS */
 import Button from '@kappa/components/src/atoms/button';
 import Typography from '@kappa/components/src/atoms/typography';
-import Paper from '@kappa/components/src/atoms/paper';
 import Drawer from '@kappa/components/src/molecules/drawer';
 import List from '@kappa/components/src/atoms/list';
-import ProfileMenu from '../../components/profileMenu';
-import PersonIcon from '../../../../../assets/images/person';
 
 /* READERS */
-import productsReader from '../../../../../readers/productsList.readers';
 
 /* COMPONENTS */
-import ProductCard from '@kappa/components/src/molecules/productCard';
-import Grid from '@kappa/components/src/atoms/grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import PersonIcon from '../../../../../assets/images/person';
+import ProfileMenu from '../profileMenu';
 import categoriesReaders from '../../../../../readers/categories.readers';
 
 /* STYLES */
 import useStyles from './mobileMenu.styles';
-
-/* ASSETS */
-// images
-// import CloseIcon from '../../../assets/images/close';
-// import SadIcon from '../../../assets/images/sad';
 
 const MobileMenu = ({
   categories,
   isMobileMenuVisible,
   setIsMobileMenuVisible,
   user,
-  setIsCartVisible,
   setIsSignInOpen,
   setProfileMenu,
   logoutUser,
@@ -51,7 +41,7 @@ const MobileMenu = ({
     <Drawer
       isDrawerVisible={isMobileMenuVisible}
       setIsDrawerVisible={setIsMobileMenuVisible}
-      anchor={'right'}
+      anchor="right"
       // large={!isXtraSmall}
       // full={isXtraSmall}
     >
@@ -64,7 +54,7 @@ const MobileMenu = ({
 
       <div className={classes.root}>
         <div className={classes.header}>
-          <Typography variant='h5' gutterBottom>
+          <Typography variant="h5" gutterBottom>
             MR NOMAD
           </Typography>
 

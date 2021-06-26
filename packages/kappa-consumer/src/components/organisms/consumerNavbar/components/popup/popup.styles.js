@@ -8,6 +8,5 @@ export default makeStyles(() => ({
     '& .MuiFormHelperText-root': {
       lineHeight: 'unset',
     },
-    // maxWidth: 380,
   },
 }));

@@ -1,7 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-// const borderRadius = 27;
-
 export default makeStyles((theme) => ({
   closeIcon: {
     position: 'absolute',
@@ -80,13 +78,12 @@ export default makeStyles((theme) => ({
       textDecoration: 'unset',
     },
     padding: 'unset !important',
-    // width: '50%',
     textTransform: 'capitalize',
     '& .MuiTypography-root': {
       fontSize: 22,
-    }
+    },
   },
   listItem: {
     marginRight: theme.spacing(4),
-  }
+  },
 }));

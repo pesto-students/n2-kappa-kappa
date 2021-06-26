@@ -23,15 +23,15 @@ const SectionMobile = ({
   setIsCartVisible,
   setIsMobileMenuVisible,
   setIsSignInOpen,
-  user
+  user,
 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.sectionMobile}>
       <div className={classes.sectionLeftMobile}>
-        <Link className={classes.logoContainer} to='/'>
-          <img src={logo} className={classes.logo} alt='Mr-Nomad-Logo' />
+        <Link className={classes.logoContainer} to="/">
+          <img src={logo} className={classes.logo} alt="Mr-Nomad-Logo" />
         </Link>
       </div>
       <div className={classes.sectionRightMobile}>
@@ -46,12 +46,12 @@ const SectionMobile = ({
                 <InputBase
                   autoFocus
                   onBlur={() => setMobileSearchVisible(false)}
-                  placeholder='Search…'
+                  placeholder="Search…"
                   classes={{
                     root: classes.inputRoot,
                     input: classes.inputInputMobile,
                   }}
-                  type='text'
+                  type="text"
                   onKeyDown={handleKeyDown}
                   value={searchText}
                   onChange={handleSearch}
@@ -74,13 +74,13 @@ const SectionMobile = ({
                     <ShoppingCartIcon />
                   </IconButton>
                 ) : (
-                    <IconButton
-                      className={classes.button}
-                      onClick={() => setIsSignInOpen(true)}
-                    >
-                      <ShoppingCartIcon />
-                    </IconButton>
-                  )}
+                  <IconButton
+                    className={classes.button}
+                    onClick={() => setIsSignInOpen(true)}
+                  >
+                    <ShoppingCartIcon />
+                  </IconButton>
+                )}
 
                 <IconButton
                   onClick={() => setIsMobileMenuVisible(true)}

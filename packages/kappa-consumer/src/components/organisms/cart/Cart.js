@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -50,21 +49,20 @@ const renderEmptyProduct = () => (
     <Typography gutterBottom>
       You haven&apos;t added anything yet
     </Typography>
-    <SadIcon fontSize='large' />
+    <SadIcon fontSize="large" />
   </>
-)
+);
 
 const renderProduct = (
-  fetching, 
+  fetching,
   updateCart,
-  incrementProduct, 
-  decrementProduct, 
-  deleteProduct,
+  incrementItem,
+  decrementItem,
+  deleteItem,
   deleteProductFromCart,
-  classes
-  ) => 
-  (cartData) => (
-    <div key={cartReaders.id(cartData)} className={classes.product}>
+  classes,
+) => (cartData) => (
+  <div key={cartReaders.id(cartData)} className={classes.product}>
     <img
       className={classes.image}
       src={`${BASE_URL}/api/v1/files/${(!isEmpty(get(cartData, 'product.images')))
@@ -74,29 +72,30 @@ const renderProduct = (
     />
     <div className={classes.productDescription}>
       <div>
-        <Typography variant='h6'>
+        <Typography variant="h6">
           {cartReaders.name(cartData.product)}
         </Typography>
-        <Typography variant='body1'>
-          ${cartReaders.price(cartData.product)}
+        <Typography variant="body1">
+          $
+          {cartReaders.price(cartData.product)}
         </Typography>
       </div>
       <div className={classes.productActions}>
         <QuantityButton
           quantity={cartReaders.quantity(cartData)}
-          incrementProduct={incrementProduct(cartData, updateCart)}
-          decrementProduct={decrementProduct(cartData, updateCart, deleteProductFromCart)}
+          incrementProduct={incrementItem(cartData, updateCart)}
+          decrementProduct={decrementItem(cartData, updateCart, deleteProductFromCart)}
           fetching={fetching}
         />
         <Button
-          label='REMOVE'
+          label="REMOVE"
           className={classes.removeButton}
-          onClick={deleteProduct(cartReaders.id(cartData), deleteProductFromCart)}
+          onClick={deleteItem(cartReaders.id(cartData), deleteProductFromCart)}
         />
       </div>
-      </div>
     </div>
-  )
+  </div>
+);
 
 const Cart = ({
   getCart,
@@ -119,22 +118,23 @@ const Cart = ({
 
   const renderCart = () => {
     if (fetching) {
-      return <Loader padding />
+      return <Loader padding />;
     }
 
-    if(isEmpty(cart)) {
+    if (isEmpty(cart)) {
       return renderEmptyProduct();
     }
 
     return cart.map(renderProduct(
-      fetching, 
+      fetching,
       updateCart,
-      incrementProduct, 
-      decrementProduct, 
-      deleteProduct, 
+      incrementProduct,
+      decrementProduct,
+      deleteProduct,
       deleteProductFromCart,
-      classes))
-  }
+      classes,
+    ));
+  };
 
   return (
     <Drawer
@@ -153,10 +153,10 @@ const Cart = ({
 
       <div className={classes.root}>
         <div className={classes.header}>
-          <Typography variant='h5' gutterBottom>
+          <Typography variant="h5" gutterBottom>
             CART
           </Typography>
-          <Typography variant='caption' gutterBottom>
+          <Typography variant="caption" gutterBottom>
             You are eligible for free shipping
           </Typography>
         </div>
@@ -164,40 +164,29 @@ const Cart = ({
         <div
           className={clsx(
             classes.productsList,
-            isEmpty(cart) && classes.emptyCart
+            isEmpty(cart) && classes.emptyCart,
           )}
         >
           {renderCart()}
         </div>
-        
+
         <Paper className={classes.footer} elevation={10}>
-          <Typography variant='caption' gutterBottom>
+          <Typography variant="caption" gutterBottom>
             Shipping & taxes calculated at checkout
           </Typography>
           <Button
-            variant='contained'
-            color='primary'
-            label='Checkout'
+            variant="contained"
+            color="primary"
+            label="Checkout"
             className={classes.checkoutButton}
             component={Link}
             onClick={() => setIsCartVisible(false)}
-            to='/checkout'
+            to="/checkout"
           />
         </Paper>
       </div>
     </Drawer>
   );
-};
-
-Cart.propTypes = {
-  user: PropTypes.object,
-  // getCart,
-  // cart,
-  // fetching,
-  // isCartVisible,
-  // setIsCartVisible,
-  // updateCart,
-  // deleteProductFromCart,
 };
 
 Cart.defaultProps = {

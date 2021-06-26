@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,7 +19,7 @@ import Checkbox from '@kappa/components/src/atoms/checkbox';
 import FormControlLabel from '@kappa/components/src/atoms/formControlLabel';
 import Link from '@kappa/components/src/atoms/link';
 
-import Popup from '../../organisms/consumerNavbar/components/popup';
+import Popup from '../consumerNavbar/components/popup';
 
 // Styles
 import useStyles from './modal.styles';
@@ -86,11 +88,11 @@ const Modal = ({
 
   const handleResetPass = () => {
     if (
-      loginDetails.password1 &&
-      loginDetails.password1.length >= 6 &&
-      loginDetails.password2 &&
-      loginDetails.password2.length >= 6 &&
-      loginDetails.password1 === loginDetails.password2
+      loginDetails.password1
+      && loginDetails.password1.length >= 6
+      && loginDetails.password2
+      && loginDetails.password2.length >= 6
+      && loginDetails.password1 === loginDetails.password2
     ) {
       resetPassword({
         resetPasswordToken: resetTokenValue,
@@ -103,7 +105,7 @@ const Modal = ({
       });
       setErrorMessage('');
     } else {
-      setErrorMessage(`Password doesn't match`);
+      setErrorMessage('Password doesn\'t match');
     }
   };
 
@@ -121,7 +123,7 @@ const Modal = ({
       <DialogTitle className={classes.title}>Welcome</DialogTitle>
       <DialogContent className={classes.content}>
         {resetPasswordState ? (
-          <Typography variant='body2' color='error'>
+          <Typography variant="body2" color="error">
             {message || errorMessage}
           </Typography>
         ) : null}
@@ -130,7 +132,7 @@ const Modal = ({
           fetching ? (
             <Loader />
           ) : (
-            <Typography variant='h6' color='error'>
+            <Typography variant="h6" color="error">
               {message}
             </Typography>
           )
@@ -139,24 +141,24 @@ const Modal = ({
         ) : verified ? null : (
           <>
             <TextField
-              margin='dense'
-              id='password'
-              label='Password'
-              type='password'
+              margin="dense"
+              id="password"
+              label="Password"
+              type="password"
               fullWidth
-              variant='outlined'
-              name='password1'
+              variant="outlined"
+              name="password1"
               value={loginDetails.password1}
               onChange={handleChange}
             />
             <TextField
-              margin='dense'
-              id='password'
-              label='Password'
-              type='password'
+              margin="dense"
+              id="password"
+              label="Password"
+              type="password"
               fullWidth
-              variant='outlined'
-              name='password2'
+              variant="outlined"
+              name="password2"
               value={loginDetails.password2}
               onChange={handleChange}
             />
@@ -169,7 +171,7 @@ const Modal = ({
           <></>
         ) : verification ? (
           <>
-            <Typography variant='body2' gutterBottom>
+            <Typography variant="body2" gutterBottom>
               <Link
                 onClick={() => {
                   clearAuthMessage();
@@ -184,9 +186,9 @@ const Modal = ({
         ) : null}
         {verified ? (
           <Button
-            label='Sign In Now'
-            variant='contained'
-            color='primary'
+            label="Sign In Now"
+            variant="contained"
+            color="primary"
             className={classes.button}
             onClick={() => {
               clearAuthMessage();
@@ -197,14 +199,15 @@ const Modal = ({
         ) : resetPasswordState ? (
           <>
             <Button
-              label='Reset Now'
-              variant='contained'
-              color='primary'
+              label="Reset Now"
+              variant="contained"
+              color="primary"
               className={classes.button}
               onClick={handleResetPass}
             />
-            <Typography variant='caption' gutterBottom>
-              Reset Password{' '}
+            <Typography variant="caption" gutterBottom>
+              Reset Password
+              {' '}
               <Link
                 onClick={() => {
                   clearAuthMessage();

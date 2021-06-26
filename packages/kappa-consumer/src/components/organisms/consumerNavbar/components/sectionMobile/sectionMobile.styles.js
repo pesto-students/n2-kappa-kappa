@@ -113,7 +113,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     '&:hover': {
       borderBottom: `3px solid ${theme.palette.primary.main}`,
-    }
+    },
   },
   tab: {
     cursor: 'default',

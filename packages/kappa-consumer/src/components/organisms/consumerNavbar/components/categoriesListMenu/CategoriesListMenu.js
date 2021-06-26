@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import List from '@kappa/components/src/atoms/list';
 
 /* READERS */
-import productsReader from '../../../../../readers/productsList.readers';
 
 /* COMPONENTS */
 import Paper from '@kappa/components/src/atoms/paper';
@@ -15,7 +14,8 @@ import ProductCard from '@kappa/components/src/molecules/productCard';
 import Grid from '@kappa/components/src/atoms/grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import categoriesReaders from '../../../../../readers/categories.readers'
+import productsReader from '../../../../../readers/productsList.readers';
+import categoriesReaders from '../../../../../readers/categories.readers';
 import useStyles from './categoriesList.styles';
 
 /* UTILS */
@@ -25,22 +25,20 @@ import BASE_URL from '../../../../../constants/baseURL';
 /* SERVICES */
 import ActionCreators from '../../../../../actions';
 
-const renderImage = (images) => {
-  return `${BASE_URL}/api/v1/files/${images[0]}`
-}
+const renderImage = (images) => `${BASE_URL}/api/v1/files/${images[0]}`;
 
 const renderProduct = (leaveMenu) => (product, index) => (
-  <Grid 
+  <Grid
     key={productsReader.id(product)}
     item
-    lg={3} 
-    md={4} 
-    sm={6} 
+    lg={3}
+    md={4}
+    sm={6}
     xs={12}
     onClick={leaveMenu}
   >
     <ProductCard
-      image={renderImage(!isEmpty(productsReader.images(product)) 
+      image={renderImage(!isEmpty(productsReader.images(product))
         && productsReader.images(product))}
       name={productsReader.name(product)}
       price={productsReader.price(product)}
@@ -49,7 +47,7 @@ const renderProduct = (leaveMenu) => (product, index) => (
       headerDescription={index === 0 ? 'Discover' : 'Discover Our Products'}
     />
   </Grid>
-)
+);
 
 const CategoriesListMenu = ({
   navbarProducts,
@@ -80,9 +78,9 @@ const CategoriesListMenu = ({
           display: 'flex',
         }}
       >
-        {categoriesReaders.data(categories).map((category, i) => (
+        {categoriesReaders.data(categories).map((category) => (
           <ListItem
-            key={i}
+            key={category}
             component={Link}
             to={`/${categoriesReaders.id(category)}/page/${1}`}
             onClick={leaveMenu}
@@ -97,10 +95,10 @@ const CategoriesListMenu = ({
           container
           spacing={5}
           className={classes.content}
-          justify='center'
+          justify="center"
         >
-          {!isEmpty(productsReader.data(navbarProducts)) &&
-            productsReader
+          {!isEmpty(productsReader.data(navbarProducts))
+            && productsReader
               .data(navbarProducts)
               .slice(0, 2)
               .map(renderProduct(leaveMenu))}

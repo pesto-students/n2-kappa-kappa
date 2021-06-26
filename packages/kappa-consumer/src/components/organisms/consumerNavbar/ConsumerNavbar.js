@@ -14,7 +14,6 @@ import SectionDesktop from './components/sectionDesktop';
 import SectionMobile from './components/sectionMobile';
 
 /* STYLES */
-import useStyles from './consumerNavbar.styles';
 import logo from '../../../assets/images/logo.png';
 
 /* UTILS */
@@ -66,7 +65,7 @@ const ConsumerNavbar = ({
   };
 
   useEffect(() => {
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (user && user.name && token) getOrders();
   }, [user, getOrders]);
 
@@ -94,7 +93,7 @@ const ConsumerNavbar = ({
   };
 
   useEffect(() => {
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token) {
       fetchUser();
     }
@@ -105,7 +104,7 @@ const ConsumerNavbar = ({
   };
 
   const routeChange = () => {
-    let path = `/${searchText}/page/${1}`;
+    const path = `/${searchText}/page/${1}`;
     history.push(path);
   };
 
@@ -119,7 +118,7 @@ const ConsumerNavbar = ({
 
   return (
     <>
-       <SectionDesktop 
+      <SectionDesktop
         enterTab={enterTab}
         leaveTab={leaveTab}
         logo={logo}
@@ -131,9 +130,9 @@ const ConsumerNavbar = ({
         setProfileMenu={setProfileMenu}
         setIsSignInOpen={setIsSignInOpen}
         setIsCartVisible={setIsSignInOpen}
-       />
+      />
 
-      <SectionMobile 
+      <SectionMobile
         logo={logo}
         mobileSearchVisible={mobileSearchVisible}
         setMobileSearchVisible={setMobileSearchVisible}
@@ -144,43 +143,43 @@ const ConsumerNavbar = ({
         setIsMobileMenuVisible={setIsMobileMenuVisible}
         setIsSignInOpen={setIsSignInOpen}
         user={user}
-       />
+      />
 
-        <Cart 
-          isCartVisible={isCartVisible} 
-          setIsCartVisible={setIsCartVisible} 
-        />
+      <Cart
+        isCartVisible={isCartVisible}
+        setIsCartVisible={setIsCartVisible}
+      />
 
-        <SignIn
-          isOpen={isSignInOpen}
-          setIsOpen={() => {
-            setIsSignInOpen();
-            clearAuthMessage();
-          }}
-          handleSignIn={handleSignIn}
-          handleForgetPass={handleForgetPass}
-        />
+      <SignIn
+        isOpen={isSignInOpen}
+        setIsOpen={() => {
+          setIsSignInOpen();
+          clearAuthMessage();
+        }}
+        handleSignIn={handleSignIn}
+        handleForgetPass={handleForgetPass}
+      />
 
-        <SignUp
-          isOpen={isSignUpOpen}
-          setIsOpen={(bool) => {
-            setIsSignUpOpen(bool);
-            clearAuthMessage();
-          }}
-          handleSignUp={handleSignUp}
-          handleForgetPass={handleForgetPass}
-        />
+      <SignUp
+        isOpen={isSignUpOpen}
+        setIsOpen={(bool) => {
+          setIsSignUpOpen(bool);
+          clearAuthMessage();
+        }}
+        handleSignUp={handleSignUp}
+        handleForgetPass={handleForgetPass}
+      />
 
-        <ForgetPass
-          isOpen={isForgetPassOpen}
-          setIsOpen={(bool) => {
-            setIsForgetPassOpen(bool);
-            clearAuthMessage();
-          }}
-          handleForgetPass={handleForgetPass}
-          handleSignIn={handleSignIn}
-          handleSignUp={handleSignUp}
-        />
+      <ForgetPass
+        isOpen={isForgetPassOpen}
+        setIsOpen={(bool) => {
+          setIsForgetPassOpen(bool);
+          clearAuthMessage();
+        }}
+        handleForgetPass={handleForgetPass}
+        handleSignIn={handleSignIn}
+        handleSignUp={handleSignUp}
+      />
 
       <CategoriesListMenu
         categories={categories}
@@ -216,5 +215,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ConsumerNavbar)
+  connect(mapStateToProps, mapDispatchToProps)(ConsumerNavbar),
 );

@@ -1,5 +1,5 @@
 /* READERS */
-import cartReaders from '../../../../readers/cart.readers'
+import cartReaders from '../../../../readers/cart.readers';
 
 const incrementProduct = (data, updateCart) => () => {
   cartReaders.id(data);
@@ -8,7 +8,7 @@ const incrementProduct = (data, updateCart) => () => {
 
   if (cartReaders.quantity(data) < cartReaders.countInStock(data.product)) {
     updateCart({
-      itemId:  cartReaders.id(data),
+      itemId: cartReaders.id(data),
       type: 'inc',
     });
   }

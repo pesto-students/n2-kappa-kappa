@@ -4,17 +4,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useHistory } from 'react-router-dom';
 
-import useStyles from './profile.menu.styles';
-
 export default function ProfileMenu({
   data,
   logoutUser,
   setProfileMenu,
-  profileMenuNumber,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
-  const classes = useStyles();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,15 +35,15 @@ export default function ProfileMenu({
   return (
     <>
       <Button
-        aria-controls='simple-menu'
-        aria-haspopup='true'
+        aria-controls="simple-menu"
+        aria-haspopup="true"
         onClick={handleClick}
         style={{ color: 'white', background: '#281659' }}
       >
         {data.name}
       </Button>
       <Menu
-        id='simple-menu'
+        id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}

@@ -29,7 +29,7 @@ const renderTabs = (classes, enterTab, leaveTab) => (
       </Typography>
     </div>
   </div>
-)
+);
 
 const SectionDesktop = ({
   enterTab,
@@ -49,8 +49,8 @@ const SectionDesktop = ({
   return (
     <div className={classes.sectionDesktop}>
       <div className={classes.sectionLeftDesktop}>
-        <Link className={classes.logoContainer} to='/'>
-          <img src={logo} className={classes.logo} alt='Mr-Nomad-Logo' />
+        <Link className={classes.logoContainer} to="/">
+          <img src={logo} className={classes.logo} alt="Mr-Nomad-Logo" />
         </Link>
         {renderTabs(classes, enterTab, leaveTab)}
       </div>
@@ -61,12 +61,12 @@ const SectionDesktop = ({
             <SearchIcon />
           </div>
           <InputBase
-            placeholder='Search…'
+            placeholder="Search…"
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
-            type='text'
+            type="text"
             onKeyDown={handleKeyDown}
             value={searchText}
             onChange={handleSearch}
@@ -80,15 +80,15 @@ const SectionDesktop = ({
             setProfileMenu={setProfileMenu}
           />
         ) : (
-            <>
-              <IconButton
-                className={classes.button}
-                onClick={() => setIsSignInOpen(true)}
-              >
-                <PersonIcon />
-              </IconButton>
-            </>
-          )}
+          <>
+            <IconButton
+              className={classes.button}
+              onClick={() => setIsSignInOpen(true)}
+            >
+              <PersonIcon />
+            </IconButton>
+          </>
+        )}
 
         {user.name ? (
           <IconButton
@@ -98,16 +98,16 @@ const SectionDesktop = ({
             <ShoppingCartIcon />
           </IconButton>
         ) : (
-            <IconButton
-              className={classes.button}
-              onClick={() => setIsSignInOpen(true)}
-            >
-              <ShoppingCartIcon />
-            </IconButton>
-          )}
+          <IconButton
+            className={classes.button}
+            onClick={() => setIsSignInOpen(true)}
+          >
+            <ShoppingCartIcon />
+          </IconButton>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default SectionDesktop;

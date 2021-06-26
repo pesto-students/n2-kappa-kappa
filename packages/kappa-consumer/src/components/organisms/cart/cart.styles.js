@@ -1,7 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-// const borderRadius = 27;
-
 export default makeStyles((theme) => ({
   closeIcon: {
     position: 'absolute',

@@ -1,5 +1,5 @@
 /* READERS */
-import cartReaders from '../../../../readers/cart.readers'
+import cartReaders from '../../../../readers/cart.readers';
 
 const decrementProduct = (data, updateCart, deleteProductFromCart) => () => {
   cartReaders.id(data);
@@ -8,11 +8,11 @@ const decrementProduct = (data, updateCart, deleteProductFromCart) => () => {
 
   if (cartReaders.quantity(data) > 1) {
     updateCart({
-      itemId:  cartReaders.id(data),
+      itemId: cartReaders.id(data),
       type: 'dec',
     });
   } else {
-    deleteProductFromCart(cartReaders.id(data))
+    deleteProductFromCart(cartReaders.id(data));
   }
 };
 

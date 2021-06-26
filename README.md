@@ -42,7 +42,7 @@ We believe that becoming a gentleman is a journey rather than a destination. And
 
 <br/>
 
-`Mr Nomad is an ecommerce platform which can be customized by utilizing an Admin Panel. <br/> The responsive nature of Kappa allows customers to shop from any and every device they own, with ease. <br/> A dedicated Admin Panel comes in handy for inventory management and to control the platform’s look and feel. <br/> It is equipped with the ability to create personal accounts that enables customers to have a profile section of their own, which also allows them to save a product to their cart, and shop anytime they find suitable. `
+Mr Nomad is an ecommerce platform which can be customized by utilizing an Admin Panel. <br/> The responsive nature of Kappa allows customers to shop from any and every device they own, with ease. <br/> A dedicated Admin Panel comes in handy for inventory management and to control the platform’s look and feel. <br/> It is equipped with the ability to create personal accounts that enables customers to have a profile section of their own, which also allows them to save a product to their cart, and shop anytime they find suitable.
 
 ## Features
 
@@ -66,7 +66,7 @@ We believe that becoming a gentleman is a journey rather than a destination. And
 
 ## Live Link
 
-Consumer App Link: [MR NOMAD]()
+Consumer App Link: [MR NOMAD](https://mrnomad.netlify.app/)
 
 Admin App Link: [Contact US]()
 
@@ -89,10 +89,10 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repos backend & frontend
    ```sh
-   https://github.com/pesto-students/n2-kappa-backend-kappa.git
+   git clone https://github.com/pesto-students/n2-kappa-backend-kappa.git
    ```
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/pesto-students/n2-kappa-kappa.git
    ```
 2. Install NPM packages in both
 
@@ -163,6 +163,7 @@ npm run start
 - [Trello](https://trello.com/)
 - [DigitalOcean](https://cloud.digitalocean.com/projects)
 - [Github](https://github.com/)
+- [Github Actions](https://github.com/features/actions)
 
 ### For Security
 
@@ -189,7 +190,7 @@ npm run start
 
 ## Resources
 
-- [Design Files]()
+- [Design Files](https://xd.adobe.com/view/7919cad2-8ec3-4427-9058-e21ec1edbdb4-2c4a/?fullscreen)
 - [PRD]()
 - [High Level Design](https://drive.google.com/file/d/1V3scaK84cyghzRfraft4ELtlWIMqx-Bh/view?usp=sharing)
 

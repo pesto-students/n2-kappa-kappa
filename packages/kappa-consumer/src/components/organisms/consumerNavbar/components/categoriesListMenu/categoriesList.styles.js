@@ -24,6 +24,6 @@ export default makeStyles((theme) => ({
     },
     padding: 'unset !important',
     width: '50%',
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
 }));
