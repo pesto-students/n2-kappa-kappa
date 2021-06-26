@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   root: {
     position: 'relative',
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    borderTop: `1px solid ${theme.palette.primary.main}`,
     width: '100%',
     '& .MuiMobileStepper-dotActive': {
       background: theme.palette.primary.main,
@@ -21,7 +23,7 @@ export default makeStyles((theme) => ({
     left: 0,
     right: 0,
     transform: 'none',
-    height: 250,
+    height: 300,
     padding: '0 70px',
     display: 'flex',
     justifyContent: 'flex-start',
@@ -39,6 +41,29 @@ export default makeStyles((theme) => ({
       textAlign: 'center',
     },
   },
+  header: {
+    fontSize: 20, 
+    marginBottom: 10, 
+    color: '#fff',
+  },
+  subHeader: {
+    fontWeight: 'bold', 
+    fontSize: 28, 
+    marginBottom: 60, 
+    color: '#fff',
+    maxWidth: '50%',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 'unset',
+    }
+  },
+  button: {
+    width: 250, 
+    background: '#5BB02D !important', 
+    color: '#fff', 
+    height: 50, 
+    fontSize: 16, 
+    borderRadius: 15,
+  },
   carouselDots: {
     position: 'absolute',
     bottom: 50,
@@ -53,7 +78,7 @@ export default makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100vw',
     maxWidth: '100vw',
-    height: 600,
+    height: 650,
     objectFit: 'cover',
     [theme.breakpoints.only('sm')]: {
       maxWidth: 960,

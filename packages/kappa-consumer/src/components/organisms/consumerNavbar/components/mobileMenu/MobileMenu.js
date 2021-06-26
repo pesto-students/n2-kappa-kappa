@@ -2,17 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 /* RESPONSIVE */
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { IconButton } from '@material-ui/core';
-// Icons
-import {
-  Menu as MenuIcon,
-  Search as SearchIcon,
-  ShoppingCartOutlined as ShoppingCartIcon,
-} from '@material-ui/icons/';
 
 /* COMPONENTS */
 import Button from '@kappa/components/src/atoms/button';
@@ -85,12 +76,11 @@ const MobileMenu = ({
             />
           ) : (
             <>
-              <IconButton
-                className={classes.button}
+              <Button
                 onClick={() => setIsSignInOpen(true)}
-              >
-                <PersonIcon /> SIGN IN
-              </IconButton>
+                startIcon={<PersonIcon color="primary" />}
+                label="Sign In"
+              />
             </>
           )}
         </div>

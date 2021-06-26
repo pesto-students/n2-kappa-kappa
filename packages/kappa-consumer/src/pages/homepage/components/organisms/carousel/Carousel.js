@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { autoPlay } from 'react-swipeable-views-utils';
 
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -46,39 +45,34 @@ function Carousel(props) {
         <div className={classes.contentHeader}>
           <div>
             <Typography
-              // color="textPrimary"
-              style={{ fontSize: 20, marginBottom: 10, color: '#fff' }}
+              className={classes.header}
             >
               {data[activeStep].header}
             </Typography>
             <Typography
-              // color="textPrimary"
-              style={{
-                fontWeight: 'bold', fontSize: 28, marginBottom: 60, color: '#fff',
-              }}
+              className={classes.subHeader}
             >
               {data[activeStep].subHeader}
             </Typography>
           </div>
           <Button
-            style={{
-              width: 250, background: '#5BB02D', color: '#fff', height: 50, fontSize: 16, borderRadius: 15,
-            }}
+            className={classes.button}
             elevation={0}
             variant="contained"
+            // component=""
           >
             {data[activeStep].buttonLabel}
           </Button>
         </div>
       </div>
 
-      <MobileStepper
+      {/* <MobileStepper
         steps={maxSteps}
         position="static"
         variant="dots"
         activeStep={activeStep}
         className={classes.carouselDots}
-      />
+      /> */}
     </div>
   );
 }
