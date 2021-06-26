@@ -29,5 +29,5 @@ export default makeStyles((theme) => ({
     marginLeft: theme.spacing(1.5),
     padding: 'unset',
     color: '#EE6565',
-  }
+  },
 }));

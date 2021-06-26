@@ -46,7 +46,7 @@ const ProductsTable = (props) => {
       price: row.price,
       title: row.title,
       _id: row._id,
-      images: row.images
+      images: row.images,
     });
     openProductView();
   };
@@ -75,15 +75,22 @@ const ProductsTable = (props) => {
             <TableCell>{row.id.slice(0, 5)}</TableCell>
             <TableCell>{row.title}</TableCell>
             <TableCell>{row.description}</TableCell>
-            <TableCell>${row.price}</TableCell>
-            <TableCell>{row.priority 
-                ? <CheckIcon className={classes.positiveIcon} /> 
+            <TableCell>
+              $
+              {row.price}
+            </TableCell>
+            <TableCell>
+              {row.priority
+                ? <CheckIcon className={classes.positiveIcon} />
                 : <ClearIcon className={classes.negativeIcon} />}
             </TableCell>
             <TableCell>{row.countInStock}</TableCell>
             <TableCell className={classes.category}>{row.category && row.category.categoryName}</TableCell>
             <TableCell>{row.images && row.images.length}</TableCell>
-            <TableCell>{row.discount}%</TableCell>
+            <TableCell>
+              {row.discount}
+              %
+            </TableCell>
             <TableCell>
               <div className={classes.actions}>
                 <IconButton onClick={() => handleEdit(row)} className={classes.editIcon}>

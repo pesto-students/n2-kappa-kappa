@@ -26,8 +26,6 @@ const PaginationTable = (props) => {
     children,
   } = props;
 
-  console.log('dowkod', bodyData, limit, page);
-
   return (
     <>
       <TableContainer component={Paper} className={classes.root}>
@@ -46,9 +44,9 @@ const PaginationTable = (props) => {
       </TableContainer>
 
       {fetching
-      ? (<Loader padding />)
-      : (bodyData && 
-        (
+        ? (<Loader padding />)
+        : (bodyData
+        && (
         <TablePagination
           rowsPerPageOptions={[5, 10]}
           component="div"
@@ -58,7 +56,7 @@ const PaginationTable = (props) => {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
-      ))}
+        ))}
     </>
   );
 };

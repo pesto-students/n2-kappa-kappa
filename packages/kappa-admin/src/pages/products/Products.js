@@ -76,19 +76,18 @@ export default function Products() {
     setIsProductViewOpen(true);
   };
 
-  const fetchAllProducts = () => {
-    return getAllProducts(productParams).then((res) => {
-      setProducts(res);
-      setProductFields(initialProductFields);
-      setImageFiles(null);
-      setFetching(false);
-    });
-  };
+  const fetchAllProducts = () => getAllProducts(productParams).then((res) => {
+    setProducts(res);
+    setProductFields(initialProductFields);
+    setImageFiles(null);
+    setFetching(false);
+  });
 
   const handleSubmit = () => {
     setIsEditMode(false);
     setIsProductViewOpen(false);
     setFetching(true);
+    // eslint-disable-next-line no-prototype-builtins
     if (productFields.hasOwnProperty('images')) {
       delete productFields.images;
       updateProduct(productFields, imageFiles).then(() => {
@@ -121,7 +120,7 @@ export default function Products() {
         handleDelete={handleDelete}
       />
       <Fab
-        color='primary'
+        color="primary"
         className={classes.icon}
         onClick={handleAddNewProduct}
       >

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 /* COMPONENTS */
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import OrdersTable from './components/ordersTable';
 import OrdersView from './components/ordersView';
 
@@ -32,9 +30,7 @@ export default function Orders() {
   });
   const [orderFields, setOrderFields] = useState(initialOrderFields);
 
-  const handleOrderFields = (name) => (event) => {
-      return setOrderFields({ ...orderFields, [name]: event.target.value });
-  };
+  const handleOrderFields = (name) => (event) => setOrderFields({ ...orderFields, [name]: event.target.value });
 
   useEffect(() => {
     setFetching(true);
@@ -60,9 +56,9 @@ export default function Orders() {
             setOrders(res);
             setOrderFields(initialOrderFields);
             setFetching(false);
-        });
+          });
       });
-  }
+  };
 
   return (
     <div className={classes.root}>

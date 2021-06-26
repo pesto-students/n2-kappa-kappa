@@ -43,8 +43,8 @@ export default function Products(props) {
 
   return (
     <AdminPopup
-      title={isEditMode ? "Update Product Details" : "Add A New Product"}
-      label={isEditMode ? "Save" : "Add"}
+      title={isEditMode ? 'Update Product Details' : 'Add A New Product'}
+      label={isEditMode ? 'Save' : 'Add'}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       handleSubmit={handleSubmit}
@@ -133,17 +133,17 @@ export default function Products(props) {
           >
             {categories
               && (
-              categories
-              .data.data
-              .map((category) => (
-                <MenuItem 
-                  value={category._id} 
-                  label={category.categoryName}
-                  className={classes.category}
-                >
-                  {category.categoryName}
-                </MenuItem>
-              )))}
+                categories
+                  .data.data
+                  .map((category) => (
+                    <MenuItem
+                      value={category._id}
+                      label={category.categoryName}
+                      className={classes.category}
+                    >
+                      {category.categoryName}
+                    </MenuItem>
+                  )))}
           </Select>
         </FormControl>
 
@@ -154,7 +154,7 @@ export default function Products(props) {
             value={productFields.priority}
             onChange={handleProductFields('priority')}
           >
-            {[{label: 'Yes', value: true}, {label: 'No', value: false}]
+            {[{ label: 'Yes', value: true }, { label: 'No', value: false }]
               .map((priority) => (
                 <MenuItem value={priority.value}>{priority.label}</MenuItem>
               ))}

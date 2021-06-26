@@ -21,7 +21,6 @@ export default function Menu({ children }) {
   const [selectedItem, setSelectedItem] = useState('Orders');
 
   const handleListItemClick = (label) => {
-    console.log('wdokwodk', )
     setSelectedItem(label);
   };
 
@@ -29,12 +28,12 @@ export default function Menu({ children }) {
 
   React.useEffect(() => {
     const route = history.location.pathname.substring(1);
-    if(route.length !== 0) {
+    if (route.length !== 0) {
       setSelectedItem(history.location.pathname.substring(1));
     } else {
       setSelectedItem('orders');
     }
-  }, [history])
+  }, [history]);
 
   return (
     <div className={classes.root}>
@@ -48,7 +47,7 @@ export default function Menu({ children }) {
       >
         <div className={classes.drawerContainer}>
           <List>
-            {MENU.map((list, index) => (
+            {MENU.map((list) => (
               <ListItem
                 button
                 key={list.name}

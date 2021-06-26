@@ -12,5 +12,5 @@ export default makeStyles((theme) => ({
   },
   title: {
     fontWeight: theme.typography.fontWeightBold,
-  }
+  },
 }));

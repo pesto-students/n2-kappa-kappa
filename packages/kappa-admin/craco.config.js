@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const _castArray = require('lodash/castArray');
 const _concat = require('lodash/concat');
 const path = require('path');

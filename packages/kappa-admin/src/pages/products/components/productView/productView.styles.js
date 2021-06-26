@@ -15,8 +15,5 @@ export default makeStyles((theme) => ({
   },
   category: {
     textTransform: 'capitalize',
-    // '& .MuiFormControl-root': {
-    //   textTransform: 'capitalize',
-    // }
-  }
+  },
 }));

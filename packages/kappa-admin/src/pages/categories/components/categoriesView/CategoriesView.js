@@ -2,11 +2,11 @@ import React from 'react';
 
 /* COMPONENTS */
 import TextField from '@kappa/components/src/atoms/textField';
-import AdminPopup from '../../../../components/molecules/adminPopup';
 import FormControl from '@kappa/components/src/atoms/formControl';
 import InputLabel from '@kappa/components/src/atoms/inputLabel';
 import Select from '@kappa/components/src/atoms/select';
 import MenuItem from '@kappa/components/src/atoms/menuItem';
+import AdminPopup from '../../../../components/molecules/adminPopup';
 
 /* STYLES */
 import useStyles from './categoriesView.styles';
@@ -24,8 +24,8 @@ export default function CategoriesView(props) {
 
   return (
     <AdminPopup
-      title={isEditMode ? "Update Category Details" : "Add New Category"}
-      label={isEditMode ? "Save" : "Add"}
+      title={isEditMode ? 'Update Category Details' : 'Add New Category'}
+      label={isEditMode ? 'Save' : 'Add'}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       handleSubmit={handleSubmit}

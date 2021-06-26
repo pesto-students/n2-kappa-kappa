@@ -18,5 +18,5 @@ export default makeStyles(() => ({
   negativeIcon: {
     color: '#BE4545',
     fontSize: 18,
-  }
+  },
 }));

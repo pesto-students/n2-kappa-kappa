@@ -11,7 +11,7 @@ export default makeStyles(() => ({
   root: {
     maxHeight: 480,
   },
-  categoryName:{
+  categoryName: {
     textTransform: 'capitalize',
   },
   positiveIcon: {

@@ -12,14 +12,8 @@ import useStyles from './card.styles';
 
 /* UTILS */
 
-export default function Header(props) {
+export default function Header() {
   const classes = useStyles();
-
-  const {
-    icon,
-
-    title,
-  } = props;
 
   return (
     <Paper className={classes.root}>

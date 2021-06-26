@@ -43,24 +43,25 @@ export default function ImageUpload({ setImageFiles, productFields }) {
         </IconButton>
       </label>
       <div className={classes.content}>
-        {imageFileArray 
-        ? (imageFileArray || []).map((url) => (
-          <Paper className={classes.imageContainer}>
-            <img
-              src={url}
-              alt="..."
-              className={classes.image}
-            />
-          </Paper>) 
-        ) : (productFields.images && productFields.images.length !== 0)
+        {imageFileArray
+          ? (imageFileArray || []).map((url) => (
+            <Paper className={classes.imageContainer}>
+              <img
+                src={url}
+                alt="..."
+                className={classes.image}
+              />
+            </Paper>
+          )) : (productFields.images && productFields.images.length !== 0)
           && (productFields.images.map((image) => (
-          <Paper className={classes.imageContainer}>
-            <img
-              src={`${BASE_URL}/api/v1/files/${image}`}
-              alt="..."
-              className={classes.image}
-            />
-          </Paper>))
+            <Paper className={classes.imageContainer}>
+              <img
+                src={`${BASE_URL}/api/v1/files/${image}`}
+                alt="..."
+                className={classes.image}
+              />
+            </Paper>
+          ))
           )}
       </div>
     </form>

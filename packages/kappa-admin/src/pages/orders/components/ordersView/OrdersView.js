@@ -20,8 +20,6 @@ export default function OrdersView(props) {
   } = props;
   const classes = useStyles();
 
-  console.log('ewfwrfopjw', orderFields)
-
   return (
     <AdminPopup
       title="Is this Order delivered?"
@@ -31,19 +29,19 @@ export default function OrdersView(props) {
       handleSubmit={handleSubmit}
       maxWidth="lg"
     >
-       <FormControl margin="dense" variant="outlined" className={classes.textField}>
-          <InputLabel>Choose</InputLabel>
-          <Select
-            label="Choose"
-            value={orderFields.isDelivered}
-            onChange={handleOrderFields('isDelivered')}
-          >
-            {[{label: 'Yes', value: true}, {label: 'No', value: false}]
-              .map((isDelivered) => (
-                <MenuItem value={isDelivered.value}>{isDelivered.label}</MenuItem>
-              ))}
-          </Select>
-        </FormControl>
+      <FormControl margin="dense" variant="outlined" className={classes.textField}>
+        <InputLabel>Choose</InputLabel>
+        <Select
+          label="Choose"
+          value={orderFields.isDelivered}
+          onChange={handleOrderFields('isDelivered')}
+        >
+          {[{ label: 'Yes', value: true }, { label: 'No', value: false }]
+            .map((isDelivered) => (
+              <MenuItem value={isDelivered.value}>{isDelivered.label}</MenuItem>
+            ))}
+        </Select>
+      </FormControl>
     </AdminPopup>
   );
 }

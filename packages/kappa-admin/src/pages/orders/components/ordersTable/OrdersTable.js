@@ -48,8 +48,6 @@ const OrdersTable = (props) => {
     setOrderParams((prev) => ({ ...prev, page: newPage + 1 }));
   };
 
-  console.log('sdojwijd', bodyData, orderParams);
-
   return (
     <PaginationTable
       {...props}
@@ -59,21 +57,26 @@ const OrdersTable = (props) => {
       limit={limit}
       fetching={fetching}
     >
-      {!fetching && 
-      bodyData.data.data
+      {!fetching
+      && bodyData.data.data
         .slice(0, limit)
         .map((row) => (
           <CustomTableRow key={row.id}>
             <TableCell>{row._id.slice(0, 5)}</TableCell>
-            <TableCell>{row.isPaid
-              ? <CheckIcon className={classes.positiveIcon} />
-              : <ClearIcon className={classes.negativeIcon} />}
+            <TableCell>
+              {row.isPaid
+                ? <CheckIcon className={classes.positiveIcon} />
+                : <ClearIcon className={classes.negativeIcon} />}
             </TableCell>
-            <TableCell>{row.isDelivered
-              ? <CheckIcon className={classes.positiveIcon} />
-              : <ClearIcon className={classes.negativeIcon} />}
+            <TableCell>
+              {row.isDelivered
+                ? <CheckIcon className={classes.positiveIcon} />
+                : <ClearIcon className={classes.negativeIcon} />}
             </TableCell>
-            <TableCell>${row.totalPrice}</TableCell>
+            <TableCell>
+              $
+              {row.totalPrice}
+            </TableCell>
             <TableCell>{row.orderItems.length}</TableCell>
             <TableCell>
               <IconButton disabled={row.isDelivered} onClick={() => handleAction(row)} className={classes.actionButton}>

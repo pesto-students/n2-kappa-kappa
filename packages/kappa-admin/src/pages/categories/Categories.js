@@ -33,11 +33,8 @@ export default function Categories() {
   });
   const [categoryFields, setCategoryFields] = useState(initialCategoryFields);
 
-  const handleCategoryFields = (name) => (event) => {
-     return setCategoryFields({ ...categoryFields, [name]: event.target.value });
-  };
-
-  console.log('asokoks', categoryFields);
+  // eslint-disable-next-line max-len
+  const handleCategoryFields = (name) => (event) => setCategoryFields({ ...categoryFields, [name]: event.target.value });
 
   useEffect(() => {
     setFetching(true);
@@ -54,36 +51,36 @@ export default function Categories() {
   };
 
   const handleAddNewCategory = () => {
-    setCategoryFields(initialCategoryFields)
+    setCategoryFields(initialCategoryFields);
     setIsEditMode(false);
     openCategoryView();
   };
-  
+
   const fetchAllCategories = () => {
     getAllCategories(categoryParams)
-    .then((res) => {
-      setCategories(res);
-      setCategoryFields(initialCategoryFields);
-      setFetching(false);
-    });
-  }
+      .then((res) => {
+        setCategories(res);
+        setCategoryFields(initialCategoryFields);
+        setFetching(false);
+      });
+  };
 
   const handleSubmit = () => {
     setIsCategoryViewOpen(false);
     setFetching(true);
-    if(isEditMode) {
+    if (isEditMode) {
       const categoryId = categoryFields.id;
       delete categoryFields.id;
       setIsEditMode(false);
       updateCategory(categoryFields, categoryId)
-      .then(() => {
-        fetchAllCategories();
-      });
+        .then(() => {
+          fetchAllCategories();
+        });
     } else {
       addCategory(categoryFields)
-      .then(() => {
-        fetchAllCategories();
-      });
+        .then(() => {
+          fetchAllCategories();
+        });
     }
   };
 

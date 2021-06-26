@@ -16,7 +16,7 @@ function getPostFormConfig(data, files) {
   const formData = new FormData();
   formData.append('data', JSON.stringify(data));
   if (files) {
-    Object.values(files[0]).map((file) => formData.append('image', file))
+    Object.values(files[0]).map((file) => formData.append('image', file));
   }
 
   return {
@@ -29,7 +29,7 @@ function getPutFormConfig(data, files) {
   const formData = new FormData();
   formData.append('data', JSON.stringify(data));
   if (files) {
-    Object.values(files[0]).map((file) => formData.append('image', file))
+    Object.values(files[0]).map((file) => formData.append('image', file));
   }
 
   return {
@@ -136,7 +136,6 @@ export function updateCategory(data, categoryId) {
   const config = getPutConfig(data);
   return callApi(url, config);
 }
-
 
 // Orders
 export function getAllOrders(data) {

@@ -65,20 +65,21 @@ const CategoriesTable = (props) => {
         .data.data
         .slice(0, limit)
         .map((row) => (
-            <CustomTableRow key={row._id}>
-              <TableCell>{row._id.slice(0, 5)}</TableCell>
-              <TableCell className={classes.categoryName}>{row.categoryName}</TableCell>
-              <TableCell>{row.active
-              ? <CheckIcon className={classes.positiveIcon} /> 
-              : <ClearIcon className={classes.negativeIcon} />}
-              </TableCell>
-              <TableCell>
-                <IconButton onClick={() => handleAction(row)} className={classes.actionButton}>
-                  <EditIcon />
-                </IconButton>
-              </TableCell>
-            </CustomTableRow>
-          ))}
+          <CustomTableRow key={row._id}>
+            <TableCell>{row._id.slice(0, 5)}</TableCell>
+            <TableCell className={classes.categoryName}>{row.categoryName}</TableCell>
+            <TableCell>
+              {row.active
+                ? <CheckIcon className={classes.positiveIcon} />
+                : <ClearIcon className={classes.negativeIcon} />}
+            </TableCell>
+            <TableCell>
+              <IconButton onClick={() => handleAction(row)} className={classes.actionButton}>
+                <EditIcon />
+              </IconButton>
+            </TableCell>
+          </CustomTableRow>
+        ))}
     </PaginationTable>
   );
 };
