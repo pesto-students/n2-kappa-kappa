@@ -77,3 +77,18 @@ export function getRecommendedProductsInfo(...params) {
     }, handleError);
   };
 }
+
+export function getAllProducts() {
+  return (dispatch) => {
+    dispatch({
+      type: 'FETCHING_NAVBAR_INFO',
+    });
+
+    return productsServices.getAllProducts().then((res) => {
+      dispatch({
+        type: 'FETCHED_NAVBAR_INFO',
+        payload: res,
+      });
+    }, handleError);
+  };
+}

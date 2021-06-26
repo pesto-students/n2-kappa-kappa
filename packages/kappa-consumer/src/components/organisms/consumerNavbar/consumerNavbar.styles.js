@@ -12,15 +12,6 @@ export default makeStyles((theme) => ({
     flex: 1,
     display: 'flex',
   },
-  tabs: {
-    '& .MuiTab-root': {
-      minWidth: 100, // a number of your choice
-      width: 100,
-    },
-    '& .Mui-selected > .MuiTab-wrapper': {
-      fontWeight: 'bold',
-    },
-  },
   logoContainer: {
     display: 'flex',
     marginLeft: theme.spacing(1),
@@ -29,11 +20,6 @@ export default makeStyles((theme) => ({
     maxWidth: 180,
     // height: '100%',
     alignSelf: 'center',
-  },
-  tab: {
-    padding: theme.spacing(3, 0),
-    textAlign: 'start',
-    color: theme.palette.common.white,
   },
   sectionRightDesktop: {
     display: 'flex',
@@ -98,5 +84,36 @@ export default makeStyles((theme) => ({
         width: '42ch',
       },
     },
+  },
+  inputInputMobile: {
+    // padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    fontSize: 18,
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      width: '1ch',
+      '&:focus': {
+        width: '15ch',
+      },
+    },
+  },
+  tabsRoot: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  tabsContainer: {
+    paddingRight: 30,
+    paddingLeft: 30,
+    alignItems: 'center',
+    height: '100%',
+    display: 'flex',
+    '&:hover': {
+      borderBottom: '3px solid red',
+    }
+  },
+  tab: {
+    cursor: 'default',
   },
 }));

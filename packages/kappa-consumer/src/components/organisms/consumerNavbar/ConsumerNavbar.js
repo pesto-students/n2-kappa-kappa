@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link, withRouter, useHistory } from 'react-router-dom';
 
-import { IconButton, Tabs, Tab } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 
 // Icons
@@ -14,15 +14,13 @@ import {
 } from '@material-ui/icons/';
 
 /* COMPONENTS */
-// atoms
-import Button from '@kappa/components/src/atoms/button';
 import SignIn from './components/signIn';
 import SignUp from './components/signUp';
 import ForgetPass from './components/forgetPass';
-
 import CategoriesListMenu from './components/categoriesListMenu';
 import Cart from '../cart';
 import ProfileMenu from './components/profileMenu';
+import MobileMenu from './components/mobileMenu';
 
 /* STYLES */
 import useStyles from './consumerNavbar.styles';
@@ -30,6 +28,22 @@ import logo from '../../../assets/images/logo.png';
 import PersonIcon from '../../../assets/images/person';
 
 import ActionCreators from '../../../actions';
+
+const renderTabs = (classes, enterTab, leaveTab) => (
+  <div className={classes.tabsRoot}>
+    <div
+      className={classes.tabsContainer}
+      onMouseEnter={enterTab}
+      onMouseLeave={leaveTab}
+    >
+      <Typography className={classes.tab}>
+        Shop
+      </Typography>
+    </div>
+  </div>
+)
+
+const timeoutLength = 200;
 
 const ConsumerNavbar = ({
   categories,
@@ -43,26 +57,43 @@ const ConsumerNavbar = ({
   setProfileMenu,
 }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(2);
   // const [isSignInOpen, setIsSignInOpen] = React.useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = React.useState(false);
   const [isCartVisible, setIsCartVisible] = React.useState(false);
   const [isForgetPassOpen, setIsForgetPassOpen] = React.useState(false);
-
-  const [open, setOpen] = React.useState(false);
   const [searchText, setSearchText] = React.useState('');
+  const [mouseOverTab, setMouseOverTab] = React.useState(false);
+  const [mouseOverMenu, setMouseOverMenu] = React.useState(false);
+  const [mobileSearchVisible, setMobileSearchVisible] = React.useState(false);
+  const [isMobileMenuVisible, setIsMobileMenuVisible] = React.useState(false);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const enterTab = () => {
+    setMouseOverTab(true);
+  }
+
+  const leaveTab = () => {
+    // Set a timeout so that the menu doesn't close before the user has time to
+    // move their mouse over it
+    setTimeout(() => {
+      setMouseOverTab(false)
+    }, timeoutLength);
+  }
+
+  const enterMenu = () => {
+    setMouseOverMenu(true);
+  }
+
+  const leaveMenu = () => {
+    setTimeout(() => {
+      setMouseOverMenu(false)
+    }, timeoutLength);
+  }
 
   useEffect(() => {
     if (user && user.name) getOrders();
   }, [user, getOrders]);
 
   const history = useHistory();
-
-  const anchorRef = React.useRef(null);
 
   const handleSignIn = () => {
     setIsSignUpOpen(true);
@@ -82,11 +113,6 @@ const ConsumerNavbar = ({
     setIsSignUpOpen(false);
     setIsSignInOpen(false);
     setIsForgetPassOpen(true);
-    clearAuthMessage();
-  };
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
     clearAuthMessage();
   };
 
@@ -112,144 +138,159 @@ const ConsumerNavbar = ({
     }
   };
 
+  const open = mouseOverTab || mouseOverMenu;
+
   return (
     <>
-      <div className={classes.sectionDesktop}>
-        <div className={classes.sectionLeftDesktop}>
-          <Link className={classes.logoContainer} to='/'>
-            <img src={logo} className={classes.logo} alt='Mr-Nomad-Logo' />
-          </Link>
-          <Tabs value={value} onChange={handleChange} className={classes.tabs}>
-            <Tab
-              label='SHOP'
-              className={classes.tab}
-              ref={anchorRef}
-              onClick={handleToggle}
-            />
-          </Tabs>
-        </div>
-
-        <CategoriesListMenu
-          setOpen={setOpen}
-          open={open}
-          anchorRef={anchorRef}
-          categories={categories}
-        />
-        {/* <div className={classes.searchContainer}>
-        <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              type="text" 
-              onKeyDown={handleKeyDown}
-              value={searchText}
-              onChange={handleSearch}
-            />
-          </div>
-      </div> */}
-        <div className={classes.sectionRightDesktop}>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              type='text'
-              onKeyDown={handleKeyDown}
-              value={searchText}
-              onChange={handleSearch}
-            />
+      <>
+        <div className={classes.sectionDesktop}>
+          <div className={classes.sectionLeftDesktop}>
+            <Link className={classes.logoContainer} to='/'>
+              <img src={logo} className={classes.logo} alt='Mr-Nomad-Logo' />
+            </Link>
+            {renderTabs(classes, enterTab, leaveTab)}
           </div>
 
-          {user.name ? (
-            <ProfileMenu
-              data={user}
-              logoutUser={logoutUser}
-              setProfileMenu={setProfileMenu}
-            />
-          ) : (
-            <>
+          <div className={classes.sectionRightDesktop}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                type='text'
+                onKeyDown={handleKeyDown}
+                value={searchText}
+                onChange={handleSearch}
+              />
+            </div>
+
+            {user.name ? (
+              <ProfileMenu
+                data={user}
+                logoutUser={logoutUser}
+                setProfileMenu={setProfileMenu}
+              />
+            ) : (
+                <>
+                  <IconButton
+                    className={classes.button}
+                    onClick={() => setIsSignInOpen(true)}
+                  >
+                    <PersonIcon />
+                  </IconButton>
+                </>
+              )}
+
+            {user.name ? (
               <IconButton
                 className={classes.button}
-                onClick={() => setIsSignInOpen(true)}
+                onClick={() => setIsCartVisible(true)}
               >
-                <PersonIcon />
+                <ShoppingCartIcon />
               </IconButton>
-            </>
-          )}
+            ) : (
+                <IconButton
+                  className={classes.button}
+                  onClick={() => setIsSignInOpen(true)}
+                >
+                  <ShoppingCartIcon />
+                </IconButton>
+              )}
+          </div>
+        </div>
 
-          {user.name ? (
-            <IconButton
-              className={classes.button}
-              onClick={() => setIsCartVisible(true)}
-            >
-              <ShoppingCartIcon />
+        <div className={classes.sectionMobile}>
+          <div className={classes.sectionLeftMobile}>
+          <Link className={classes.logoContainer} to='/'>
+              <img src={logo} className={classes.logo} alt='Mr-Nomad-Logo' />
+            </Link>
+          </div>
+          <div>
+            
+            {
+              mobileSearchVisible 
+              ? (
+                <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                autoFocus
+                onBlur={() => setMobileSearchVisible(false)}
+                placeholder='Search…'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInputMobile,
+                }}
+                type='text'
+                onKeyDown={handleKeyDown}
+                value={searchText}
+                onChange={handleSearch}
+              />
+            </div>
+           
+              ) : (
+                <>
+            <IconButton onClick={() => setMobileSearchVisible(true)} className={classes.iconButton}>
+              <SearchIcon />
             </IconButton>
-          ) : (
-            <IconButton
-              className={classes.button}
-              onClick={() => setIsSignInOpen(true)}
-            >
-              <ShoppingCartIcon />
-            </IconButton>
-          )}
+             <IconButton  onClick={() => setIsCartVisible(true)} className={classes.iconButton}>
+             <ShoppingCartIcon />
+           </IconButton>
+ 
+           <IconButton onClick={() => setIsMobileMenuVisible(true)} className={classes.iconButton}>
+             <MenuIcon />
+           </IconButton>
+           </>
+              )
+            }
+          </div>
         </div>
-      </div>
-
-      <div className={classes.sectionMobile}>
-        <div className={classes.sectionLeftMobile}>
-          <IconButton className={classes.iconButton}>
-            <MenuIcon />
-          </IconButton>
-        </div>
-        <div>
-          <IconButton className={classes.iconButton}>
-            <SearchIcon />
-          </IconButton>
-
-          <IconButton className={classes.iconButton}>
-            <ShoppingCartIcon />
-          </IconButton>
-        </div>
-      </div>
-      {/* <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} /> */}
-      <SignIn
-        isOpen={isSignInOpen}
-        setIsOpen={() => {
-          setIsSignInOpen();
-          clearAuthMessage();
-        }}
-        handleSignIn={handleSignIn}
-        handleForgetPass={handleForgetPass}
+        <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />
+        <SignIn
+          isOpen={isSignInOpen}
+          setIsOpen={() => {
+            setIsSignInOpen();
+            clearAuthMessage();
+          }}
+          handleSignIn={handleSignIn}
+          handleForgetPass={handleForgetPass}
+        />
+        <SignUp
+          isOpen={isSignUpOpen}
+          setIsOpen={(bool) => {
+            setIsSignUpOpen(bool);
+            clearAuthMessage();
+          }}
+          handleSignUp={handleSignUp}
+          handleForgetPass={handleForgetPass}
+        />
+        <ForgetPass
+          isOpen={isForgetPassOpen}
+          setIsOpen={(bool) => {
+            setIsForgetPassOpen(bool);
+            clearAuthMessage();
+          }}
+          handleForgetPass={handleForgetPass}
+          handleSignIn={handleSignIn}
+          handleSignUp={handleSignUp}
+        />
+      </>
+      <CategoriesListMenu
+        categories={categories}
+        enterMenu={enterMenu}
+        leaveMenu={leaveMenu}
+        open={open}
       />
-      <SignUp
-        isOpen={isSignUpOpen}
-        setIsOpen={(bool) => {
-          setIsSignUpOpen(bool);
-          clearAuthMessage();
-        }}
-        handleSignUp={handleSignUp}
-        handleForgetPass={handleForgetPass}
-      />
-      <ForgetPass
-        isOpen={isForgetPassOpen}
-        setIsOpen={(bool) => {
-          setIsForgetPassOpen(bool);
-          clearAuthMessage();
-        }}
-        handleForgetPass={handleForgetPass}
-        handleSignIn={handleSignIn}
-        handleSignUp={handleSignUp}
+      <MobileMenu
+        categories={categories}
+        isMobileMenuVisible={isMobileMenuVisible}
+        setIsMobileMenuVisible={setIsMobileMenuVisible}
       />
     </>
   );
@@ -264,6 +305,7 @@ function mapStateToProps(state) {
     isSignInOpen: state.auth.isSignInOpen,
     user: state.auth.user,
     message: state.auth.message,
+    categories: state.categories.categories,
   };
 }
 

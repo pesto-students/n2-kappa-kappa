@@ -22,21 +22,23 @@ import CATEGORIES_QUERY from './constants/categoriesQuery.constants'
 
 const App = ({
   getAllCategories,
-  fetching,
-  categories,
+  getAllProducts,
+  categoriesFetching,
+  navbarProductsFetching,
 }) => {
 
   useEffect(() => {
     getAllCategories(CATEGORIES_QUERY);
+    getAllProducts();
   }, []);
 
-  if(fetching) {
+  if(navbarProductsFetching && categoriesFetching) {
     return <NavbarLoader />
   }
 
   return (
     <MyThemeProvider>
-      <PrimaryLayout categories={categories}>
+      <PrimaryLayout>
         <Routes />
       </PrimaryLayout>
     </MyThemeProvider>
@@ -49,8 +51,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    categories: state.categories.categories,
-    fetching: state.categories.fetching,
+    categoriesFetching: state.categories.fetching,
+    navbarProductsFetching: state.productsInfo.fetching,
   };
 }
 

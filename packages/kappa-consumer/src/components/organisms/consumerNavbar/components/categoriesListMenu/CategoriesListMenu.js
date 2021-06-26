@@ -1,83 +1,113 @@
 import React from 'react';
+/* REDUX */
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { Link } from 'react-router-dom';
+import List from '@kappa/components/src/atoms/list';
+
+/* READERS */
+import productsReader from '../../../../../readers/productsList.readers';
 
 /* COMPONENTS */
-// atoms
-import Popper from '@kappa/components/src/atoms/popper';
-import Grow from '@kappa/components/src/atoms/grow';
 import Paper from '@kappa/components/src/atoms/paper';
-import MenuList from '@kappa/components/src/atoms/menuList';
-import MenuItem from '@kappa/components/src/atoms/menuItem';
-import ClickAwayListener from '@kappa/components/src/atoms/clickAwayListener';
-import Loader from '@kappa/components/src/atoms/loader';
-
+import ProductCard from '@kappa/components/src/molecules/productCard';
+import Grid from '@kappa/components/src/atoms/grid';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import categoriesReaders from '../../../../../readers/categories.readers'
 import useStyles from './categoriesList.styles';
 
-const CategoriesListMenu = (props) => {
+/* UTILS */
+import isEmpty from '../../../../../utils/isEmpty.utils';
+import BASE_URL from '../../../../../constants/baseURL';
+
+/* SERVICES */
+import ActionCreators from '../../../../../actions';
+
+const renderImage = (images) => {
+  return `${BASE_URL}/api/v1/files/${images[0]}`
+}
+
+const renderProduct = (leaveMenu) => (product, index) => (
+  <Grid 
+    key={productsReader.id(product)}
+    item
+    lg={3} 
+    md={4} 
+    sm={6} 
+    xs={12}
+    onClick={leaveMenu}
+  >
+    <ProductCard
+      image={renderImage(!isEmpty(productsReader.images(product)) 
+        && productsReader.images(product))}
+      name={productsReader.name(product)}
+      price={productsReader.price(product)}
+      id={productsReader.id(product)}
+      headerTitle={index === 0 ? 'Featured' : 'New'}
+      headerDescription={index === 0 ? 'Discover' : 'Discover Our Products'}
+    />
+  </Grid>
+)
+
+const CategoriesListMenu = ({
+  navbarProducts,
+  categories,
+  enterMenu,
+  leaveMenu,
+  open,
+}) => {
   const classes = useStyles();
-  const { setOpen, open, anchorRef, categories, fetching } = props;
-
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
-
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
 
   return (
-    <Popper
-      open={open}
-      anchorEl={anchorRef.current}
-      role={undefined}
-      transition
-      disablePortal
-      style={{ zIndex: 10, width: '99.5%' }}
+    <Paper 
+      elevation={1} 
+      style={{
+        opacity: open ? 1 : 0, 
+        visibility: open ? 'visible' : 'hidden' ,
+        transition: 'all .2s ease-in-out',
+      }}
+      onMouseEnter={enterMenu}
+      onMouseLeave={leaveMenu}
+      className={classes.menuPanel}
     >
-      {({ TransitionProps, placement }) => (
-        <Grow {...TransitionProps}>
-          <Paper>
-            <ClickAwayListener onClickAway={handleClose}>
-              <MenuList
-                autoFocusItem={false}
-                id='menu-list-grow'
-                onKeyDown={handleListKeyDown}
-              >
-                {categories.data.map((category) => (
-                  <MenuItem
-                    component={Link}
-                    to={`/${category._id}/page/${1}`}
-                    onClick={handleClose}
-                    key={category._id}
-                    className={classes.list}
-                  >
-                    {category.categoryName}
-                  </MenuItem>
-                ))}
-              </MenuList>
-            </ClickAwayListener>
-          </Paper>
-        </Grow>
-      )}
-    </Popper>
+      <List style={{
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        display: 'flex',
+      }}>
+        {
+          categoriesReaders.data(categories).map((category) =>
+            <ListItem 
+            component={Link}
+            to={`/${categoriesReaders.id(category)}/page/${1}`}
+            onClick={leaveMenu}
+            className={classes.list}>
+              <ListItemText primary={categoriesReaders.categoryName(category)} />
+            </ListItem>
+          )
+        }
+      </List>
+      <div style={{flex: 3}}>
+        <Grid container spacing={5} className={classes.content} justify="center">
+            {!isEmpty(productsReader.data(navbarProducts))
+              && productsReader.data(navbarProducts).slice(0, 2).map(renderProduct(leaveMenu))}
+        </Grid>
+      </div>
+    </Paper>
   );
 };
 
-export default CategoriesListMenu;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(ActionCreators, dispatch);
+}
+
+function mapStateToProps(state) {
+  return {
+    navbarProducts: state.productsInfo.navbarProducts,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesListMenu);

@@ -18,6 +18,8 @@ const ProductCard = (props) => {
     price,
     id,
     categoryName,
+    headerTitle,
+    headerDescription,
   } = props;
 
   const classes = useStyles();
@@ -25,6 +27,8 @@ const ProductCard = (props) => {
   return (
     <Link underline="none" component={RouterLink} to={`/product/${id}`}>
       <Card elevation={false} className={classes.card}>
+      <Typography gutterBottom variant="h6">{headerTitle}</Typography>
+      <Typography gutterBottom color="textSecondary" variant="body1">{headerDescription}</Typography>
         <img src={image} className={classes.image} alt={name} />
         <CardContent className={classes.content}>
           <Typography color="textPrimary" variant="body1">

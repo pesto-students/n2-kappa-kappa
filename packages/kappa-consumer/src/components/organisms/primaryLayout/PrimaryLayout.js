@@ -11,14 +11,13 @@ import useStyles from './primaryLayout.styles';
 
 const PrimaryLayout = ({
   children,
-  categories,
 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Navbar>
-        <ConsumerNavbar categories={categories} />
+        <ConsumerNavbar />
       </Navbar>
       <div className={classes.content}>
         <main>{children}</main>

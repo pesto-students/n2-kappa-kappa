@@ -1,5 +1,6 @@
 export default function productsListReducer(state = {
   productsInfo: {},
+  navbarProducts: {},
   fetching: true,
 }, action) {
   switch (action.type) {
@@ -45,6 +46,17 @@ export default function productsListReducer(state = {
       return {
         ...state,
         productsInfo: action.payload,
+        fetching: false,
+      };
+    case 'FETCHING_NAVBAR_INFO':
+      return {
+        ...state,
+        fetching: true,
+      };
+    case 'FETCHED_NAVBAR_INFO':
+      return {
+        ...state,
+        navbarProducts: action.payload,
         fetching: false,
       };
     default:

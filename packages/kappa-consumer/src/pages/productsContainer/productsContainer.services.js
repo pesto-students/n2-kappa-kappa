@@ -37,3 +37,8 @@ export function getRecommendedProductsInfo(limit) {
   const url = `${BASE_URL}/${PRODUCTS_BASE_URL}?limit=${limit}&priority=true`;
   return callApi(url);
 }
+
+export function getAllProducts() {
+  const url = `${BASE_URL}/${PRODUCTS_BASE_URL}`;
+  return callApi(url);
+}
