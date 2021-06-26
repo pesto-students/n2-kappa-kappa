@@ -21,7 +21,6 @@ import Grid from '@kappa/components/src/atoms/grid';
 import Loader from '@kappa/components/src/atoms/loader';
 import QuantityButton from '../../components/molecules/quantityButton';
 import NoProduct from './components/NoProduct';
-
 import RecommendedProducts from '../../components/organisms/recommendedProducts';
 import Cart from '../../components/organisms/cart';
 
@@ -39,7 +38,6 @@ import ActionCreators from '../../actions';
 
 /* CONSTANTS */
 import BASE_URL from '../../constants/baseURL';
-import RECOMMENDED_PRODUCTS_QUERY from './recommendedProductsQuery.constants';
 
 /* READERS */
 import productReader from '../../readers/productReader.readers';
@@ -53,7 +51,6 @@ const Product = ({
   user,
   isValid,
   recommendedProductsInfo,
-  getRecommendedProductsInfo,
   recommendedProductsFetching,
 }) => {
   const classes = useStyles();
@@ -69,10 +66,6 @@ const Product = ({
       getAProduct(id);
     }
   }, [id]);
-
-  useEffect(() => {
-    getRecommendedProductsInfo(RECOMMENDED_PRODUCTS_QUERY);
-  }, []);
 
   const handleChangeIndex = (i) => {
     setIndex(i);
@@ -221,6 +214,7 @@ const Product = ({
       <RecommendedProducts 
         title="You might also like"
         data={recommendedProductsInfo}
+        layout={3}
         recommendedProductsFetching={recommendedProductsFetching}
       />
 
@@ -258,8 +252,6 @@ function mapStateToProps(state) {
     isValid: state.product.isValid,
     cart: state.cart.cart,
     fetching: state.product.fetching,
-    recommendedProductsInfo: state.productsInfo.productsInfo,
-    recommendedProductsFetching: state.productsInfo.fetching,
   };
 }
 

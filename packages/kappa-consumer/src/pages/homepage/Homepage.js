@@ -11,10 +11,17 @@ import carouselData from './constants/carouselData.constants';
 // components
 import Carousel from './components/organisms/carousel';
 import Modal from '../../components/organisms/modal';
+import RecommendedProducts from '../../components/organisms/recommendedProducts'
+import FooterNotes from './components/atoms/footerNotes';
 
 import ActionCreators from '../../actions';
 
-const App = ({ location, match, message, setIsSignInOpen }) => {
+const App = ({ 
+  location, 
+  match, 
+  message, 
+  setIsSignInOpen,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [verification, setVerification] = useState(false);
   const [resetPasswordState, setResetPasswordState] = useState(false);
@@ -62,6 +69,12 @@ const App = ({ location, match, message, setIsSignInOpen }) => {
       />
       <Typography variant='body2' color='error'></Typography>
       <Carousel data={carouselData} />
+
+      <RecommendedProducts 
+        title="Featured Collection"
+      />
+
+      <FooterNotes />
     </div>
   );
 };

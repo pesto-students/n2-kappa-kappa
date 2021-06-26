@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+/* REDUX */
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 // Components
 import Typography from '@kappa/components/src/atoms/typography';
 import ProductCard from '@kappa/components/src/molecules/productCard';
 import Grid from '@kappa/components/src/atoms/grid';
 import Divider from '@kappa/components/src/atoms/divider';
+import Loader from '@kappa/components/src/atoms/loader';
 import ContentContainer from '@kappa/components/src/atoms/contentContainer';
 
 /* READERS */
@@ -15,12 +20,16 @@ import getCategoryName from '../../../helpers/getCategoryName.helpers'
 
 /* CONSTANTS */
 import BASE_URL from '../../../constants/baseURL';
+import RECOMMENDED_PRODUCTS_QUERY from '../../../constants/recommendedProductsQuery.constants';
 
 /* UTILS */
 import isEmpty from '../../../utils/isEmpty.utils';
 
 // Styles
 import useStyles from './recommendedProducts.styles';
+
+/* SERVICES */
+import ActionCreators from '../../../actions';
 
 const renderImage = (images) => {
   return `${BASE_URL}/api/v1/files/${images[0]}`
@@ -30,7 +39,7 @@ const renderProduct = (layout, categoryName) => (product) => (
   <Grid 
     key={productsReader.id(product)}
     item
-    lg={3} 
+    lg={layout} 
     md={4} 
     sm={6} 
     xs={12}  
@@ -46,8 +55,24 @@ const renderProduct = (layout, categoryName) => (product) => (
   </Grid>
 )
 
-const RecommendedProducts = ({ title, data }) => {
+const RecommendedProducts = ({ 
+  title, 
+  data,
+  getRecommendedProductsInfo,
+  fetching,
+  layout,
+}) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    getRecommendedProductsInfo(RECOMMENDED_PRODUCTS_QUERY);
+  }, []);
+
+  console.log('wdkwdok', data);
+
+  if(fetching) {
+    return <Loader padding />
+  }
 
   return (
     <div className={classes.root}>
@@ -60,7 +85,7 @@ const RecommendedProducts = ({ title, data }) => {
         </div>
           <Grid container spacing={5} className={classes.content} justify="center">
             {productsReader.data(data)
-              .map(renderProduct('', getCategoryName(data)))}
+              .map(renderProduct(layout, getCategoryName(data)))}
           </Grid>
         </ContentContainer>
       </div>
@@ -68,4 +93,15 @@ const RecommendedProducts = ({ title, data }) => {
   );
 };
 
-export default RecommendedProducts;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(ActionCreators, dispatch);
+}
+
+function mapStateToProps(state) {
+  return {
+    data: state.productsInfo.recommendedProductsInfo,
+    fetching: state.productsInfo.recommendedProductsInfoFetching,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendedProducts);

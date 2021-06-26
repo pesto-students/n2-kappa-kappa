@@ -1,17 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link, withRouter, useHistory } from 'react-router-dom';
-
-import { IconButton, Typography } from '@material-ui/core';
-import InputBase from '@material-ui/core/InputBase';
-
-// Icons
-import {
-  Menu as MenuIcon,
-  Search as SearchIcon,
-  ShoppingCartOutlined as ShoppingCartIcon,
-} from '@material-ui/icons/';
+import { withRouter, useHistory } from 'react-router-dom';
 
 /* COMPONENTS */
 import SignIn from './components/signIn';
@@ -19,27 +9,18 @@ import SignUp from './components/signUp';
 import ForgetPass from './components/forgetPass';
 import CategoriesListMenu from './components/categoriesListMenu';
 import Cart from '../cart';
-import ProfileMenu from './components/profileMenu';
 import MobileMenu from './components/mobileMenu';
+import SectionDesktop from './components/sectionDesktop';
+import SectionMobile from './components/sectionMobile';
 
 /* STYLES */
 import useStyles from './consumerNavbar.styles';
 import logo from '../../../assets/images/logo.png';
-import PersonIcon from '../../../assets/images/person';
+
+/* UTILS */
+import isEmpty from '../../../utils/isEmpty.utils';
 
 import ActionCreators from '../../../actions';
-
-const renderTabs = (classes, enterTab, leaveTab) => (
-  <div className={classes.tabsRoot}>
-    <div
-      className={classes.tabsContainer}
-      onMouseEnter={enterTab}
-      onMouseLeave={leaveTab}
-    >
-      <Typography className={classes.tab}>Shop</Typography>
-    </div>
-  </div>
-);
 
 const timeoutLength = 200;
 
@@ -54,7 +35,6 @@ const ConsumerNavbar = ({
   logoutUser,
   setProfileMenu,
 }) => {
-  const classes = useStyles();
   // const [isSignInOpen, setIsSignInOpen] = React.useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = React.useState(false);
   const [isCartVisible, setIsCartVisible] = React.useState(false);
@@ -70,8 +50,6 @@ const ConsumerNavbar = ({
   };
 
   const leaveTab = () => {
-    // Set a timeout so that the menu doesn't close before the user has time to
-    // move their mouse over it
     setTimeout(() => {
       setMouseOverTab(false);
     }, timeoutLength);
@@ -132,7 +110,7 @@ const ConsumerNavbar = ({
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !isEmpty(event.target.value)) {
       routeChange();
     }
   };
@@ -141,123 +119,38 @@ const ConsumerNavbar = ({
 
   return (
     <>
-      <>
-        <div className={classes.sectionDesktop}>
-          <div className={classes.sectionLeftDesktop}>
-            <Link className={classes.logoContainer} to='/'>
-              <img src={logo} className={classes.logo} alt='Mr-Nomad-Logo' />
-            </Link>
-            {renderTabs(classes, enterTab, leaveTab)}
-          </div>
+       <SectionDesktop 
+        enterTab={enterTab}
+        leaveTab={leaveTab}
+        logo={logo}
+        handleKeyDown={handleKeyDown}
+        searchText={searchText}
+        handleSearch={handleSearch}
+        user={user}
+        logoutUser={logoutUser}
+        setProfileMenu={setProfileMenu}
+        setIsSignInOpen={setIsSignInOpen}
+        setIsCartVisible={setIsSignInOpen}
+       />
 
-          <div className={classes.sectionRightDesktop}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder='Search…'
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                type='text'
-                onKeyDown={handleKeyDown}
-                value={searchText}
-                onChange={handleSearch}
-              />
-            </div>
+      <SectionMobile 
+        logo={logo}
+        mobileSearchVisible={mobileSearchVisible}
+        setMobileSearchVisible={setMobileSearchVisible}
+        handleKeyDown={handleKeyDown}
+        searchText={searchText}
+        handleSearch={handleSearch}
+        setIsCartVisible={setIsCartVisible}
+        setIsMobileMenuVisible={setIsMobileMenuVisible}
+        setIsSignInOpen={setIsSignInOpen}
+        user={user}
+       />
 
-            {user.name ? (
-              <ProfileMenu
-                data={user}
-                logoutUser={logoutUser}
-                setProfileMenu={setProfileMenu}
-              />
-            ) : (
-              <>
-                <IconButton
-                  className={classes.button}
-                  onClick={() => setIsSignInOpen(true)}
-                >
-                  <PersonIcon />
-                </IconButton>
-              </>
-            )}
-
-            {user.name ? (
-              <IconButton
-                className={classes.button}
-                onClick={() => setIsCartVisible(true)}
-              >
-                <ShoppingCartIcon />
-              </IconButton>
-            ) : (
-              <IconButton
-                className={classes.button}
-                onClick={() => setIsSignInOpen(true)}
-              >
-                <ShoppingCartIcon />
-              </IconButton>
-            )}
-          </div>
-        </div>
-
-        <div className={classes.sectionMobile}>
-          <div className={classes.sectionLeftMobile}>
-            <Link className={classes.logoContainer} to='/'>
-              <img src={logo} className={classes.logo} alt='Mr-Nomad-Logo' />
-            </Link>
-          </div>
-          <div>
-            {mobileSearchVisible ? (
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <InputBase
-                  autoFocus
-                  onBlur={() => setMobileSearchVisible(false)}
-                  placeholder='Search…'
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInputMobile,
-                  }}
-                  type='text'
-                  onKeyDown={handleKeyDown}
-                  value={searchText}
-                  onChange={handleSearch}
-                />
-              </div>
-            ) : (
-              <>
-                <IconButton
-                  onClick={() => setMobileSearchVisible(true)}
-                  className={classes.iconButton}
-                >
-                  <SearchIcon />
-                </IconButton>
-                <IconButton
-                  onClick={() => setIsCartVisible(true)}
-                  className={classes.iconButton}
-                >
-                  <ShoppingCartIcon />
-                </IconButton>
-
-                <IconButton
-                  onClick={() => setIsMobileMenuVisible(true)}
-                  className={classes.iconButton}
-                >
-                  <MenuIcon />
-                </IconButton>
-              </>
-            )}
-          </div>
-        </div>
-        <Cart
-          isCartVisible={isCartVisible}
-          setIsCartVisible={setIsCartVisible}
+        <Cart 
+          isCartVisible={isCartVisible} 
+          setIsCartVisible={setIsCartVisible} 
         />
+
         <SignIn
           isOpen={isSignInOpen}
           setIsOpen={() => {
@@ -267,6 +160,7 @@ const ConsumerNavbar = ({
           handleSignIn={handleSignIn}
           handleForgetPass={handleForgetPass}
         />
+
         <SignUp
           isOpen={isSignUpOpen}
           setIsOpen={(bool) => {
@@ -276,6 +170,7 @@ const ConsumerNavbar = ({
           handleSignUp={handleSignUp}
           handleForgetPass={handleForgetPass}
         />
+
         <ForgetPass
           isOpen={isForgetPassOpen}
           setIsOpen={(bool) => {
@@ -286,13 +181,14 @@ const ConsumerNavbar = ({
           handleSignIn={handleSignIn}
           handleSignUp={handleSignUp}
         />
-      </>
+
       <CategoriesListMenu
         categories={categories}
         enterMenu={enterMenu}
         leaveMenu={leaveMenu}
         open={open}
       />
+
       <MobileMenu
         user={user}
         setProfileMenu={setProfileMenu}

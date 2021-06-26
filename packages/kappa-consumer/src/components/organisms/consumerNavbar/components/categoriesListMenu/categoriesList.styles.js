@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
     width: '100%',
     // height: 400,
     position: 'absolute',
-    top: 50,
+    top: 70,
     boxSizing: 'border-box',
     padding: theme.spacing(4),
     display: 'flex',

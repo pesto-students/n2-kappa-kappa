@@ -18,7 +18,8 @@ export default makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
   logo: {
-    maxWidth: 180,
+    maxWidth: '40%',
+    height: 'auto',
     padding: theme.spacing(2),
     alignSelf: 'center',
   },
