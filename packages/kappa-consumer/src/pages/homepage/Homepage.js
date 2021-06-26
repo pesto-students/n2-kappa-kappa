@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 
 import Typography from '@kappa/components/src/atoms/typography';
 
@@ -11,15 +10,14 @@ import carouselData from './constants/carouselData.constants';
 // components
 import Carousel from './components/organisms/carousel';
 import Modal from '../../components/organisms/modal';
-import RecommendedProducts from '../../components/organisms/recommendedProducts'
+import RecommendedProducts from '../../components/organisms/recommendedProducts';
 import FooterNotes from './components/atoms/footerNotes';
 
 import ActionCreators from '../../actions';
 
-const App = ({ 
-  location, 
-  match, 
-  message, 
+const App = ({
+  location,
+  match,
   setIsSignInOpen,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,13 +27,13 @@ const App = ({
   const [verificationCode, setVerificationCode] = useState('');
 
   useEffect(() => {
-    console.log('enter in hompage dfghjk456789456789');
     const { search } = location;
     const searchParams = new URLSearchParams(search);
     const user = searchParams.get('user');
     const resetToken = searchParams.get('resetToken');
 
     const {
+      // eslint-disable-next-line no-shadow
       params: { verificationCode },
     } = match;
 
@@ -67,10 +65,10 @@ const App = ({
         setResetPasswordState={setResetPasswordState}
         verificationCode={verificationCode}
       />
-      <Typography variant='body2' color='error'></Typography>
+      <Typography variant="body2" color="error" />
       <Carousel data={carouselData} />
 
-      <RecommendedProducts 
+      <RecommendedProducts
         title="Featured Collection"
       />
 
@@ -79,17 +77,9 @@ const App = ({
   );
 };
 
-App.propTypes = {
-  location: PropTypes.object,
-  match: PropTypes.object,
-  message: PropTypes.string,
-  setIsSignInOpen: PropTypes.func,
-};
-
 App.defaultProps = {
   location: {},
   match: {},
-  message: '',
 };
 
 function mapDispatchToProps(dispatch) {

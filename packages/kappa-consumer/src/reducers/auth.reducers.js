@@ -8,7 +8,7 @@ export default function authReducer(
     verified: false,
     profileMenu: 0,
   },
-  action
+  action,
 ) {
   switch (action.type) {
     case 'LOG_IN_START':

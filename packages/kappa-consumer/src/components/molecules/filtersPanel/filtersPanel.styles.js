@@ -34,5 +34,5 @@ export default makeStyles((theme) => ({
     right: 10,
     top: 10,
     color: 'black',
-  }
+  },
 }));

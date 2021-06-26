@@ -13,11 +13,11 @@ const NoProducts = () => {
 
   return (
     <div className={classes.root}>
-      <img className={classes.image} src={NoProductIcon} alt='no-products' />
+      <img className={classes.image} src={NoProductIcon} alt="no-products" />
       <Typography className={classes.label} gutterBottom>
-        We couldn't find any matches!
+        We couldn&apos;t find any matches!
       </Typography>
-      <Typography variant='caption' className={classes.label}>
+      <Typography variant="caption" className={classes.label}>
         Please check the spelling or try searching something else
       </Typography>
     </div>

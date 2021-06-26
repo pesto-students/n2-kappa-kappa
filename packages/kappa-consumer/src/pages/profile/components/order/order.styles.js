@@ -37,9 +37,6 @@ export default makeStyles((theme) => ({
   headerTitleContainer: {
     display: 'flex',
     alignItems: 'center',
-    // [theme.breakpoints.only('xs')]: {
-    //   display: 'none',
-    // },
   },
   filtersButtonContainer: {
     display: 'flex',
@@ -48,7 +45,6 @@ export default makeStyles((theme) => ({
     },
   },
   button: {
-    // padding: theme.spacing(2, 10),
     borderRadius: 'unset',
     fontWeight: 'bold',
     [theme.breakpoints.only('xs')]: {
@@ -71,28 +67,22 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     margin: theme.spacing(3, 0),
   },
-
-  //   Tab
   tabBar: {
     border: 0,
   },
   singleTab: {
     display: 'flex',
   },
-
   'MuiTabs-flexContainer': {
     display: 'flex',
     background: 'blue',
     justifyContent: 'space-evenly',
   },
-
   'MuiTab-wrapper': {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
   },
 }));

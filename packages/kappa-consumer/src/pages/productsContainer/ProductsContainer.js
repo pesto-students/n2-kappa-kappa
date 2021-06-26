@@ -48,6 +48,7 @@ const ProductsContainer = ({
     setTotalPages(getTotalPages(productsInfo, LIMIT));
   }, [productsInfo]);
 
+  // eslint-disable-next-line consistent-return
   const validateCategoryId = (categoryId) => {
     if (!isEmpty(categories)) {
       return categories.data.some((category) => category._id === categoryId);

@@ -18,7 +18,7 @@ import PrimaryLayout from './components/organisms/primaryLayout';
 import ActionCreators from './actions';
 
 /* CONSTANTS */
-import CATEGORIES_QUERY from './constants/categoriesQuery.constants'
+import CATEGORIES_QUERY from './constants/categoriesQuery.constants';
 
 const App = ({
   getAllCategories,
@@ -26,14 +26,13 @@ const App = ({
   categoriesFetching,
   navbarProductsFetching,
 }) => {
-
   useEffect(() => {
     getAllCategories(CATEGORIES_QUERY);
     getAllProducts();
   }, []);
 
-  if(navbarProductsFetching && categoriesFetching) {
-    return <NavbarLoader />
+  if (navbarProductsFetching && categoriesFetching) {
+    return <NavbarLoader />;
   }
 
   return (
@@ -43,7 +42,7 @@ const App = ({
       </PrimaryLayout>
     </MyThemeProvider>
   );
-}
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(ActionCreators, dispatch);
@@ -57,4 +56,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-

@@ -13,8 +13,6 @@ export default makeStyles((theme) => ({
       alignItems: 'center',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'row',
     },
     '& .MuiSvgIcon-root': {
       marginRight: theme.spacing(1),

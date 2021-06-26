@@ -29,7 +29,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.only('xs')]: {
       height: 380,
       alignItems: 'center',
-      textAlign: 'center'
+      textAlign: 'center',
     },
   },
   quantityGridContainer: {

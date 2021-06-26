@@ -3,7 +3,6 @@ import * as authServices from '../services/auth.services';
 
 const handleError = (error) => console.log(error);
 
-// eslint-disable-next-line import/prefer-default-export
 export function loginUser(body) {
   return (dispatch) => {
     dispatch({
@@ -57,17 +56,19 @@ export function registerUser(body) {
     });
 
     return authServices.registerUser(body).then((data) => {
+      let tempUserData = data;
+
       if (data.success) {
-        data = { ...data, userRegistered: true };
+        tempUserData = { ...data, userRegistered: true };
         dispatch({
           type: 'REGISTER_USER_SUCCESS',
-          payload: data,
+          payload: tempUserData,
         });
       } else {
-        data = { ...data, userRegistered: false };
+        tempUserData = { ...data, userRegistered: false };
         dispatch({
           type: 'REGISTER_USER_FAILED',
-          payload: data,
+          payload: tempUserData,
         });
       }
     }, handleError);
@@ -172,7 +173,6 @@ export function updateUser(body) {
     });
 
     return authServices.updateUser(body).then((data) => {
-      console.log(data, 'data in updateUser');
       if (data.success) {
         dispatch({
           type: 'UPDATE_PROFILE_SUCCESS',

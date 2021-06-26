@@ -1,12 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 240;
-
 export default makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(3),
-    // paddingLeft: theme.spacing(6),
-    // paddingRight: theme.spacing(6),
   },
   imp: {
     display: 'flex',
@@ -19,7 +15,7 @@ export default makeStyles((theme) => ({
   title: {
     textTransform: 'capitalize',
     transition: 'font 0.3s ease',
-    transform: 'translate(1px, 1px)'
+    transform: 'translate(1px, 1px)',
   },
   headerMenu: {
     position: 'sticky',
@@ -36,7 +32,7 @@ export default makeStyles((theme) => ({
   },
   '@global': {
     '@keyframes fontShrink': {
-        '100%': {
+      '100%': {
         transform: 'scale(0.6)',
         marginLeft: -50,
       },
@@ -49,8 +45,6 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
     paddingLeft: theme.spacing(6),
     paddingRight: theme.spacing(6),
-    // paddingLeft: theme.spacing(8),
-    // paddingRight: theme.spacing(8),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -60,9 +54,6 @@ export default makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     paddingLeft: theme.spacing(6),
-    // [theme.breakpoints.only('xs')]: {
-    //   display: 'none',
-    // },
   },
   filtersButtonContainer: {
     paddingRight: theme.spacing(6),
@@ -73,7 +64,6 @@ export default makeStyles((theme) => ({
   },
   button: {
     backgroundColor: 'transparent !important',
-    // padding: theme.spacing(2, 10),
     borderRadius: 'unset',
     fontWeight: 'bold',
     [theme.breakpoints.only('xs')]: {

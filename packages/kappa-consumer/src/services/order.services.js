@@ -3,8 +3,6 @@ import BASE_URL from '../constants/baseURL';
 
 /* UTILS */
 import getPostConfig from '../helpers/getPostConfig';
-import getPutConfig from '../helpers/getPutConfig';
-import getDeleteConfig from '../helpers/getDeleteConfig';
 import getConfig from '../helpers/getConfig';
 
 /* HELPERS */

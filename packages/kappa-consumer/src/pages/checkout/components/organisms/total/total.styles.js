@@ -1,7 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const borderRadius = 8;
-
 export default makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -10,7 +8,6 @@ export default makeStyles((theme) => ({
     position: 'relative',
     flexDirection: 'column',
   },
-
   productDetails: {
     width: '250px',
     padding: '10px',
@@ -26,16 +23,12 @@ export default makeStyles((theme) => ({
     width: '100%',
     height: '1px',
   },
-
   flex: {
     display: 'flex',
-    // justifyContent: 'space-between',
   },
-
   alignCenter: {
     alignItems: 'center',
   },
-
   py_16: {
     padding: '16px',
   },

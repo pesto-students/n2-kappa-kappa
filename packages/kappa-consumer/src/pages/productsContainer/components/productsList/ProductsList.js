@@ -10,6 +10,8 @@ import Grid from '@kappa/components/src/atoms/grid';
 import Button from '@kappa/components/src/atoms/button';
 import Paper from '@kappa/components/src/atoms/paper';
 import ProductCard from '@kappa/components/src/molecules/productCard';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import Pagination from '../../../../components/atoms/pagination';
 
 // molecules
@@ -37,28 +39,23 @@ import INITIAL_LAYOUT from '../../constants/initialLayout.constants';
 import BASE_URL from '../../../../constants/baseURL';
 
 // responsive
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 
-const renderImage = (images) => {
-  return `${BASE_URL}/api/v1/files/${images[0]}`;
-};
+const renderImage = (images) => `${BASE_URL}/api/v1/files/${images[0]}`;
 
-const renderProduct = (layout, categoryName) => (product) =>
-  (
-    <Grid key={productsReader.id(product)} item md={4} sm={6} xs={6}>
-      <ProductCard
-        image={renderImage(
-          !isEmpty(productsReader.images(product)) &&
-            productsReader.images(product)
-        )}
-        categoryName={categoryName}
-        name={productsReader.name(product)}
-        price={productsReader.price(product)}
-        id={productsReader.id(product)}
-      />
-    </Grid>
-  );
+const renderProduct = (layout, categoryName) => (product) => (
+  <Grid key={productsReader.id(product)} item md={4} sm={6} xs={6}>
+    <ProductCard
+      image={renderImage(
+        !isEmpty(productsReader.images(product))
+            && productsReader.images(product),
+      )}
+      categoryName={categoryName}
+      name={productsReader.name(product)}
+      price={productsReader.price(product)}
+      id={productsReader.id(product)}
+    />
+  </Grid>
+);
 
 const ProductsList = ({
   productsInfo,
@@ -73,6 +70,7 @@ const ProductsList = ({
 
   const [isFiltersPanelVisible, setIsFiltersPanelVisible] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [scrollTop, setScrollTop] = useState(0);
 
   // responsive
@@ -98,12 +96,12 @@ const ProductsList = ({
       <Paper className={classes.headerMenu} elevation={false}>
         <div className={classes.headerTitleContainer}>
           <Typography
-            color='textPrimary'
-            variant='h5'
+            color="textPrimary"
+            variant="h5"
             className={clsx(
               classes.title,
               scrolling > 100 && classes.fontShrink,
-              scrolling < 100 && classes.fontGrow
+              scrolling < 100 && classes.fontGrow,
             )}
           >
             {getTitle(pageType, productsInfo)}
@@ -114,7 +112,7 @@ const ProductsList = ({
           <Button
             onClick={toggleFiltersPanel}
             label={isFiltersPanelVisible ? 'Hide Filters' : 'Show Filters'}
-            size='large'
+            size="large"
             className={classes.button}
             endIcon={<FilterListIcon />}
             disableRipple
@@ -137,7 +135,7 @@ const ProductsList = ({
             {productsReader
               .data(productsInfo)
               .map(
-                renderProduct(INITIAL_LAYOUT, getCategoryName(productsInfo))
+                renderProduct(INITIAL_LAYOUT, getCategoryName(productsInfo)),
               )}
           </Grid>
 
@@ -146,7 +144,7 @@ const ProductsList = ({
             count={totalPages}
             page={page}
             onChange={handlePagination}
-            color='primary'
+            color="primary"
           />
         </div>
       </div>
@@ -155,16 +153,11 @@ const ProductsList = ({
 };
 
 ProductsList.propTypes = {
-  handlePagination: PropTypes.func,
-  productsInfo: PropTypes.object,
   totalPages: PropTypes.number,
   page: PropTypes.number,
-  handleFilters: PropTypes.func,
-  getTitle: PropTypes.func,
 };
 
 ProductsList.defaultProps = {
-  productsInfo: {},
   totalPages: 0,
   page: 0,
 };

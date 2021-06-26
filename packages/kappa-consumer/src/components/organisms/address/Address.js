@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -5,10 +6,9 @@ import { bindActionCreators } from 'redux';
 /* COMPONENTS */
 import Button from '@kappa/components/src/atoms/button';
 import Typography from '@kappa/components/src/atoms/typography';
+import Loader from '@kappa/components/src/atoms/loader';
 import AddressCard from '../addressCard';
 import EditAddressModal from '../editAddressModal';
-// atoms
-import Loader from '@kappa/components/src/atoms/loader';
 
 /* STYLES */
 import useStyles from './address.styles';
@@ -45,8 +45,8 @@ const Address = ({
     setOpen(false);
   };
 
-  const handleUpdateAddress = (address) => {
-    updateAddress(address, address._id);
+  const handleUpdateAddress = (updatedAddress) => {
+    updateAddress(updatedAddress, address._id);
     setOpen(false);
   };
 
@@ -58,7 +58,7 @@ const Address = ({
   return (
     <>
       {message ? (
-        <Typography variant='body2' color='error'>
+        <Typography variant="body2" color="error">
           {message}
         </Typography>
       ) : null}
@@ -66,15 +66,15 @@ const Address = ({
         <div className={classes.root}>
           <Typography
             className={classes.title}
-            color='textPrimary'
-            variant='h6'
+            color="textPrimary"
+            variant="h6"
           >
             Address Information
           </Typography>
           <Button
-            label='Add Address'
-            variant='contained'
-            color='primary'
+            label="Add Address"
+            variant="contained"
+            color="primary"
             className={classes.addAddressBtn}
             onClick={handleClickOpen}
           />
@@ -82,25 +82,24 @@ const Address = ({
 
         <EditAddressModal
           handleClose={handleClose}
-          handleSubmitAddress={(address) => handleSubmitAddress(address)}
+          handleSubmitAddress={(submitAddress) => handleSubmitAddress(submitAddress)}
           open={open}
-          dialogTitle='Add New Address'
-          cancelTitle='Cancel'
+          dialogTitle="Add New Address"
+          cancelTitle="Cancel"
         />
       </div>
+
       {address && address.length ? (
         <AddressCard
           handleSubmitAddress={handleSubmitAddress}
-          handleUpdateAddress={(updatedAddress) =>
-            handleUpdateAddress(updatedAddress)
-          }
+          handleUpdateAddress={(updatedAddress) => handleUpdateAddress(updatedAddress)}
           data={address}
           deleteAddress={handleDeleteAddress}
         />
       ) : fetching ? (
         <Loader padding />
       ) : (
-        <Typography className={classes.textCenter} variant='h6' color='error'>
+        <Typography className={classes.textCenter} variant="h6" color="error">
           No Address found
         </Typography>
       )}

@@ -1,7 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const borderRadius = 8;
-
 export default makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
@@ -25,7 +23,6 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'start',
-    // width: '100%',
   },
   deleteIconContainer: {
     position: 'absolute',

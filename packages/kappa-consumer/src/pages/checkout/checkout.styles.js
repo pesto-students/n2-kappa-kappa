@@ -1,7 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const borderRadius = 8;
-
 export default makeStyles((theme) => ({
   root: {
     display: 'flex',

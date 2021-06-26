@@ -16,11 +16,8 @@ export default makeStyles((theme) => ({
   },
   title: {
     textTransform: 'capitalize',
-    // transition: 'font 0.3s ease',
-    // transform: 'translate(1px, 1px)',
     paddingLeft: theme.spacing(6),
     [theme.breakpoints.only('xs')]: {
-      // fontSize: 18,
       paddingLeft: theme.spacing(2),
     },
   },
@@ -65,8 +62,5 @@ export default makeStyles((theme) => ({
     borderRadius: 'unset',
     fontWeight: 'bold',
     backgroundColor: 'transparent !important',
-    // [theme.breakpoints.only('xs')]: {
-    //   flex: 1,
-    // },
   },
 }));

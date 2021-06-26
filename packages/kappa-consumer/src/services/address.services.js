@@ -10,7 +10,6 @@ import getConfig from '../helpers/getConfig';
 /* HELPERS */
 import callApi from '../helpers/callApi';
 
-// eslint-disable-next-line import/prefer-default-export
 export function getAddresses() {
   const url = `${BASE_URL}/api/v1/address`;
   const config = getConfig();

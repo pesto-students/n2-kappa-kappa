@@ -42,26 +42,26 @@ export default makeStyles((theme) => ({
     },
   },
   header: {
-    fontSize: 20, 
-    marginBottom: 10, 
+    fontSize: 20,
+    marginBottom: 10,
     color: '#fff',
   },
   subHeader: {
-    fontWeight: 'bold', 
-    fontSize: 28, 
-    marginBottom: 60, 
+    fontWeight: 'bold',
+    fontSize: 28,
+    marginBottom: 60,
     color: '#fff',
     maxWidth: '50%',
     [theme.breakpoints.down('sm')]: {
       maxWidth: 'unset',
-    }
+    },
   },
   button: {
-    width: 250, 
-    background: '#5BB02D !important', 
-    color: '#fff', 
-    height: 50, 
-    fontSize: 16, 
+    width: 250,
+    background: '#5BB02D !important',
+    color: '#fff',
+    height: 50,
+    fontSize: 16,
     borderRadius: 15,
   },
   carouselDots: {

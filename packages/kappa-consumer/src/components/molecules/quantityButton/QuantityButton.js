@@ -1,7 +1,6 @@
 import React from 'react';
 
 /* COMPONENTS */
-// atoms
 import IconButton from '@kappa/components/src/atoms/iconButton';
 import Typography from '@kappa/components/src/atoms/typography';
 

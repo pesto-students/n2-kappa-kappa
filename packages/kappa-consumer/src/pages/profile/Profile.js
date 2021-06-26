@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import clsx from 'clsx';
-
-// responsive
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 
 /* COMPONENTS */
 // atoms
 import Typography from '@kappa/components/src/atoms/typography';
 import Grid from '@kappa/components/src/atoms/grid';
-import Menu from '@kappa/components/src/atoms/menu';
 
 // External
 import PropTypes from 'prop-types';
@@ -21,10 +15,6 @@ import Box from '@material-ui/core/Box';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined';
-
-// molecules
-
-// organisms
 import Account from './components/account';
 import Order from './components/order';
 import Address from '../../components/organisms/address';
@@ -32,19 +22,17 @@ import Address from '../../components/organisms/address';
 /* STYLES */
 import useStyles from './profile.styles';
 
-/* ASSETS */
-
-/* CONSTANTS */
-
 /* SERVICES */
 import ActionCreators from '../../actions';
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
-      role='tabpanel'
+      role="tabpanel"
       hidden={value !== index}
       id={`scrollable-force-tabpanel-${index}`}
       aria-labelledby={`scrollable-force-tab-${index}`}
@@ -58,12 +46,6 @@ function TabPanel(props) {
     </div>
   );
 }
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
 
 function a11yProps(index) {
   return {
@@ -85,12 +67,12 @@ const Profile = ({ profileMenu, setProfileMenu }) => {
         elevation={0}
         value={profileMenu}
         onChange={handleChange}
-        aria-label='scrollable force tabs example'
+        aria-label="scrollable force tabs example"
       >
-        <Tab label='Profile' icon={<AccountCircleIcon />} {...a11yProps(0)} />
-        <Tab label='Address' icon={<HomeIcon />} {...a11yProps(1)} />
+        <Tab label="Profile" icon={<AccountCircleIcon />} {...a11yProps(0)} />
+        <Tab label="Address" icon={<HomeIcon />} {...a11yProps(1)} />
         <Tab
-          label='Order'
+          label="Order"
           icon={<LocalShippingOutlinedIcon />}
           {...a11yProps(2)}
         />
@@ -101,7 +83,7 @@ const Profile = ({ profileMenu, setProfileMenu }) => {
       </TabPanel>
       <TabPanel value={profileMenu} index={1}>
         <div className={classes.root}>
-          <Grid container direction='row' justify='center' alignItems='center'>
+          <Grid container direction="row" justify="center" alignItems="center">
             <Grid container item xs={12} sm={10} md={8} spacing={3}>
               <Address />
             </Grid>
@@ -117,7 +99,6 @@ const Profile = ({ profileMenu, setProfileMenu }) => {
 
 Profile.propTypes = {
   profileMenu: PropTypes.number,
-  setProfileMenu: PropTypes.any.isRequired,
 };
 
 Profile.defaultProps = {

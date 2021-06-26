@@ -4,7 +4,7 @@ export default function categoriesReducer(
     fetching: false,
     message: '',
   },
-  action
+  action,
 ) {
   switch (action.type) {
     case 'ADD_ORDER_START':

@@ -1,5 +1,5 @@
 const getTime = (dateStr) => {
-  let d = new Date(dateStr);
+  const d = new Date(dateStr);
   return d.toLocaleString();
 };
 

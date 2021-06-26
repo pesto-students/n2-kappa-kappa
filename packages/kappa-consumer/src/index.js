@@ -19,7 +19,7 @@ const RootApp = () => (
 
 ReactDOM.render(
   <React.StrictMode>
-    <RootApp /> 
+    <RootApp />
   </React.StrictMode>,
-  document.getElementById('react-root')
+  document.getElementById('react-root'),
 );

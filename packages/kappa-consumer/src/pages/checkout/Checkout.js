@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { Link as RouterLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 /* COMPONENTS */
-// atoms
 import ContentContainer from '@kappa/components/src/atoms/contentContainer';
 import Button from '@kappa/components/src/atoms/button';
 import Typography from '@kappa/components/src/atoms/typography';
@@ -28,16 +26,17 @@ import useStyles from './checkout.styles';
 /* SERVICES */
 import ActionCreators from '../../actions';
 
-/* ASSETS */
-import BASE_URL from '../../constants/baseURL';
 // images
 import ShoppingCartIcon from '../../assets/images/shoppingCart';
+import OrderIcon from '../../assets/images/order.png';
 
 function getSteps() {
   return ['Review Cart', 'Shipping', 'Payment'];
 }
 
-const Checkout = ({ addOrder, cart, address, user }) => {
+const Checkout = ({
+  addOrder, cart, address, user,
+}) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [orderCalculation, setOrderCalculation] = useState({
@@ -56,8 +55,8 @@ const Checkout = ({ addOrder, cart, address, user }) => {
   const [sdkReady, setSdkReady] = useState(false);
 
   useEffect(() => {
-    let total = parseFloat(
-      orderCalculation.subTotal - orderCalculation.discount + 5
+    const total = parseFloat(
+      orderCalculation.subTotal - orderCalculation.discount + 5,
     ).toFixed(2);
     setCurrentOrderPayment(total);
     setSdkReady(true);
@@ -71,8 +70,8 @@ const Checkout = ({ addOrder, cart, address, user }) => {
     if (paymentResult) {
       setPaymentStatus(true);
       if (address && address.length) {
-        let shippingAddress = address.filter(
-          (elem) => elem.default === true
+        const shippingAddress = address.filter(
+          (elem) => elem.default === true,
         )[0];
 
         addOrder({
@@ -98,7 +97,7 @@ const Checkout = ({ addOrder, cart, address, user }) => {
   const cashOnDeliveryHandle = () => {
     setPaymentStatus(true);
     if (address && address.length) {
-      let shippingAddress = address.filter((elem) => elem.default === true)[0];
+      const shippingAddress = address.filter((elem) => elem.default === true)[0];
 
       addOrder({
         orderItems: cart,
@@ -129,7 +128,7 @@ const Checkout = ({ addOrder, cart, address, user }) => {
           <>
             {!paymentStatus ? (
               <>
-                <Typography color='textPrimary' variant='h6'>
+                <Typography color="textPrimary" variant="h6">
                   Select a payment method
                 </Typography>
 
@@ -139,25 +138,23 @@ const Checkout = ({ addOrder, cart, address, user }) => {
                   ) : (
                     <>
                       <PayPalButton
-                        createOrder={(data, actions) => {
-                          return actions.order.create({
-                            purchase_units: [
-                              {
-                                amount: {
-                                  currency_code: 'USD',
-                                  value: currentOrderPayment,
-                                },
+                        createOrder={(data, actions) => actions.order.create({
+                          purchase_units: [
+                            {
+                              amount: {
+                                currency_code: 'USD',
+                                value: currentOrderPayment,
                               },
-                            ],
-                          });
-                        }}
+                            },
+                          ],
+                        })}
                         onSuccess={successPaymentHandler}
                       />
                       <Button
-                        label='Cash On Delivery'
+                        label="Cash On Delivery"
                         onClick={cashOnDeliveryHandle}
                         className={classes.cashOnDelivery}
-                      ></Button>
+                      />
                     </>
                   )}
                 </Paper>
@@ -165,9 +162,9 @@ const Checkout = ({ addOrder, cart, address, user }) => {
             ) : (
               <>
                 <img
-                  src='https://cdn.dribbble.com/users/1787323/screenshots/11229539/media/01c540af896420a04964478735308306.png?compress=1&resize=1200x900'
+                  src={OrderIcon}
                   className={classes.image}
-                  alt='order gif'
+                  alt="order gif"
                 />
 
                 <Typography className={classes.instructions}>
@@ -184,12 +181,12 @@ const Checkout = ({ addOrder, cart, address, user }) => {
 
   return (
     <ContentContainer className={classes.root}>
-      <Typography variant='h4' className={classes.title}>
+      <Typography variant="h4" className={classes.title}>
         KAPPA
       </Typography>
 
       <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, i) => (
+        {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>
@@ -205,8 +202,8 @@ const Checkout = ({ addOrder, cart, address, user }) => {
                 <div className={classes.stepperControls}>
                   {activeStep !== steps.length - 1 ? (
                     <Button
-                      label='Back'
-                      color='secondary'
+                      label="Back"
+                      color="secondary"
                       disabled={activeStep === 0}
                       onClick={handleBack}
                       className={classes.backButton}
@@ -218,19 +215,16 @@ const Checkout = ({ addOrder, cart, address, user }) => {
                   {activeStep !== steps.length - 1 ? (
                     <Button
                       startIcon={<ShoppingCartIcon />}
-                      label='Continue'
-                      variant='contained'
-                      color='primary'
+                      label="Continue"
+                      variant="contained"
+                      color="primary"
                       disabled={
+                        // eslint-disable-next-line no-nested-ternary
                         activeStep === steps.length - 3
-                          ? cart && cart.length
-                            ? false
-                            : true
+                          ? !(cart && cart.length)
                           : activeStep === steps.length - 2
-                          ? address && address.length
-                            ? false
-                            : true
-                          : ''
+                            ? !(address && address.length)
+                            : ''
                       }
                       className={classes.cartButton}
                       onClick={handleNext}
@@ -239,11 +233,11 @@ const Checkout = ({ addOrder, cart, address, user }) => {
                     ''
                   )}
                   {activeStep === steps.length - 1 ? (
-                    <Link underline='none' component={RouterLink} to={`/`}>
+                    <Link underline="none" component={RouterLink} to="/">
                       <Button
-                        variant='contained'
-                        color='primary'
-                        label='Home'
+                        variant="contained"
+                        color="primary"
+                        label="Home"
                         className={classes.homeButton}
                       />
                     </Link>
@@ -257,13 +251,6 @@ const Checkout = ({ addOrder, cart, address, user }) => {
       </Grid>
     </ContentContainer>
   );
-};
-
-Checkout.propTypes = {
-  addOrder: PropTypes.func,
-  user: PropTypes.object,
-  cart: PropTypes.array,
-  address: PropTypes.array,
 };
 
 Checkout.defaultProps = {

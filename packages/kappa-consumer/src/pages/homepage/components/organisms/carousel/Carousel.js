@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { autoPlay } from 'react-swipeable-views-utils';
 
-import MobileStepper from '@material-ui/core/MobileStepper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SwipeableViews from 'react-swipeable-views';
@@ -17,7 +16,6 @@ function Carousel(props) {
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = useState(0);
-  const maxSteps = data.length;
 
   const handleStepChange = (step) => {
     setActiveStep(step);
@@ -65,14 +63,6 @@ function Carousel(props) {
           </Button>
         </div>
       </div>
-
-      {/* <MobileStepper
-        steps={maxSteps}
-        position="static"
-        variant="dots"
-        activeStep={activeStep}
-        className={classes.carouselDots}
-      /> */}
     </div>
   );
 }

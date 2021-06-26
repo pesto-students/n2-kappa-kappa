@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 /* STYLES */
+import Loader from '@kappa/components/src/atoms/loader';
 import useStyles from './products.styles';
 
 /* COMPONENTS */
-import Loader from '@kappa/components/src/atoms/loader';
 import NoProducts from '../noProducts';
 import ProductsList from '../productsList';
 
@@ -21,13 +21,14 @@ import productsReader from '../../../../readers/productsList.readers';
 /* CONSTANTS */
 import LIMIT from '../../constants/limit.constants';
 
+// eslint-disable-next-line consistent-return
 const getTitle = (type, info) => {
   if (type === 'category') {
-    return `${getCategoryName(info)} (${info.total})`
+    return `${getCategoryName(info)} (${info.total})`;
   } if (type === 'search') {
-    return `Your searched Products (${info.total})`
+    return `Your searched Products (${info.total})`;
   }
-}
+};
 
 const Products = ({
   categoryId,
@@ -50,16 +51,16 @@ const Products = ({
     getProductsInfo(pageType, categoryId, LIMIT, page);
   }, [pageType, currentPage, location.pathname]);
 
-  const handleFilters = (type, value, pageType) => () => {
+  const handleFilters = (type, value, pagetype) => () => {
     if (type === 'price') {
       const { min, max } = value;
-      filterByPrice(pageType, categoryId, LIMIT, page, min, max);
+      filterByPrice(pagetype, categoryId, LIMIT, page, min, max);
     }
     if (type === 'discount') {
-      filterByDiscount(pageType, categoryId, LIMIT, page, value);
+      filterByDiscount(pagetype, categoryId, LIMIT, page, value);
     }
     if (type === 'sort') {
-      sortProducts(pageType, categoryId, LIMIT, page, value);
+      sortProducts(pagetype, categoryId, LIMIT, page, value);
     }
   };
 
@@ -89,15 +90,6 @@ const Products = ({
 Products.propTypes = {
   categoryId: PropTypes.string,
   page: PropTypes.number,
-  getProductsInfo: PropTypes.func,
-  handlePagination: PropTypes.func,
-  productsInfo: PropTypes.object,
-  fetching: PropTypes.bool,
-  filterByPrice: PropTypes.func,
-  filterByDiscount: PropTypes.func,
-  sortProducts: PropTypes.func,
-  currentPage: PropTypes.number,
-  totalPages: PropTypes.number,
 };
 
 Products.defaultProps = {

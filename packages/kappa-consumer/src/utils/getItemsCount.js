@@ -1,7 +1,3 @@
-const getItemsCount = (arr) => {
-  return arr.reduce(function (accumulator, currentValue) {
-    return accumulator + currentValue.quantity;
-  }, 0);
-};
+const getItemsCount = (arr) => arr.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 0);
 
 export default getItemsCount;

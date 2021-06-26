@@ -4,7 +4,7 @@ export default function authReducer(
     fetching: false,
     message: '',
   },
-  action
+  action,
 ) {
   switch (action.type) {
     case 'GET_ADDRESS_START':

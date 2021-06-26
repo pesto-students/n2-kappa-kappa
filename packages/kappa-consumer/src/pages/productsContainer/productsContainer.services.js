@@ -6,9 +6,8 @@ import callApi from '../../helpers/callApi';
 
 const PRODUCTS_BASE_URL = 'api/v1/products';
 
-const getProductsURL = (type, query, limit, page) => {
-  return `${BASE_URL}/${PRODUCTS_BASE_URL}?${type}=${query}&limit=${limit}&page=${page}`;
-};
+// eslint-disable-next-line max-len
+const getProductsURL = (type, query, limit, page) => `${BASE_URL}/${PRODUCTS_BASE_URL}?${type}=${query}&limit=${limit}&page=${page}`;
 
 export function getProductsInfo(type, query, limit, page) {
   const url = getProductsURL(type, query, limit, page);
