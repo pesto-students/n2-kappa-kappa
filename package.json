@@ -21,8 +21,7 @@
     "start": "lerna exec --scope @kappa/consumer -- yarn start",
     "admin": "lerna exec --scope @kappa/admin -- yarn start",
     "build:@kappa/admin": "lerna exec --scope @kappa/admin -- yarn build",
-    "build:@kappa/consumer": "lerna exec --scope @kappa/consumer -- yarn build",
-    "lint": "eslint . --fix"
+    "build:@kappa/consumer": "lerna exec --scope @kappa/consumer -- yarn build"
   },
   "eslintConfig": {
     "extends": [
