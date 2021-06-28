@@ -94,10 +94,13 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/pesto-students/n2-kappa-kappa.git
    ```
-2. Install NPM packages in both
+2. Install packages
 
    ```sh
-   npm install
+   npm install - Backend
+   ```
+   ```sh
+   yarn - Frontend 
    ```
 
 3. Add the `.env` file in the root for backend app.
@@ -140,7 +143,7 @@ npm run dev
 5. Run the frontend app
 
 ```sh
-npm run start
+yarn start
 ```
 
 ### Tech Stack
